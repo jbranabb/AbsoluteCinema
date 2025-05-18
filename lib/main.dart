@@ -1,5 +1,7 @@
-import 'package:absolutecinema/pages/screen.dart';
+import 'package:absolutecinema/pages/detail.dart';
+import 'package:absolutecinema/pages/home_page.dart';
 import 'package:absolutecinema/state/home_bloc.dart';
+import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,  
+      debugShowCheckedModeBanner: false,
+      theme: dark,  
       home: HomePage() ,
     );
   }
