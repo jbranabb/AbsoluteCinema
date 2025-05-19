@@ -3,18 +3,22 @@ import 'dart:ui';
 import 'package:absolutecinema/state/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
   String title;
+  String rating;
   String image;
   String overview;
-  DetailPage({super.key,required this.overview, required this.image, required this.title});
+  DetailPage({
+    required this.rating,
+    super.key,required this.overview, required this.image, required this.title});
 
   @override
   Widget build(BuildContext context) {
     var widthSize = MediaQuery.of(context).size.width;
-    return Scaffold(
+  return Scaffold(
       backgroundColor: Colors.black,
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
@@ -25,7 +29,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                     Container(
                       color: Colors.red,
-                      height: 450,
+                      height: 550,
                       width: widthSize,
                       child: ClipRRect(
                         child: Image.network(
@@ -51,14 +55,36 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                           SizedBox(height: 60,),
-                          Text(title, style: GoogleFonts.roboto(
-                            fontSize: 20,
+                          // title
+                          Text(title, 
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                            fontSize: title.length > 30 ? 18 : 26 ,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),),
-                            Text('3H 20M    |    Starts  |     9.8', style: TextStyle(color: Colors.white),),
+
+                          // rating etc
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                MyText(txt: '122 M',),
+                                const Gap(10),
+                                MyText(txt: '|',),
+                                const Gap(10),
+                                MyText(txt: 'New York',),
+                                const Gap(10),
+                                MyText(txt: '|',),
+                                const Gap(10),
+                                MyText(txt: rating.substring(0,3),),
+                                // const Gap(10),
+                                ],
+                            ),
                             
                         ],) ),
                     ),
+
+                    // back to home
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 50.0),
                       child: Align(
@@ -71,14 +97,19 @@ class DetailPage extends StatelessWidget {
                                   Navigator.of(context).pop();
                                 },
                                 icon: Icon(Icons.arrow_back)),
-                            Text(title)
+                            // Text(title, style: TextStyle(fontSize: 20, color: Colo))
+                            MyText(txt: title, weight: FontWeight.bold,)
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-              Text(overview, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                // overview
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:  15.0),
+                child: Text(overview, textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
+              )
               ],
             );
           }
@@ -87,5 +118,23 @@ class DetailPage extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class MyText extends StatelessWidget {
+  String txt;
+  FontWeight? weight;
+   MyText({
+    super.key,
+    required this.txt,
+    this.weight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(txt, style: TextStyle(
+      fontSize: 18,
+      fontWeight: weight,
+      color: Colors.white),);
   }
 }

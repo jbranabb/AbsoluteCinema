@@ -12,6 +12,6 @@ ThemeData dark = ThemeData(
         onSecondary: Colors.white,
         error: Colors.red.shade800,
         onError: Colors.white,
-        surface: Color.fromARGB(255, 2, 31, 48),
+        surface: Colors.black,
         onSurface: Colors.white
   ));
