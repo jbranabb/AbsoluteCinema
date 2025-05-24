@@ -1,9 +1,14 @@
 import 'package:absolutecinema/pages/detail.dart';
+import 'package:absolutecinema/pages/widgets/appbar.dart';
 import 'package:absolutecinema/state/home_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,115 +18,87 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _scrollController = CarouselSliderController();
   @override
   void initState() {
     super.initState();
     context.read<HomeBloc>().add(FetchData());
-    }
+  }
+
+  int lenght = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Text(
-              'Absolute',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.w900),
-            ),
-            const Text(' '),
-            Text(
-              'Cinema',
-              style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w900),
-            )
-          ],
-        ),
-      ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is StateLoaded) {
-            print(state.trending.length);
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Trendings This Week',
-                          style: GoogleFonts.dmSerifText(
-                              color: Colors.white, fontSize: 25),
-                        )),
-                  ),
-                  SizedBox(
-                    height: 250,
-                    child: GridView.builder(
-                      itemCount: state.trending.length,
-                      scrollDirection: Axis.horizontal,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 1,
-                              mainAxisSpacing: 2.0,
-                              mainAxisExtent: 150),
-                      itemBuilder: (context, index) {
-                        var mov = state.trending[index];
-                        var title = state.trending[index].title;
-                        var image = state.trending[index].posterPath;
-                        var overview = state.trending[index].overview;
-                        var rating = state.trending[index].rate;
-                        return Card(
-                          child: GestureDetector(
-                            onTap: () {
-                              print(title.length);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => DetailPage(
-                                        overview: overview,
-                                        rating: rating,
-                                        image: image,
-                                        title: title,
-                                      )));
-                            },
-                            child: Container(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                    fit: BoxFit.cover,
-                                    'https://image.tmdb.org/t/p/w300${mov.posterPath}'),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+            return Stack(
+              children: [
+                Container(
+                  height: double.infinity,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                        Colors.blue.shade900.withOpacity(0.5),
+                        Colors.transparent,
+                      ])),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyAppBar(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Discover Youre Next\nFavorite Pingnie.',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.interTight(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 23,
+                        ),
+                      ),
                     ),
-                  ),
-                  Gap(20),
-                  SizedBox(
-                    height: 1000,
-                    child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.0 ,
-                      crossAxisSpacing: 0.0 ,
-                      mainAxisSpacing: 3.0,
-                      mainAxisExtent: 400,
-                      crossAxisCount: 2),
-                     itemCount: state.nowplaying.length,
-                     itemBuilder: (context, index) {
-                      var mov =  state.nowplaying[index];
-                      var image = mov.posterPath;
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(child: Image.network('https://image.tmdb.org/t/p/w300${mov.posterPath}'),),
-                      );
-                       
-                     },),
-                  )
-                ],
-              ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        height: 180,
+                        width: double.infinity,
+                        child: CarouselSlider.builder(
+                            itemCount: state.trending.length,
+                            itemBuilder: (context, index, realIndex) {
+                              var movies = state.trending[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  width: 580,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/w300${movies.posterPath}',
+                                      errorWidget: (context, url, error) =>
+                                          Center(
+                                        child:
+                                            Text('Something Went Wrong $error'),
+                                      ),
+                                      placeholder: (context, url) => Center(
+                                        child: Text(movies.title),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            options: CarouselOptions())),
+                  ],
+                ),
+              ],
             );
           } else if (state is StateLoading) {
             return Column(
@@ -133,14 +110,18 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             );
-          }else if(state is StateError){
-          return Container(child: Center(child: Text(
-            textAlign: TextAlign.center,
-            'Something went Wrong ${state.e}', style: TextStyle(
-            
-            color: Colors.white),))); //  
+          } else if (state is StateError) {
+            return Container(
+              child: Center(
+                child: Text(
+                  'Something went Wrong ${state.e}',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            );
           }
-          return Container(child: Text('YOu got me')); //  
+          return Container(child: const Text('YOu got me'));
         },
       ),
     );

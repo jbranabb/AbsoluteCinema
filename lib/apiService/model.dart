@@ -16,7 +16,7 @@ class TrendingThisWeekModel {
     return TrendingThisWeekModel(
         title: json['title'],
         relaseDate: json['release_date'],
-        posterPath: json['poster_path'],
+      posterPath: json['backdrop_path'].toString(),
         overview: json['overview'],
         rate: json['vote_average'].toString());
   }
@@ -43,6 +43,6 @@ class NowPlayingModel {
           posterPath: json['poster_path'],
            rate: json['vote_average'].toString(),
             relaseDate: json['release_date'].toString(),
-             title: json['original_title']); 
+             title: json['title']); 
       }
 }
