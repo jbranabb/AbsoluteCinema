@@ -40,7 +40,7 @@ class MyAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Good Morning', style: TextStyle(color: Colors.white,fontSize: 10, fontWeight: FontWeight.normal),),
-                      Text('Good Morning', style: TextStyle(color: Colors.white,fontSize: 15, fontWeight: FontWeight.bold),),
+                      Text('Jibran Ab', style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
