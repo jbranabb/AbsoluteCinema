@@ -2,6 +2,7 @@ class TrendingThisWeekModel {
   String title;
   String relaseDate;
   String posterPath;
+  String backdropPath;
   String overview;
   String rate;
   TrendingThisWeekModel(
@@ -9,6 +10,7 @@ class TrendingThisWeekModel {
       required this.relaseDate,
       required this.posterPath,
       required this.overview,
+      required this.backdropPath,
       required this.rate});
   factory TrendingThisWeekModel.fromJson(
     Map<String, dynamic> json,
@@ -16,7 +18,8 @@ class TrendingThisWeekModel {
     return TrendingThisWeekModel(
         title: json['title'],
         relaseDate: json['release_date'],
-      posterPath: json['backdrop_path'].toString(),
+      posterPath: json['poster_path'].toString(),
+      backdropPath: json['backdrop_path'],
         overview: json['overview'],
         rate: json['vote_average'].toString());
   }
