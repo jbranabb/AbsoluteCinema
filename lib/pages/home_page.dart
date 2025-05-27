@@ -113,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     SizedBox(
+                                      width: double.infinity,
                                       height: 200,
                                       child: CarouselSlider.builder(
                                           itemCount: state.trending.length,
@@ -128,6 +129,16 @@ class _HomePageState extends State<HomePage> {
                                                           imageUrl:
                                                               'https://image.tmdb.org/t/p/w300${movies.posterPath}',
                                                           fit: BoxFit.cover
+                                                              ),
+
+                                                              Positioned(
+                                                                right: 10,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Icon(Icons.star_rounded, color: Colors.amber,),
+                                                                    Text(movies.rate.substring(0,3), style: TextStyle(color: Colors.white),)
+                                                                  ],
+                                                                ),
                                                               )
                                                     ],
                                                   ),
@@ -137,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                                           options: CarouselOptions(
                                               aspectRatio: 16 / 9,
                                               initialPage: 0,
-                                              viewportFraction: 0.4)),
+                                              viewportFraction: 0.3)),
                                     ),
                                   ],
                                 ),
