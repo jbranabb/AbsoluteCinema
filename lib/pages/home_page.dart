@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          height: 200,
+                                          height: 180,
                                           child: CarouselSlider.builder(
                                               itemCount: state.trending.length,
                                               itemBuilder:
@@ -164,6 +164,15 @@ class _HomePageState extends State<HomePage> {
                                                   aspectRatio: 16 / 9,
                                                   initialPage: 0,
                                                   viewportFraction: 0.3)),
+                                        ),
+                                         Padding(
+                                          padding: const EdgeInsets.all(13.0),
+                                          child: Text(
+                                            'Trending This Week',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14),
+                                          ),
                                         ),
                                       ],
                                     ),
