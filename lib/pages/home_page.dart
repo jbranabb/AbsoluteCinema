@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   int lenght = 0;
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -40,128 +39,132 @@ class _HomePageState extends State<HomePage> {
               );
             }
             if (state is StateLoaded) {
-              return Stack(
-                children: [
-                  Container(
-                    height: 500,
-                    width: 500,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                          Colors.blue.shade900.withOpacity(0.5),
-                          Colors.blue.shade900.withOpacity(0.2),
-                          Colors.transparent,
-                        ],
-                            stops: [
-                          0.0,
-                          0.3,
-                          0.7
-                        ])),
-                  ),
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-                    child: Container(
-                      color: Colors.transparent,
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Stack(
                       children: [
-                        const SizedBox(height: 10),
-                        const MyAppBar(),
-                        SliderWidget(),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Transform.translate(
-                          offset: Offset(-40, 0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: TabBar(
-                              tabs: const [
-                                Text('All'),
-                                Text('Movies'),
-                                Text(
-                                  'Tv Shows',
-                                ),
+                        Container(
+                          height: 500,
+                          width: 500,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                Colors.blue.shade900.withOpacity(0.5),
+                                Colors.blue.shade900.withOpacity(0.2),
+                                Colors.transparent,
                               ],
-                              enableFeedback: false,
-                              isScrollable: true,
-                              splashBorderRadius: BorderRadius.circular(20),
-                              dividerHeight: 0,
-                              unselectedLabelColor: Colors.grey,
-                            ),
+                                  stops: [
+                                0.0,
+                                0.3,
+                                0.7
+                              ])),
+                        ),
+                        BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                          child: Container(
+                            color: Colors.transparent,
                           ),
                         ),
-                        SizedBox(
-                          height: 700,
-                          child: TabBarView(
-                              physics: NeverScrollableScrollPhysics(),
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(13.0),
-                                      child: Text(
-                                        'Trending This Week',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 200,
-                                      child: CarouselSlider.builder(
-                                          itemCount: state.trending.length,
-                                          itemBuilder:
-                                              (context, index, realIndex) {
-                                            var movies = state.trending[index];
-                                            return Card(
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(15),
-                                                  child: Stack(
-                                                    children: [
-                                                      CachedNetworkImage(
-                                                          imageUrl:
-                                                              'https://image.tmdb.org/t/p/w300${movies.posterPath}',
-                                                          fit: BoxFit.cover
-                                                              ),
-
-                                                              Positioned(
-                                                                right: 10,
-                                                                child: Row(
-                                                                  children: [
-                                                                    Icon(Icons.star_rounded, color: Colors.amber,),
-                                                                    Text(movies.rate.substring(0,3), style: TextStyle(color: Colors.white),)
-                                                                  ],
-                                                                ),
-                                                              )
-                                                    ],
-                                                  ),
-                                              ),
-                                            );
-                                          },
-                                          options: CarouselOptions(
-                                              aspectRatio: 16 / 9,
-                                              initialPage: 0,
-                                              viewportFraction: 0.3)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+                            const MyAppBar(),
+                            SliderWidget(),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Transform.translate(
+                              offset: Offset(-40, 0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: TabBar(
+                                  tabs: const [
+                                    Text('All'),
+                                    Text('Movies'),
+                                    Text(
+                                      'Tv Shows',
                                     ),
                                   ],
+                                  enableFeedback: false,
+                                  isScrollable: true,
+                                  splashBorderRadius: BorderRadius.circular(20),
+                                  dividerHeight: 0,
+                                  unselectedLabelColor: Colors.grey,
                                 ),
-                                Text(
-                                  '1',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  '1',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ]),
-                        )
+                              ),
+                            ),
+                            SizedBox(
+                              height: 700,
+                              child: TabBarView(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(13.0),
+                                          child: Text(
+                                            'Trending This Week',
+                                            style: TextStyle(
+                                                color: Colors.white, fontSize: 14),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 200,
+                                          child: CarouselSlider.builder(
+                                              itemCount: state.trending.length,
+                                              itemBuilder:
+                                                  (context, index, realIndex) {
+                                                var movies = state.trending[index];
+                                                return Card(
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(15),
+                                                      child: Stack(
+                                                        children: [
+                                                          CachedNetworkImage(
+                                                              imageUrl:
+                                                                  'https://image.tmdb.org/t/p/w300${movies.posterPath}',
+                                                              fit: BoxFit.cover
+                                                                  ),
+                                          
+                                                                  Positioned(
+                                                                    right: 10,
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Icon(Icons.star_rounded, color: Colors.amber,),
+                                                                        Text(movies.rate.substring(0,3), style: TextStyle(color: Colors.white),)
+                                                                      ],
+                                                                    ),
+                                                                  )
+                                                        ],
+                                                      ),
+                                                  ),
+                                                );
+                                              },
+                                              options: CarouselOptions(
+                                                  aspectRatio: 16 / 9,
+                                                  initialPage: 0,
+                                                  viewportFraction: 0.3)),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      '1',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      '1',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ]),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),
