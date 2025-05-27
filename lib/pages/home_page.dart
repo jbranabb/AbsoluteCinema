@@ -45,22 +45,9 @@ class _HomePageState extends State<HomePage> {
                     child: Stack(
                       children: [
                         Container(
-                          height: 500,
+                          height: 600,
                           width: 500,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                Colors.blue.shade900.withOpacity(0.5),
-                                Colors.blue.shade900.withOpacity(0.2),
-                                Colors.transparent,
-                              ],
-                                  stops: [
-                                0.0,
-                                0.3,
-                                0.7
-                              ])),
+                          child: Image.asset('assets/images/bg.png'),
                         ),
                         BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
@@ -103,14 +90,16 @@ class _HomePageState extends State<HomePage> {
                                   physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.all(13.0),
                                           child: Text(
                                             'Trending This Week',
                                             style: TextStyle(
-                                                color: Colors.white, fontSize: 14),
+                                                color: Colors.white,
+                                                fontSize: 14),
                                           ),
                                         ),
                                         SizedBox(
@@ -120,29 +109,54 @@ class _HomePageState extends State<HomePage> {
                                               itemCount: state.trending.length,
                                               itemBuilder:
                                                   (context, index, realIndex) {
-                                                var movies = state.trending[index];
+                                                var movies =
+                                                    state.trending[index];
                                                 return Card(
                                                   child: ClipRRect(
-                                                    borderRadius: BorderRadius.circular(15),
-                                                      child: Stack(
-                                                        children: [
-                                                          CachedNetworkImage(
-                                                              imageUrl:
-                                                                  'https://image.tmdb.org/t/p/w300${movies.posterPath}',
-                                                              fit: BoxFit.cover
-                                                                  ),
-                                          
-                                                                  Positioned(
-                                                                    right: 10,
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Icon(Icons.star_rounded, color: Colors.amber,),
-                                                                        Text(movies.rate.substring(0,3), style: TextStyle(color: Colors.white),)
-                                                                      ],
-                                                                    ),
-                                                                  )
-                                                        ],
-                                                      ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                    child: Stack(
+                                                      children: [
+                                                        CachedNetworkImage(
+                                                            imageUrl:
+                                                                'https://image.tmdb.org/t/p/w300${movies.posterPath}',
+                                                            placeholder:
+                                                                (context, st) =>
+                                                                    Center(
+                                                                        child:
+                                                                            Text(
+                                                                      movies
+                                                                          .title,
+                                                                          textAlign: TextAlign.center,
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white60),
+                                                                    )),
+                                                            fit: BoxFit.cover),
+                                                        Positioned(
+                                                          right: 10,
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .star_rounded,
+                                                                color: Colors
+                                                                    .amber,
+                                                              ),
+                                                              Text(
+                                                                movies.rate
+                                                                    .substring(
+                                                                        0, 3),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 );
                                               },
