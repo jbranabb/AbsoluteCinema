@@ -168,12 +168,13 @@ class _HomePageState extends State<HomePage> {
                                          Padding(
                                           padding: const EdgeInsets.all(13.0),
                                           child: Text(
-                                            'Trending This Week',
+                                            'Tv Shows',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 14),
                                           ),
                                         ),
+                                        
                                       ],
                                     ),
                                     Text(

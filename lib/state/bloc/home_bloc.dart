@@ -14,6 +14,7 @@ Dio dio = Dio();
 String apiKey = imdbKey;
 String trendingsurl = 'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey';
 String nowPlayingUrl = 'https://api.themoviedb.org/3/movie/top_rated?api_key=$imdbKey';
+String tvshowURl = 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<FetchData>((event, emit) async {

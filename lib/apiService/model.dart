@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class TrendingThisWeekModel {
   String title;
   String relaseDate;
@@ -48,4 +50,27 @@ class NowPlayingModel {
             relaseDate: json['release_date'].toString(),
              title: json['title']); 
       }
+}
+
+class TrendingTvShow{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+  TrendingTvShow({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory TrendingTvShow.fromJson(Map<String, dynamic> json){
+    return TrendingTvShow(
+    id: json['id'],
+     title: json['name'],
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
 }
