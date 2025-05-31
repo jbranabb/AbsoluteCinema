@@ -12,7 +12,11 @@ class StateError extends HomeState {
 class StateLoaded extends HomeState {
   List<TrendingThisWeekModel> trending;
   List<NowPlayingModel> nowplaying;
-  StateLoaded({required this.trending, required this.nowplaying});
+  List<TrendingTvShow> thshows;
+  StateLoaded({required this.trending,
+   required this.nowplaying, 
+   required this.thshows
+   });
 }
 class NowPlayingState extends HomeState{
 List<NowPlayingModel> listnp;

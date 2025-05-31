@@ -171,7 +171,8 @@ class _HomePageState extends State<HomePage> {
                                             'Tv Shows',
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 14),
+                                                fontSize: 14
+                                                 ),
                                           ),
                                         ),
                                         

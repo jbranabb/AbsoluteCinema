@@ -22,14 +22,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var responsetrending = await dio.get(trendingsurl,);
         var responseNowPlaying = await dio.get(nowPlayingUrl);
+        var responseTvShow = await dio.get(tvshowURl);
         if (responsetrending.statusCode == 200 && responseNowPlaying.statusCode == 200) {
           print('Succses : True');
+          //Trending this week
           List<dynamic> datatrening = responsetrending.data['results'];
           final List<TrendingThisWeekModel> moviesTrending = datatrening
           .map((e) => TrendingThisWeekModel.fromJson(e),).toList();
+
+          // now playing
           List<dynamic> dataNowplaying = responseNowPlaying.data['results'];
-          final List<NowPlayingModel> moviesNowplaying = dataNowplaying.map((e) => NowPlayingModel.fromjson(e),).toList();
-          emit(StateLoaded(trending: moviesTrending, nowplaying:moviesNowplaying ));
+          final List<NowPlayingModel> moviesNowplaying = dataNowplaying
+          .map((e) => NowPlayingModel.fromjson(e),).toList();
+
+          //tvShow
+          List<dynamic>  dataTvShow =  responseTvShow.data['results'];
+          final List<TrendingTvShow> tvShows = dataTvShow.map((e) => TrendingTvShow.fromJson(e),).toList();
+          emit(StateLoaded(trending: moviesTrending, nowplaying:moviesNowplaying, thshows: tvShows));
+
+
         } else {
           emit(StateError('Something Went Wrong'));
           print('Succses : False');
