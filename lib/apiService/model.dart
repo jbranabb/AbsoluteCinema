@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class TrendingThisWeekModel {
   String title;
   String relaseDate;
@@ -65,7 +63,7 @@ class TrendingTvShow{
 
   factory TrendingTvShow.fromJson(Map<String, dynamic> json){
     return TrendingTvShow(
-    id: json['id'],
+    id: json['id'].toString(),
      title: json['name'],
       voteAvg:json['vote_average'].toString(),
        backdropPath: json['backdrop_path'],
@@ -74,3 +72,70 @@ class TrendingTvShow{
           genreId: json['genre_ids'].toString());
   }
 }
+class AllMovTv{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+  AllMovTv({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory AllMovTv.fromJson(Map<String, dynamic> json){
+    return AllMovTv(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+class InTheatersModel{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+  InTheatersModel({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory InTheatersModel.fromJson(Map<String, dynamic> json){
+    return InTheatersModel(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+class StreamingModel{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+  StreamingModel({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory StreamingModel.fromJson(Map<String, dynamic> json){
+    return StreamingModel(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+
