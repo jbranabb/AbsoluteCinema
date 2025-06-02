@@ -106,16 +106,16 @@ class _HomePageState extends State<HomePage> {
                                           width: double.infinity,
                                           height: 180,
                                           child: CarouselSlider.builder(
-                                              itemCount: state.allShows.length,
+                                              itemCount: state.trending.length,
                                               itemBuilder:
                                                   (context, index, realIndex) {
                                                 var movies =
-                                                    state.allShows[index];
+                                                    state.trending[index];
                                                 return Card(
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            10),
+                                                            15),
                                                     child: Stack(
                                                       children: [
                                                         CachedNetworkImage(
@@ -128,9 +128,7 @@ class _HomePageState extends State<HomePage> {
                                                                             Text(
                                                                       movies
                                                                           .title,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
+                                                                          textAlign: TextAlign.center,
                                                                       style: TextStyle(
                                                                           color:
                                                                               Colors.white60),
@@ -147,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                                                                     .amber,
                                                               ),
                                                               Text(
-                                                                movies.voteAvg
+                                                                movies.rate
                                                                     .substring(
                                                                         0, 3),
                                                                 style: TextStyle(
@@ -167,79 +165,101 @@ class _HomePageState extends State<HomePage> {
                                                   initialPage: 0,
                                                   viewportFraction: 0.3)),
                                         ),
-                                        Padding(
+                                         Padding(
                                           padding: const EdgeInsets.all(13.0),
                                           child: Text(
                                             'Streaming Today',
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 14),
+                                                fontSize: 14
+                                                 ),
                                           ),
                                         ),
                                         SizedBox(
                                           width: double.infinity,
                                           height: 180,
-                                          child: CarouselSlider.builder(
-                                              itemCount: state.streaming.length,
-                                              itemBuilder:
-                                                  (context, index, realIndex) {
-                                                var tvshows =
-                                                    state.streaming[index];
-                                                return Card(
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    child: Stack(
-                                                      children: [
-                                                        CachedNetworkImage(
-                                                          fit: BoxFit.cover,
-                                                          imageUrl:
-                                                              'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
-                                                          placeholder:
-                                                              (context, url) =>
-                                                                  Center(
-                                                            child: Text(
-                                                              tvshows.title,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Positioned(
-                                                            right: 10,
-                                                            child: Row(
-                                                              children: [
-                                                                Icon(
-                                                                  Icons
-                                                                      .star_rounded,
-                                                                  color: Colors
-                                                                      .amber,
-                                                                ),
-                                                                Text(
-                                                                  tvshows
-                                                                      .voteAvg
-                                                                      .substring(
-                                                                          0,
-                                                                          3),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
-                                                              ],
-                                                            ))
-                                                      ],
+                                          child: CarouselSlider.builder(itemCount: state.streaming.length, 
+                                          itemBuilder:(context, index, realIndex) {
+                                            var tvshows = state.streaming[index];
+                                            return Card(
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(15),
+                                                child: Stack(
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      imageUrl:'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                                    placeholder: (context, url) =>  Center(child: Text(tvshows.title, textAlign: TextAlign.center,),),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                              options: CarouselOptions(
-                                                aspectRatio: 16 / 9,
-                                                initialPage: 0,
-                                                viewportFraction: 0.3,
-                                              )),
+                                                    Positioned(
+                                                      right: 10,
+                                                      child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.star_rounded, color: Colors.amber,),
+                                                          Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
+                                                        ],
+                                                      ),
+                                                    ))
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }, options: CarouselOptions(
+                                            aspectRatio: 16 / 9,
+                                            initialPage: 0,
+                                            viewportFraction: 0.3,
+                                          )),
+                                        ),
+                                         Padding(
+                                          padding: const EdgeInsets.all(13.0),
+                                          child: Text(
+                                            'In Theaters, GET IT NOW',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14
+                                                 ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 180,
+                                          child: CarouselSlider.builder(itemCount: state.inTheaters.length, 
+                                          itemBuilder:(context, index, realIndex) {
+                                            var tvshows = state.inTheaters[index];
+                                            return Card(
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(15),
+                                                child: Stack(
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      fit: BoxFit.cover,
+                                                      imageUrl:'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                                    placeholder: (context, url) =>  Center(child: Text(tvshows.title, textAlign: TextAlign.center,),),
+                                                    ),
+                                                    Positioned(
+                                                      right: 10,
+                                                      child: Padding(
+                                                      padding: const EdgeInsets.all(8.0),
+                                                      child: Row(
+                                                        children: [
+                                                          Icon(Icons.star_rounded, color: Colors.amber,),
+                                                          Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
+                                                        ],
+                                                      ),
+                                                    ))
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }, options: CarouselOptions(
+                                            aspectRatio: 16 / 9,
+                                            initialPage: 0,
+                                            viewportFraction: 0.3,
+                                          )),
                                         )
+                                        
                                       ],
                                     ),
                                     Text(
