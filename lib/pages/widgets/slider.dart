@@ -36,11 +36,11 @@ class SliderWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
-                height: 180,
+            SizedBox(
+                height: 170,
                 width: double.infinity,
                 child: CarouselSlider.builder(
                     carouselController: scrollController,
@@ -81,35 +81,36 @@ class SliderWidget extends StatelessWidget {
                       // autoPlayCurve: Cur
                     ))),
             BlocBuilder<DotIndicator, int>(builder: (context, currentIndex) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 110, vertical: 10),
-                child: Row(
-                    children: List<Widget>.generate(
-                  min(10, state.trending.length),
-                  (index) {
-                    bool isSelected = currentIndex == index;
-                    return GestureDetector(
-                      onTap: () {
-                        scrollController.animateToPage(index);
-                      },
-                      child: AnimatedContainer(
-                        duration: Durations.medium1,
-                        height: 10,
-                        width: isSelected ? 25 : 10,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: isSelected ? 6 : 3),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(isSelected ? 20 : 10),
-                          color: isSelected
-                              ? Colors.white
-                              : Colors.grey.withOpacity(0.2),
+              return Center(
+                child: SizedBox(
+                  width: 185,
+                  child: Row(
+                      children: List<Widget>.generate(
+                    min(10, state.trending.length),
+                    (index) {
+                      bool isSelected = currentIndex == index;
+                      return GestureDetector(
+                        onTap: () {
+                          scrollController.animateToPage(index);
+                        },
+                        child: AnimatedContainer(
+                          duration: Durations.medium1,
+                          height: 10,
+                          width: isSelected ? 25 : 10,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: isSelected ? 6 : 3),
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(isSelected ? 20 : 10),
+                            color: isSelected
+                                ? Colors.white
+                                : Colors.grey.withValues(alpha: 0.5),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                )),
+                      );
+                    },
+                  )),
+                ),
               );
             }),
           ],
