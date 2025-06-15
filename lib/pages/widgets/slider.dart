@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,12 +43,12 @@ class SliderWidget extends StatelessWidget {
                 width: double.infinity,
                 child: CarouselSlider.builder(
                     carouselController: scrollController,
-                    itemCount: min(10, state.trending.length),
+                    itemCount: min(8, state.trending.length),
                     itemBuilder: (context, index, realIndex) {
                       var movies = state.trending[index];
                       return Stack(
                         children: [
-                          Container(
+                          SizedBox(
                             width: 580,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
@@ -82,11 +81,13 @@ class SliderWidget extends StatelessWidget {
                     ))),
             BlocBuilder<DotIndicator, int>(builder: (context, currentIndex) {
               return Center(
-                child: SizedBox(
+                child: Container(
+                  // color: Colors.amber,
                   width: 185,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                       children: List<Widget>.generate(
-                    min(10, state.trending.length),
+                    min(8, state.trending.length),
                     (index) {
                       bool isSelected = currentIndex == index;
                       return GestureDetector(
