@@ -24,10 +24,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     context.read<HomeBloc>().add(FetchData());
   }
-
-  int lenght = 0;
   @override
   Widget build(BuildContext context) {
+  var height = MediaQuery.of(context).size.height;
+  print('media query height $height');
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -95,16 +95,29 @@ class _HomePageState extends State<HomePage> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.all(13.0),
-                                          child: Text(
-                                            'Trending This Week',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Trending This Week',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14),
+                                              ),
+                                              GestureDetector(
+                                                child: Text(
+                                                  'see all',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          height: 180,
+                                          height: height * 0.209,
                                           child: CarouselSlider.builder(
                                               itemCount: state.trending.length,
                                               itemBuilder:
@@ -115,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            15),
+                                                            12),
                                                     child: Stack(
                                                       children: [
                                                         CachedNetworkImage(
@@ -167,17 +180,29 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                          Padding(
                                           padding: const EdgeInsets.all(13.0),
-                                          child: Text(
-                                            'Streaming Today',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14
-                                                 ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Streaming Today',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14),
+                                              ),
+                                              GestureDetector(
+                                                child: Text(
+                                                  'see all',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          height: 180,
+                                          height: height * 0.209,
                                           child: CarouselSlider.builder(itemCount: state.streaming.length, 
                                           itemBuilder:(context, index, realIndex) {
                                             var tvshows = state.streaming[index];
@@ -193,15 +218,12 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     Positioned(
                                                       right: 10,
-                                                      child: Padding(
-                                                      padding: const EdgeInsets.all(8.0),
                                                       child: Row(
                                                         children: [
                                                           Icon(Icons.star_rounded, color: Colors.amber,),
                                                           Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
                                                         ],
-                                                      ),
-                                                    ))
+                                                      ))
                                                   ],
                                                 ),
                                               ),
@@ -210,21 +232,34 @@ class _HomePageState extends State<HomePage> {
                                             aspectRatio: 16 / 9,
                                             initialPage: 0,
                                             viewportFraction: 0.3,
+                                            reverse: true
                                           )),
                                         ),
                                          Padding(
                                           padding: const EdgeInsets.all(13.0),
-                                          child: Text(
-                                            'In Theaters, GET IT NOW',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14
-                                                 ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'In Theaters',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14),
+                                              ),
+                                              GestureDetector(
+                                                child: Text(
+                                                  'see all',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         SizedBox(
                                           width: double.infinity,
-                                          height: 180,
+                                          height: height * 0.21,
                                           child: CarouselSlider.builder(itemCount: state.inTheaters.length, 
                                           itemBuilder:(context, index, realIndex) {
                                             var tvshows = state.inTheaters[index];
@@ -240,15 +275,12 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     Positioned(
                                                       right: 10,
-                                                      child: Padding(
-                                                      padding: const EdgeInsets.all(8.0),
                                                       child: Row(
                                                         children: [
                                                           Icon(Icons.star_rounded, color: Colors.amber,),
                                                           Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
                                                         ],
-                                                      ),
-                                                    ))
+                                                      ))
                                                   ],
                                                 ),
                                               ),
