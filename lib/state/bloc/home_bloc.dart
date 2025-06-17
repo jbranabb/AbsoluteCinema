@@ -25,7 +25,7 @@ String movieNowPlaying =
     'https://api.themoviedb.org/3/movie/now_playing?api_key=$imdbKey';
 
 //tvshow
-String tvshowURl =
+String tvshowURlTrending=
     'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
 
 //popular
@@ -43,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         );
         var responseInTherater =  await dio.get(inTheaters);
         var responseMovieTopRated = await dio.get(movieTopRated);
-        var responseTvShow = await dio.get(tvshowURl);
+        var responseTvShow = await dio.get(tvshowURlTrending);
         var responseAll = await dio.get(allUrl);
         var responStreamingUrl=  await  dio.get(streamingUrl);
         if (responsetrending.statusCode == 200 &&

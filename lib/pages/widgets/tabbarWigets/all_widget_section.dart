@@ -26,14 +26,14 @@ class AllWidgetSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Trending This Week',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14),
                   ),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'see all',
                       style: TextStyle(
                           color: Colors.white,
@@ -70,7 +70,7 @@ class AllWidgetSection extends StatelessWidget {
                                           movies
                                               .title,
                                               textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color:
                                                   Colors.white60),
                                         )),
@@ -79,7 +79,7 @@ class AllWidgetSection extends StatelessWidget {
                               right: 10,
                               child: Row(
                                 children: [
-                                  Icon(
+                                 const Icon(
                                     Icons
                                         .star_rounded,
                                     color: Colors
@@ -89,7 +89,7 @@ class AllWidgetSection extends StatelessWidget {
                                     movies.rate
                                         .substring(
                                             0, 3),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors
                                             .white),
                                   )
@@ -111,14 +111,14 @@ class AllWidgetSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Streaming Today',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14),
                   ),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'see all',
                       style: TextStyle(
                           color: Colors.white,
@@ -148,8 +148,8 @@ class AllWidgetSection extends StatelessWidget {
                           right: 10,
                           child: Row(
                             children: [
-                              Icon(Icons.star_rounded, color: Colors.amber,),
-                              Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
+                              const Icon(Icons.star_rounded, color: Colors.amber,),
+                              Text(tvshows.voteAvg.substring(0, 3), style: const TextStyle(color: Colors.white),),
                             ],
                           ))
                       ],
@@ -168,14 +168,14 @@ class AllWidgetSection extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'In Theaters',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 14),
                   ),
                   GestureDetector(
-                    child: Text(
+                    child: const Text(
                       'see all',
                       style: TextStyle(
                           color: Colors.white,
@@ -205,7 +205,7 @@ class AllWidgetSection extends StatelessWidget {
                           right: 10,
                           child: Row(
                             children: [
-                              Icon(Icons.star_rounded, color: Colors.amber,),
+                             const Icon(Icons.star_rounded, color: Colors.amber,),
                               Text(tvshows.voteAvg.substring(0, 3), style: TextStyle(color: Colors.white),),
                             ],
                           ))
