@@ -71,7 +71,8 @@ class AllWidgetSection extends StatelessWidget {
                                     ),
                                     Text(
                                       movies.rate.substring(0, 3),
-                                      style: const TextStyle(color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     )
                                   ],
                                 ),
@@ -137,8 +138,8 @@ class AllWidgetSection extends StatelessWidget {
                                       ),
                                       Text(
                                         tvshows.voteAvg.substring(0, 3),
-                                        style:
-                                            const TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                       ),
                                     ],
                                   ))
@@ -153,43 +154,48 @@ class AllWidgetSection extends StatelessWidget {
                         viewportFraction: 0.3,
                         reverse: true)),
               ),
-               const Padding(
+              const Padding(
                 padding: EdgeInsets.all(13.0),
                 child: Text(
                   'Upcoming Movies',
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
-                  SizedBox(
+              SizedBox(
                 height: 170,
                 width: double.infinity,
-                  child: CarouselSlider.builder(itemCount: state.upcoming.length,
-                   itemBuilder: (context, index, realIndex) {
-                    var movies = state.upcoming[index];
-                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                               child: 
-                                   CachedNetworkImage(
-                                    imageUrl:'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
-                                    placeholder: (context, url) => Center(child:Text(movies.title)),
-                                    fit: BoxFit.cover,
-                                    ),
-                             ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-                                      child: Text(movies.title, style:GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold),),
-                                    )
-                       ],
-                     );
-                        
-                   }, options: CarouselOptions(
-                    viewportFraction: 0.69,
-                    enlargeCenterPage: true
-                    
-                   )),
+                child: CarouselSlider.builder(
+                    itemCount: state.upcoming.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var movies = state.upcoming[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(8),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                              placeholder: (context, url) =>
+                                  Center(child: Text(movies.title)),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 2.0),
+                            child: Text(
+                              movies.title,
+                              style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    options: CarouselOptions(
+                        viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
               Padding(
                 padding: const EdgeInsets.all(13.0),
@@ -242,8 +248,8 @@ class AllWidgetSection extends StatelessWidget {
                                       ),
                                       Text(
                                         tvshows.voteAvg.substring(0, 3),
-                                        style:
-                                            const TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                       ),
                                     ],
                                   ))
@@ -258,8 +264,16 @@ class AllWidgetSection extends StatelessWidget {
                       viewportFraction: 0.3,
                     )),
               ),
-               
-          
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: 'On The Air Today',),
+                    MyText(text: 'see all',)
+                  ],
+                ),
+              )
             ],
           ),
         );
@@ -270,5 +284,28 @@ class AllWidgetSection extends StatelessWidget {
       }
       return Container();
     });
+  }
+}
+
+class MyText extends StatelessWidget {
+  MyText({
+    super.key,
+     required this.text,
+      this.clors,
+      this.fnSize,
+      this.fnweight
+      });
+  String text;
+  Color? clors;
+  double? fnSize;
+  FontWeight? fnweight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(text, style: GoogleFonts.inter(
+      color: clors ==  null ? Colors.white : clors, 
+      fontSize: fnSize != null ? fnSize : 14 ,
+      fontWeight: fnweight !=null ? fnweight : FontWeight.normal 
+    ),);
   }
 }
