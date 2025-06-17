@@ -84,11 +84,11 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(
-                              height: 700,
+                              height: 1100,
                               child: TabBarView(
                                   physics: NeverScrollableScrollPhysics(),
                                   children: [
-                                    AllWidgetSection( ),
+                                    AllWidgetSection(),
                                     Text(
                                       '1',
                                       style: TextStyle(color: Colors.white),

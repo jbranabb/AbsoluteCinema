@@ -13,6 +13,7 @@ part 'home_state.dart';
 Dio dio = Dio();
 // apiKey
 String apiKey = imdbKey;
+
 //all
 String allUrl =
     'https://api.themoviedb.org/3/trending/all/week?api_key=$apiKey';
@@ -23,7 +24,9 @@ String movieTopRated =
     'https://api.themoviedb.org/3/movie/top_rated?api_key=$imdbKey';
 String movieNowPlaying =
     'https://api.themoviedb.org/3/movie/now_playing?api_key=$imdbKey';
-
+// upcoming movies
+String upcoming = 
+'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
 //tvshow
 String tvshowURlTrending=
     'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
@@ -38,9 +41,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<FetchData>((event, emit) async {
       emit(StateLoading());
       try {
-        var responsetrending = await dio.get(
-          trendingsurl,
-        );
+        var responsetrending = await dio.get(trendingsurl);
+        var responUpcoming = await dio.get(upcoming);
         var responseInTherater =  await dio.get(inTheaters);
         var responseMovieTopRated = await dio.get(movieTopRated);
         var responseTvShow = await dio.get(tvshowURlTrending);
@@ -86,6 +88,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               //streaming
               List<dynamic> dataStreaming  =  responStreamingUrl.data['results'];
               List<StreamingModel> finalDataStreaming = dataStreaming.map((e) => StreamingModel.fromJson(e),).toList();
+
+              //upcoming 
+              List<dynamic> dataUpcoming = responUpcoming.data['results'];
+              List<UpcomingModel> finaldataUpcoming = dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,
@@ -93,6 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               allShows: all,
               inTheaters: finalDataTheaters,
               streaming: finalDataStreaming,
+              upcoming: finaldataUpcoming
               ));
         } else {
           emit(StateError('Something Went Wrong'));

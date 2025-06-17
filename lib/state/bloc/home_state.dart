@@ -16,12 +16,14 @@ class StateLoaded extends HomeState {
   List<AllMovTv> allShows;
   List<InTheatersModel> inTheaters;
   List<StreamingModel> streaming;
+  List<UpcomingModel> upcoming;
   StateLoaded({required this.trending,
    required this.movieTopRated, 
    required this.thshows,
    required this.allShows,
    required this.inTheaters,
    required this.streaming,
+   required this.upcoming,
    });
 }
 class NowPlayingState extends HomeState{
