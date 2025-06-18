@@ -1,3 +1,4 @@
+import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -273,7 +274,8 @@ class AllWidgetSection extends StatelessWidget {
                     MyText(text: 'see all',)
                   ],
                 ),
-              )
+              ),
+              
             ],
           ),
         );
@@ -284,28 +286,5 @@ class AllWidgetSection extends StatelessWidget {
       }
       return Container();
     });
-  }
-}
-
-class MyText extends StatelessWidget {
-  MyText({
-    super.key,
-     required this.text,
-      this.clors,
-      this.fnSize,
-      this.fnweight
-      });
-  String text;
-  Color? clors;
-  double? fnSize;
-  FontWeight? fnweight;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(text, style: GoogleFonts.inter(
-      color: clors ==  null ? Colors.white : clors, 
-      fontSize: fnSize != null ? fnSize : 14 ,
-      fontWeight: fnweight !=null ? fnweight : FontWeight.normal 
-    ),);
   }
 }

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,  
-      home: HomePage() ,
+      home: const HomePage() ,
     );
   }
 }

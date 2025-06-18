@@ -3,8 +3,8 @@
 import 'dart:ui';
 
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
-import 'package:absolutecinema/pages/widgets/appbar.dart';
-import 'package:absolutecinema/pages/widgets/slider.dart';
+import 'package:absolutecinema/pages/widgets/widgetsfrist/appbar.dart';
+import 'package:absolutecinema/pages/widgets/widgetsfrist/slider.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
