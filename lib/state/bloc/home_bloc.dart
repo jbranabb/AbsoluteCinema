@@ -28,8 +28,10 @@ String movieNowPlaying =
 String upcoming = 
 'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
 //tvshow
-String tvshowURlTrending=
-    'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
+String tSURlTrending= 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
+String tSurlOTA= 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
+String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
+
 
 //popular
 String streamingUrl = trendingsurl;
@@ -45,7 +47,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var responUpcoming = await dio.get(upcoming);
         var responseInTherater =  await dio.get(inTheaters);
         var responseMovieTopRated = await dio.get(movieTopRated);
-        var responseTvShow = await dio.get(tvshowURlTrending);
+        var responseTvShow = await dio.get(tSURlTrending);
         var responseAll = await dio.get(allUrl);
         var responStreamingUrl=  await  dio.get(streamingUrl);
         if (responsetrending.statusCode == 200 &&
