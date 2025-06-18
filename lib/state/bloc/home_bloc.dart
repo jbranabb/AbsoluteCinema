@@ -17,6 +17,7 @@ String apiKey = imdbKey;
 //all
 String allUrl =
     'https://api.themoviedb.org/3/trending/all/week?api_key=$apiKey';
+
 //movies
 String trendingsurl =
     'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey';
@@ -24,14 +25,14 @@ String movieTopRated =
     'https://api.themoviedb.org/3/movie/top_rated?api_key=$imdbKey';
 String movieNowPlaying =
     'https://api.themoviedb.org/3/movie/now_playing?api_key=$imdbKey';
-// upcoming movies
-String upcoming = 
-'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
-//tvshow
-String tSURlTrending= 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
-String tSurlOTA= 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
-String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
 
+// upcoming movies
+String upcoming = 'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
+
+//tvshow
+String tSurlTrending = 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
+String tSurlOTA = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
+String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
 
 //popular
 String streamingUrl = trendingsurl;
@@ -45,11 +46,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       try {
         var responsetrending = await dio.get(trendingsurl);
         var responUpcoming = await dio.get(upcoming);
-        var responseInTherater =  await dio.get(inTheaters);
+        var responseInTherater = await dio.get(inTheaters);
         var responseMovieTopRated = await dio.get(movieTopRated);
-        var responseTvShow = await dio.get(tSURlTrending);
+        var responseTvShow = await dio.get(tSurlTrending);
         var responseAll = await dio.get(allUrl);
-        var responStreamingUrl=  await  dio.get(streamingUrl);
+        var responStreamingUrl = await dio.get(streamingUrl);
+        var responseTSonTheAir = await dio.get(tSurlOTA);
+        var responseTrendingTv = await dio.get(tSurlTrending);
+        var responsePopularTv = await dio.get(tSurlPopular);
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
@@ -83,17 +87,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           final List<AllMovTv> all =
               dataAll.map((e) => AllMovTv.fromJson(e)).toList();
 
-              // intheaters
-              List<dynamic> dataTheaters =  responseInTherater.data['results'];
-              List<InTheatersModel> finalDataTheaters = dataTheaters.map((e) => InTheatersModel.fromJson(e),).toList();
+          // intheaters
+          List<dynamic> dataTheaters = responseInTherater.data['results'];
+          List<InTheatersModel> finalDataTheaters = dataTheaters
+              .map(
+                (e) => InTheatersModel.fromJson(e),
+              )
+              .toList();
 
-              //streaming
-              List<dynamic> dataStreaming  =  responStreamingUrl.data['results'];
-              List<StreamingModel> finalDataStreaming = dataStreaming.map((e) => StreamingModel.fromJson(e),).toList();
+          //streaming
+          List<dynamic> dataStreaming = responStreamingUrl.data['results'];
+          List<StreamingModel> finalDataStreaming = dataStreaming
+              .map(
+                (e) => StreamingModel.fromJson(e),
+              )
+              .toList();
 
-              //upcoming 
-              List<dynamic> dataUpcoming = responUpcoming.data['results'];
-              List<UpcomingModel> finaldataUpcoming = dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
+          //upcoming
+          List<dynamic> dataUpcoming = responUpcoming.data['results'];
+          List<UpcomingModel> finaldataUpcoming =
+              dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,
@@ -101,15 +114,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               allShows: all,
               inTheaters: finalDataTheaters,
               streaming: finalDataStreaming,
-              upcoming: finaldataUpcoming
-              ));
+              upcoming: finaldataUpcoming));
         } else {
           emit(StateError('Something Went Wrong'));
           print('Succses : False');
         }
       } catch (e) {
         emit(StateError(e.toString()));
-          print('Succses : False');
+        print('Succses : False');
       }
       // now playing
     });

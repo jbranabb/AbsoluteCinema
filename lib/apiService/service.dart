@@ -1,4 +1,5 @@
 
+import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:dio/dio.dart';
 
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
@@ -6,10 +7,11 @@ String apiReadAcsessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkODQ2ZWZhOTFhZGNhOD
 String nowPlayingUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=$imdbKey';
 void fetchdio()async{
   Dio dio = Dio();
-  var response = await dio.get(nowPlayingUrl);
+  var response = await dio.get(tSurlOTA);
   if(response.statusCode == 200 ){
     print('Dio : Success');
     print(response.data['results']);
+    print(response.data['page']);
   }else{
     print('Dio : failed');
   }
@@ -17,5 +19,4 @@ void fetchdio()async{
 
 void main(){
   fetchdio();
-  // fetchhttp();
 }

@@ -1,6 +1,7 @@
 import 'package:absolutecinema/pages/home_page.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
+import 'package:absolutecinema/test.dart';
 import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

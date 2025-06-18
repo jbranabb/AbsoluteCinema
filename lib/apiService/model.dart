@@ -161,3 +161,73 @@ class UpcomingModel{
   }
 }
 
+
+class OnTheAirModel{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+  OnTheAirModel({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory OnTheAirModel.fromJson(Map<String, dynamic> json){
+    return OnTheAirModel(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+
+class TrendingTvModel{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+ TrendingTvModel({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory TrendingTvModel.fromJson(Map<String, dynamic> json){
+    return TrendingTvModel(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+
+class PopularTVModel{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+ PopularTVModel({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory PopularTVModel.fromJson(Map<String, dynamic> json){
+    return PopularTVModel(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+
