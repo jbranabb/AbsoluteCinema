@@ -17,6 +17,10 @@ class StateLoaded extends HomeState {
   List<InTheatersModel> inTheaters;
   List<StreamingModel> streaming;
   List<UpcomingModel> upcoming;
+  List<OnTheAirModel> onTheAir;
+  List<TrendingTvModel> trendingTv;
+  List<PopularTVModel> popularTv;
+  List<TopRatedTV>  topRated;
   StateLoaded({required this.trending,
    required this.movieTopRated, 
    required this.thshows,
@@ -24,6 +28,10 @@ class StateLoaded extends HomeState {
    required this.inTheaters,
    required this.streaming,
    required this.upcoming,
+   required this.onTheAir,
+   required this.topRated,
+   required this.popularTv,
+   required this.trendingTv,
    });
 }
 class NowPlayingState extends HomeState{
