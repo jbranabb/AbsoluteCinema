@@ -231,3 +231,27 @@ class PopularTVModel{
   }
 }
 
+
+class TopRatedTV{
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String genreId;
+ TopRatedTV({required this.id, required this.title, required this.voteAvg,
+  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+
+  factory TopRatedTV.fromJson(Map<String, dynamic> json){
+    return TopRatedTV(
+    id: json['id'].toString(),
+     title: json['title']?? json['name']?? 'no title',
+      voteAvg:json['vote_average'].toString(),
+       backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'],
+         overview: json['overview'],
+          genreId: json['genre_ids'].toString());
+  }
+}
+

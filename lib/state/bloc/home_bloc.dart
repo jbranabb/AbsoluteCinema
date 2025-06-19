@@ -30,10 +30,10 @@ String movieNowPlaying =
 String upcoming = 'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
 
 //tvshow
-String tSurlTrending = 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey';
+String tSurlTrending = 'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey&&page=2';
 String tSurlOTA = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
 String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
-
+String tSurlTopRated = 'https://api.themoviedb.org/3/tv/top_rated?api_key=$apiKey';
 //popular
 String streamingUrl = trendingsurl;
 // String popularOnNetflixUrl
@@ -54,9 +54,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var responseTSonTheAir = await dio.get(tSurlOTA);
         var responseTrendingTv = await dio.get(tSurlTrending);
         var responsePopularTv = await dio.get(tSurlPopular);
+        var responseTopRatedTv = await dio.get(tSurlTopRated);
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
+          //On The Air
+          List<dynamic> dataOTA = responseTSonTheAir.data['results'];
+          final List<OnTheAirModel> finaldataOTA =  dataOTA.map((e) => OnTheAirModel.fromJson(e),).toList();
+          //Trending Tv
+          List<dynamic> dataTrendingTv =  responseTrendingTv.data['results'];
+          final List<TrendingTvModel> finaldataTv = dataTrendingTv.map((e) => TrendingTvModel.fromJson(e),).toList();
+          List<dynamic> dataPopularTV = responsePopularTv.data['results'];
+          List<PopularTVModel> finalddatPopularTv = dataPopularTV.map((e)=> PopularTVModel.fromJson(e)).toList();
+          //Top Rated Tv
+          List<dynamic> dataTopRated = responseTopRatedTv.data['results'];
+          List<TopRatedTV> finaldataTopRated = dataTopRated.map((e)=> TopRatedTV.fromJson(e)).toList();
           //Trending this week
           List<dynamic> datatrening = responsetrending.data['results'];
           final List<TrendingThisWeekModel> moviesTrending = datatrening
@@ -114,7 +126,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               allShows: all,
               inTheaters: finalDataTheaters,
               streaming: finalDataStreaming,
-              upcoming: finaldataUpcoming));
+              upcoming: finaldataUpcoming,
+              onTheAir: finaldataOTA,
+              popularTv: finalddatPopularTv,
+              topRated: finaldataTopRated,
+              trendingTv: finaldataTv
+              ));
         } else {
           emit(StateError('Something Went Wrong'));
           print('Succses : False');
