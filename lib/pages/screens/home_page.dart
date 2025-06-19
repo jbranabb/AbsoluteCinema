@@ -6,7 +6,6 @@ import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dar
 import 'package:absolutecinema/pages/widgets/widgetsfrist/appbar.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/slider.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     context.read<HomeBloc>().add(FetchData());
   }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -38,8 +38,8 @@ class _HomePageState extends State<HomePage> {
               );
             }
             if (state is StateLoaded) {
-              return CustomScrollView(
-                slivers: [
+              return NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) => [
                   SliverToBoxAdapter(
                     child: Stack(
                       children: [
@@ -48,20 +48,14 @@ class _HomePageState extends State<HomePage> {
                           width: 500,
                           child: Image.asset('assets/images/bg.png'),
                         ),
-                        BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-                          child: Container(
-                            color: Colors.transparent,
-                          ),
-                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 10),
                             const MyAppBar(),
                             SliderWidget(),
-                            const SizedBox(
-                              height: 30,
+                             SizedBox(
+                              height: 30, //space between dot indicator and tabartitile
                             ),
                             Transform.translate(
                               offset: Offset(-40, 0),
@@ -83,28 +77,25 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 1100,
-                              child: TabBarView(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  children: [
-                                    AllWidgetSection(),
-                                    Text(
-                                      '1',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      '1',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ]),
-                            )
                           ],
                         ),
                       ],
                     ),
                   ),
                 ],
+                body: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    children: [
+                      AllWidgetSection(),
+                      Text(
+                        '1',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        '1',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ]),
               );
             }
             return Center(

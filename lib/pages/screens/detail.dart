@@ -98,8 +98,7 @@ class DetailPage extends StatelessWidget {
                                   Navigator.of(context).pop();
                                 },
                                 icon: Icon(Icons.arrow_back)),
-                            // Text(title, style: TextStyle(fontSize: 20, color: Colo))
-                            MyText(text: title, fnweight: FontWeight.bold,)
+                             MyText(text: title, fnweight: FontWeight.bold,)
                           ],
                         ),
                       ),

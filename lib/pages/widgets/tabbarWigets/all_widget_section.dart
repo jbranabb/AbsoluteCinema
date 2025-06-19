@@ -18,6 +18,7 @@ class AllWidgetSection extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is StateLoaded) {
         return SingleChildScrollView(
+          // physics: NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -275,6 +276,103 @@ class AllWidgetSection extends StatelessWidget {
                   ],
                 ),
               ),
+                 SizedBox(
+                width: double.infinity,
+                height: height * 0.21,
+                child: CarouselSlider.builder(
+                    itemCount: state.onTheAir.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var tvshows = state.onTheAir[index];
+                      return Card(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Stack(
+                            children: [
+                              CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                placeholder: (context, url) => Center(
+                                  child: Text(
+                                    tvshows.title,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  right: 10,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        tvshows.voteAvg.substring(0, 3),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      initialPage: 0,
+                      viewportFraction: 0.3,
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: 'Popular Today',),
+                    MyText(text: 'see all',)
+                  ],
+                ),
+              ),
+                SizedBox(
+                height: 170,
+                width: double.infinity,
+                child: CarouselSlider.builder(
+                    itemCount: state.popularTv.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var movies = state.popularTv[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(8),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                              placeholder: (context, url) =>
+                                  Center(child: Text(movies.title)),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 2.0),
+                            child: Text(
+                              movies.title,
+                              style: GoogleFonts.inter(
+                                fontSize: movies.title.length >= 30 ? 10 : 15 ,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    options: CarouselOptions(
+                        viewportFraction: 0.69, enlargeCenterPage: true)),
+              ),
+              Container(height: 500,)
               
             ],
           ),
