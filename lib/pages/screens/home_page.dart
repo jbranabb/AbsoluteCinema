@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                     child: Stack(
                       children: [
                         SizedBox(
-                          height: 600,
+                          height: 700,
                           width: 500,
                           child: Image.asset('assets/images/bg.png'),
                         ),
