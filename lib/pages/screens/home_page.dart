@@ -44,9 +44,11 @@ class _HomePageState extends State<HomePage> {
                     child: Stack(
                       children: [
                         SizedBox(
-                          height: 700,
-                          width: 500,
-                          child: Image.asset('assets/images/bg.png'),
+                          height: 300,
+                          width: double.infinity,
+                          child: Image.asset(
+                           fit: BoxFit.cover,  
+                            'assets/images/bg.png'),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
