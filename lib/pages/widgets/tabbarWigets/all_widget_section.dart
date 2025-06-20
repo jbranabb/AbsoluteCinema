@@ -1,5 +1,6 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
+import 'package:absolutecinema/test.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -271,7 +272,7 @@ class AllWidgetSection extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: 'On The Air Today',),
+                    MyText(text: 'On The Air',),
                     MyText(text: 'see all',)
                   ],
                 ),
@@ -372,7 +373,67 @@ class AllWidgetSection extends StatelessWidget {
                     options: CarouselOptions(
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
-              Container(height: 500,)
+               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: 'Trending Tv',),
+                    MyText(text: 'see all',)
+                  ],
+                ),
+              ),
+                 SizedBox(
+                width: double.infinity,
+                height: height * 0.21,
+                child: CarouselSlider.builder(
+                    itemCount: state.trendingTv.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var tvshows = state.trendingTv[index];
+                      return Card(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Stack(
+                            children: [
+                              CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                placeholder: (context, url) => Center(
+                                  child: Text(
+                                    tvshows.title,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  right: 10,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        tvshows.voteAvg.substring(0, 3),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      initialPage: 0,
+                      viewportFraction: 0.3,
+                    )),
+              ),
+              Text(SectionTitle.test1)
+              
               
             ],
           ),
