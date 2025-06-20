@@ -1,6 +1,6 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
-import 'package:absolutecinema/test.dart';
+import 'package:absolutecinema/section_title.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -29,7 +29,7 @@ class AllWidgetSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Trending This Week',
+                      SectionTitle.trendingAll,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     GestureDetector(
@@ -45,9 +45,9 @@ class AllWidgetSection extends StatelessWidget {
                 width: double.infinity,
                 height: height * 0.209,
                 child: CarouselSlider.builder(
-                    itemCount: state.trending.length,
+                    itemCount: state.allShows.length,
                     itemBuilder: (context, index, realIndex) {
-                      var movies = state.trending[index];
+                      var movies = state.allShows[index];
                       return Card(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
@@ -73,7 +73,7 @@ class AllWidgetSection extends StatelessWidget {
                                       color: Colors.amber,
                                     ),
                                     Text(
-                                      movies.rate.substring(0, 3),
+                                      movies.voteAvg.substring(0, 3),
                                       style:
                                           const TextStyle(color: Colors.white),
                                     )
@@ -90,13 +90,73 @@ class AllWidgetSection extends StatelessWidget {
                         initialPage: 0,
                         viewportFraction: 0.3)),
               ),
+                 Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: SectionTitle.trendingMovies,),
+                    MyText(text: 'see all',)
+                  ],
+                ),
+              ),
+                 SizedBox(
+                width: double.infinity,
+                height: height * 0.21,
+                child: CarouselSlider.builder(
+                    itemCount: state.trending.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var tvshows = state.trending[index];
+                      return Card(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Stack(
+                            children: [
+                              CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                placeholder: (context, url) => Center(
+                                  child: Text(
+                                    tvshows.title,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  right: 10,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        tvshows.rate.substring(0, 3),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      initialPage: 0,
+                      viewportFraction: 0.3,
+                    )),
+              ),
+              
               Padding(
                 padding: const EdgeInsets.all(13.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Streaming Today',
+                      SectionTitle.streaming,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     GestureDetector(
@@ -159,8 +219,7 @@ class AllWidgetSection extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.all(13.0),
-                child: Text(
-                  'Upcoming Movies',
+                child: Text(SectionTitle.upcoming,
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
@@ -200,13 +259,72 @@ class AllWidgetSection extends StatelessWidget {
                     options: CarouselOptions(
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
+                 Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyText(text: SectionTitle.trendingTv,),
+                    MyText(text: 'see all',)
+                  ],
+                ),
+              ),
+                 SizedBox(
+                width: double.infinity,
+                height: height * 0.21,
+                child: CarouselSlider.builder(
+                    itemCount: state.trendingTv.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var tvshows = state.trendingTv[index];
+                      return Card(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Stack(
+                            children: [
+                              CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                placeholder: (context, url) => Center(
+                                  child: Text(
+                                    tvshows.title,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  right: 10,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        tvshows.voteAvg.substring(0, 3),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      aspectRatio: 16 / 9,
+                      initialPage: 0,
+                      viewportFraction: 0.3,
+                    )),
+              ),
               Padding(
                 padding: const EdgeInsets.all(13.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'In Theaters',
+                      SectionTitle.inTheaters,
                       style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                     GestureDetector(
@@ -218,6 +336,7 @@ class AllWidgetSection extends StatelessWidget {
                   ],
                 ),
               ),
+              
               SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
@@ -272,7 +391,7 @@ class AllWidgetSection extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: 'On The Air',),
+                    MyText(text: SectionTitle.onTheAir,),
                     MyText(text: 'see all',)
                   ],
                 ),
@@ -331,7 +450,7 @@ class AllWidgetSection extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: 'Popular Today',),
+                    MyText(text: SectionTitle.popularTv,),
                     MyText(text: 'see all',)
                   ],
                 ),
@@ -373,68 +492,9 @@ class AllWidgetSection extends StatelessWidget {
                     options: CarouselOptions(
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
-               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MyText(text: 'Trending Tv',),
-                    MyText(text: 'see all',)
-                  ],
-                ),
-              ),
-                 SizedBox(
-                width: double.infinity,
-                height: height * 0.21,
-                child: CarouselSlider.builder(
-                    itemCount: state.trendingTv.length,
-                    itemBuilder: (context, index, realIndex) {
-                      var tvshows = state.trendingTv[index];
-                      return Card(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: Stack(
-                            children: [
-                              CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
-                                placeholder: (context, url) => Center(
-                                  child: Text(
-                                    tvshows.title,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                  right: 10,
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.amber,
-                                      ),
-                                      Text(
-                                        tvshows.voteAvg.substring(0, 3),
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      ),
-                                    ],
-                                  ))
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    options: CarouselOptions(
-                      aspectRatio: 16 / 9,
-                      initialPage: 0,
-                      viewportFraction: 0.3,
-                    )),
-              ),
-              Text(SectionTitle.test1)
-              
-              
+              const SizedBox(height: 20,),
+            Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600,)),
+              const SizedBox(height: 80,),
             ],
           ),
         );

@@ -17,7 +17,10 @@ class MyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, style: GoogleFonts.inter(
+    return Text(text,
+    textAlign: TextAlign.center,
+     style: GoogleFonts.inter(
+      
       color: clors ==  null ? Colors.white : clors, 
       fontSize: fnSize != null ? fnSize : 14 ,
       fontWeight: fnweight !=null ? fnweight : FontWeight.normal 
