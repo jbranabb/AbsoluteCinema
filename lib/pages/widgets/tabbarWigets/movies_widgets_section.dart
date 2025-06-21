@@ -141,6 +141,7 @@ class MoviesWidgetsSection extends StatelessWidget {
                           },
                           options: CarouselOptions(
                             aspectRatio: 16 / 9,
+                            reverse: true,
                             initialPage: 0,
                             viewportFraction: 0.3,
                           )),
@@ -312,7 +313,9 @@ class MoviesWidgetsSection extends StatelessWidget {
                             viewportFraction: 0.3,
                           )),
                     ),
-                       
+                        const SizedBox(height: 20,),
+            Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600,)),
+              const SizedBox(height: 80,),
             ],
                     ),
           );

@@ -7,6 +7,8 @@ class SectionTitle{
   static const inTheaters = 'Let\'s Hit The Theaters';
   static const onTheAir = 'Airing Right Now ';
   static const streaming = 'Now Streaming ';
+  static const topRatedMov = 'Top Rated Movies';
+  static const topRatedTv = 'Top Rated Tv Shows';
 
   static const endOfTheList =  'You’ve seen it all!  \n Nothing left to show - for now..';
 }
