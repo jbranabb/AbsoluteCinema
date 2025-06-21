@@ -4,14 +4,14 @@ class TrendingThisWeekModel {
   String posterPath;
   String backdropPath;
   String overview;
-  String rate;
+  String voteAvg;
   TrendingThisWeekModel(
       {required this.title,
       required this.relaseDate,
       required this.posterPath,
       required this.overview,
       required this.backdropPath,
-      required this.rate});
+      required this.voteAvg});
   factory TrendingThisWeekModel.fromJson(
     Map<String, dynamic> json,
   ) {
@@ -21,7 +21,7 @@ class TrendingThisWeekModel {
       posterPath: json['poster_path'].toString(),
       backdropPath: json['backdrop_path'],
         overview: json['overview'],
-        rate: json['vote_average'].toString());
+        voteAvg: json['vote_average'].toString());
   }
 }
 
@@ -29,14 +29,14 @@ class NowPlayingModel {
   String genreId;
   String title;
   String overview;
-  String rate;
+  String voteAvg;
   String posterPath;
   String relaseDate;
   NowPlayingModel(
       {required this.genreId,
       required this.overview,
       required this.posterPath,
-      required this.rate,
+      required this.voteAvg,
       required this.relaseDate,
       required this.title});
       factory NowPlayingModel.fromjson(Map<String, dynamic> json){
@@ -44,7 +44,7 @@ class NowPlayingModel {
           genreId: json['genre_ids'].toString(),
          overview: json['overview'],
           posterPath: json['poster_path'],
-           rate: json['vote_average'].toString(),
+           voteAvg: json['vote_average'].toString(),
             relaseDate: json['release_date'].toString(),
              title: json['title']); 
       }

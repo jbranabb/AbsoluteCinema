@@ -132,7 +132,7 @@ class AllWidgetSection extends StatelessWidget {
                                         color: Colors.amber,
                                       ),
                                       Text(
-                                        tvshows.rate.substring(0, 3),
+                                        tvshows.voteAvg.substring(0, 3),
                                         style: const TextStyle(
                                             color: Colors.white),
                                       ),

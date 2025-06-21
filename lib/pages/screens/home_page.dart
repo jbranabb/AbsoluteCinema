@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
+import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/appbar.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/slider.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
@@ -89,10 +90,7 @@ class _HomePageState extends State<HomePage> {
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       AllWidgetSection(),
-                      Text(
-                        '1',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      MoviesWidgetsSection(),
                       Text(
                         '1',
                         style: TextStyle(color: Colors.white),
