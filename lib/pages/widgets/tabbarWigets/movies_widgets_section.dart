@@ -259,7 +259,7 @@ class MoviesWidgetsSection extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MyText(text: SectionTitle.streaming,),
+                          MyText(text: SectionTitle.topRatedMov),
                           MyText(text: 'see all',)
                         ],
                       ),
