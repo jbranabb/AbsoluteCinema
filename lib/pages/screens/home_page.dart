@@ -2,8 +2,10 @@
 
 import 'dart:ui';
 
+import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section.dart';
+import 'package:absolutecinema/pages/widgets/tabbarWigets/tvshow_widgets_section.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/appbar.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/slider.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(apiReadAcsessToken);
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -91,10 +94,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       AllWidgetSection(),
                       MoviesWidgetsSection(),
-                      Text(
-                        '1',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      TvshowWidgetsSection(), 
                     ]),
               );
             }
