@@ -24,6 +24,7 @@ class MoviesWidgetsSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //trending
               Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -83,12 +84,14 @@ class MoviesWidgetsSection extends StatelessWidget {
                             viewportFraction: 0.3,
                           )),
                     ),
+                    
+                    // streaming
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MyText(text: SectionTitle.trendingTv,),
+                          MyText(text: SectionTitle.streaming,),
                           MyText(text: 'see all',)
                         ],
                       ),
@@ -97,9 +100,9 @@ class MoviesWidgetsSection extends StatelessWidget {
                       width: double.infinity,
                       height: height * 0.21,
                       child: CarouselSlider.builder(
-                          itemCount: state.trendingTv.length,
+                          itemCount: state.streaming.length,
                           itemBuilder: (context, index, realIndex) {
-                            var tvshows = state.trendingTv[index];
+                            var tvshows = state.streaming[index];
                             return Card(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
@@ -142,6 +145,8 @@ class MoviesWidgetsSection extends StatelessWidget {
                             viewportFraction: 0.3,
                           )),
                     ),
+
+                    //upcoming
                 const Padding(
                       padding: EdgeInsets.all(13.0),
                       child: Text(SectionTitle.upcoming,
@@ -183,6 +188,129 @@ class MoviesWidgetsSection extends StatelessWidget {
                           },
                           options: CarouselOptions(
                               viewportFraction: 0.69, enlargeCenterPage: true)),
+                    ),
+
+
+                      //theaters
+                      Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyText(text: SectionTitle.inTheaters,),
+                          MyText(text: 'see all',)
+                        ],
+                      ),
+                    ),
+                       SizedBox(
+                      width: double.infinity,
+                      height: height * 0.21,
+                      child: CarouselSlider.builder(
+                          itemCount: state.inTheaters.length,
+                          itemBuilder: (context, index, realIndex) {
+                            var tvshows = state.inTheaters[index];
+                            return Card(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Stack(
+                                  children: [
+                                    CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                      placeholder: (context, url) => Center(
+                                        child: Text(
+                                          tvshows.title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.amber,
+                                            ),
+                                            Text(
+                                              tvshows.voteAvg.substring(0, 3),
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          options: CarouselOptions(
+                            aspectRatio: 16 / 9,
+                            initialPage: 0,
+                            viewportFraction: 0.3,
+                          )),
+                    ),
+
+                    //top rated
+                      Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyText(text: SectionTitle.streaming,),
+                          MyText(text: 'see all',)
+                        ],
+                      ),
+                    ),
+                       SizedBox(
+                      width: double.infinity,
+                      height: height * 0.21,
+                      child: CarouselSlider.builder(
+                          itemCount: state.movieTopRated.length,
+                          itemBuilder: (context, index, realIndex) {
+                            var tvshows = state.movieTopRated[index];
+                            return Card(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Stack(
+                                  children: [
+                                    CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                                      placeholder: (context, url) => Center(
+                                        child: Text(
+                                          tvshows.title,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        right: 10,
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star_rounded,
+                                              color: Colors.amber,
+                                            ),
+                                            Text(
+                                              tvshows.voteAvg.substring(0, 3),
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ))
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          options: CarouselOptions(
+                            aspectRatio: 16 / 9,
+                            initialPage: 0,
+                            viewportFraction: 0.3,
+                          )),
                     ),
                        
             ],
