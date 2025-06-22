@@ -49,8 +49,7 @@ class AllWidgetSection extends StatelessWidget {
                       var movies = state.allShows[index];
                       return GestureDetector(
                         onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-                         DetailPage(rating: movies.voteAvg, overview: movies.overview,
-                          image: movies.posterPath, title: movies.title))),
+                         )),
                         child: Card(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
