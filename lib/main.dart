@@ -1,3 +1,4 @@
+import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,  
-      home: const HomePage() ,
+      home:HomePage() ,
     );
   }
 }

@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
-          height: 40,
+        height: 40,
           width: 200,
           child: Stack(
             children: [

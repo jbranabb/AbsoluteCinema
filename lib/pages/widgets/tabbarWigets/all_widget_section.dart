@@ -48,8 +48,13 @@ class AllWidgetSection extends StatelessWidget {
                     itemBuilder: (context, index, realIndex) {
                       var movies = state.allShows[index];
                       return GestureDetector(
-                        onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
-                         )),
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DetailPage(
+                                      titile: movies.title,
+                                      backdropImage: movies.backdropPath,
+                                      posterImage: movies.posterPath,
+                                    ))),
                         child: Card(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -76,8 +81,8 @@ class AllWidgetSection extends StatelessWidget {
                                       ),
                                       Text(
                                         movies.voteAvg.substring(0, 3),
-                                        style:
-                                            const TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                       )
                                     ],
                                   ),
@@ -93,17 +98,21 @@ class AllWidgetSection extends StatelessWidget {
                         initialPage: 0,
                         viewportFraction: 0.3)),
               ),
-                 Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: SectionTitle.trendingMovies,),
-                    MyText(text: 'see all',)
+                    MyText(
+                      text: SectionTitle.trendingMovies,
+                    ),
+                    MyText(
+                      text: 'see all',
+                    )
                   ],
                 ),
               ),
-                 SizedBox(
+              SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
                 child: CarouselSlider.builder(
@@ -152,7 +161,6 @@ class AllWidgetSection extends StatelessWidget {
                       viewportFraction: 0.3,
                     )),
               ),
-              
               Padding(
                 padding: const EdgeInsets.all(13.0),
                 child: Row(
@@ -222,7 +230,8 @@ class AllWidgetSection extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.all(13.0),
-                child: Text(SectionTitle.upcoming,
+                child: Text(
+                  SectionTitle.upcoming,
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
@@ -262,17 +271,21 @@ class AllWidgetSection extends StatelessWidget {
                     options: CarouselOptions(
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
-                 Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: SectionTitle.trendingTv,),
-                    MyText(text: 'see all',)
+                    MyText(
+                      text: SectionTitle.trendingTv,
+                    ),
+                    MyText(
+                      text: 'see all',
+                    )
                   ],
                 ),
               ),
-                 SizedBox(
+              SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
                 child: CarouselSlider.builder(
@@ -339,7 +352,6 @@ class AllWidgetSection extends StatelessWidget {
                   ],
                 ),
               ),
-              
               SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
@@ -394,12 +406,16 @@ class AllWidgetSection extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: SectionTitle.onTheAir,),
-                    MyText(text: 'see all',)
+                    MyText(
+                      text: SectionTitle.onTheAir,
+                    ),
+                    MyText(
+                      text: 'see all',
+                    )
                   ],
                 ),
               ),
-                 SizedBox(
+              SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
                 child: CarouselSlider.builder(
@@ -453,12 +469,16 @@ class AllWidgetSection extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyText(text: SectionTitle.popularTv,),
-                    MyText(text: 'see all',)
+                    MyText(
+                      text: SectionTitle.popularTv,
+                    ),
+                    MyText(
+                      text: 'see all',
+                    )
                   ],
                 ),
               ),
-                SizedBox(
+              SizedBox(
                 height: 170,
                 width: double.infinity,
                 child: CarouselSlider.builder(
@@ -484,7 +504,7 @@ class AllWidgetSection extends StatelessWidget {
                             child: Text(
                               movies.title,
                               style: GoogleFonts.inter(
-                                fontSize: movies.title.length >= 30 ? 10 : 15 ,
+                                  fontSize: movies.title.length >= 30 ? 10 : 15,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -495,9 +515,17 @@ class AllWidgetSection extends StatelessWidget {
                     options: CarouselOptions(
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
-              const SizedBox(height: 20,),
-            Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600,)),
-              const SizedBox(height: 80,),
+              const SizedBox(
+                height: 20,
+              ),
+              Center(
+                  child: MyText(
+                text: SectionTitle.endOfTheList,
+                clors: Colors.grey.shade600,
+              )),
+              const SizedBox(
+                height: 80,
+              ),
             ],
           ),
         );
@@ -510,4 +538,3 @@ class AllWidgetSection extends StatelessWidget {
     });
   }
 }
- 
