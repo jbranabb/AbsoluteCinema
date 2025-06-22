@@ -202,7 +202,7 @@ class TvshowWidgetsSection extends StatelessWidget {
                         viewportFraction: 0.69, enlargeCenterPage: true)),
               ),
 
-              //theaters
+              //airing today
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(

@@ -5,7 +5,8 @@ class SectionTitle{
   static const trendingTv = 'Series You Can\'t Miss';
   static const trendingMovies = 'Movies That Can\'t Make You Sleep';
   static const inTheaters = 'Let\'s Hit The Theaters';
-  static const onTheAir = 'Airing Right Now ';
+  static const onTheAir = 'Live & Loud';
+  static const airingToday = 'Airing Right Now';
   static const streaming = 'Now Streaming ';
   static const topRatedMov = 'Top Rated Movies';
   static const topRatedTv = 'Top Rated Tv Shows';
