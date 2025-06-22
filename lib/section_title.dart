@@ -10,5 +10,5 @@ class SectionTitle{
   static const topRatedMov = 'Top Rated Movies';
   static const topRatedTv = 'Top Rated Tv Shows';
 
-  static const endOfTheList =  'You’ve seen it all!  \n Nothing left to show - for now..';
+  static const endOfTheList =  'You\'ve seen it all!  \n Nothing left to show - for now..';
 }

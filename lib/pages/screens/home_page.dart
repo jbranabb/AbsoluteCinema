@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(apiReadAcsessToken);
     return DefaultTabController(
       length: 3,
       child: Scaffold(

@@ -182,7 +182,7 @@ class TvshowWidgetsSection extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 2.0),
                             child: Text(
                               movies.title,

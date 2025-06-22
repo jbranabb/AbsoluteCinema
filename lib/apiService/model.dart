@@ -50,7 +50,7 @@ class NowPlayingModel {
       }
 }
 
-class TrendingTvShow{
+class AiringTvShowsModel{
   String id;
   String title;
   String voteAvg;
@@ -58,11 +58,11 @@ class TrendingTvShow{
   String posterPath;
   String overview;
   String genreId;
-  TrendingTvShow({required this.id, required this.title, required this.voteAvg,
+  AiringTvShowsModel({required this.id, required this.title, required this.voteAvg,
   required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
 
-  factory TrendingTvShow.fromJson(Map<String, dynamic> json){
-    return TrendingTvShow(
+  factory AiringTvShowsModel.fromJson(Map<String, dynamic> json){
+    return AiringTvShowsModel(
     id: json['id'].toString(),
      title: json['name'],
       voteAvg:json['vote_average'].toString(),

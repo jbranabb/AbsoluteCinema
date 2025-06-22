@@ -12,18 +12,19 @@ class StateError extends HomeState {
 class StateLoaded extends HomeState {
   List<TrendingThisWeekModel> trending;
   List<NowPlayingModel> movieTopRated;
-  List<TrendingTvShow> thshows;
   List<AllMovTv> allShows;
   List<InTheatersModel> inTheaters;
   List<StreamingModel> streaming;
   List<UpcomingModel> upcoming;
-  List<OnTheAirModel> onTheAir;
+  //tv
+  List<AiringTvShowsModel> airingToday;
   List<TrendingTvModel> trendingTv;
+  List<OnTheAirModel> onTheAir;
   List<PopularTVModel> popularTv;
   List<TopRatedTV>  topRated;
   StateLoaded({required this.trending,
    required this.movieTopRated, 
-   required this.thshows,
+   required this.airingToday,
    required this.allShows,
    required this.inTheaters,
    required this.streaming,

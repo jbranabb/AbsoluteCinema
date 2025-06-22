@@ -34,6 +34,7 @@ String tSurlTrending = 'https://api.themoviedb.org/3/trending/tv/week?api_key=$a
 String tSurlOTA = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
 String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
 String tSurlTopRated = 'https://api.themoviedb.org/3/tv/top_rated?api_key=$apiKey';
+String tSurlAiringToday = 'https://api.themoviedb.org/3/tv/airing_today?api_key=$apiKey';
 //popular
 String streamingUrl = trendingsurl;
 // String popularOnNetflixUrl
@@ -44,15 +45,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<FetchData>((event, emit) async {
       emit(StateLoading());
       try {
+        //movies
         var responsetrending = await dio.get(trendingsurl);
         var responUpcoming = await dio.get(upcoming);
         var responseInTherater = await dio.get(inTheaters);
         var responseMovieTopRated = await dio.get(movieTopRated);
-        var responseTvShow = await dio.get(tSurlTrending);
-        var responseAll = await dio.get(allUrl);
         var responStreamingUrl = await dio.get(streamingUrl);
-        var responseTSonTheAir = await dio.get(tSurlOTA);
+        var responseAll = await dio.get(allUrl);
+        //tv
+        var responseTvAiringToday = await dio.get(tSurlAiringToday);
         var responseTrendingTv = await dio.get(tSurlTrending);
+        var responseTSonTheAir = await dio.get(tSurlOTA);
         var responsePopularTv = await dio.get(tSurlPopular);
         var responseTopRatedTv = await dio.get(tSurlTopRated);
         if (responsetrending.statusCode == 200 &&
@@ -87,10 +90,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               .toList();
 
           //tvShow
-          List<dynamic> dataTvShow = responseTvShow.data['results'];
-          final List<TrendingTvShow> tvShows = dataTvShow
+          List<dynamic> dataAiringToday = responseTvAiringToday.data['results'];
+          final List<AiringTvShowsModel> finalDataAiringToday = dataAiringToday
               .map(
-                (e) => TrendingTvShow.fromJson(e),
+                (e) => AiringTvShowsModel.fromJson(e),
               )
               .toList();
 
@@ -122,7 +125,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,
-              thshows: tvShows,
               allShows: all,
               inTheaters: finalDataTheaters,
               streaming: finalDataStreaming,
@@ -130,6 +132,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               onTheAir: finaldataOTA,
               popularTv: finalddatPopularTv,
               topRated: finaldataTopRated,
+              airingToday: finalDataAiringToday,
               trendingTv: finaldataTv
               ));
         } else {
