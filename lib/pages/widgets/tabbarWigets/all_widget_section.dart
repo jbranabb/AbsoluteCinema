@@ -1,8 +1,8 @@
+import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
 import 'package:absolutecinema/section_title.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,6 @@ class AllWidgetSection extends StatelessWidget {
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is StateLoaded) {
         return SingleChildScrollView(
-          // physics: NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -48,39 +47,44 @@ class AllWidgetSection extends StatelessWidget {
                     itemCount: state.allShows.length,
                     itemBuilder: (context, index, realIndex) {
                       var movies = state.allShows[index];
-                      return Card(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Stack(
-                            children: [
-                              CachedNetworkImage(
-                                  imageUrl:
-                                      'https://image.tmdb.org/t/p/w300${movies.posterPath}',
-                                  placeholder: (context, st) => Center(
-                                          child: Text(
-                                        movies.title,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            color: Colors.white60),
-                                      )),
-                                  fit: BoxFit.cover),
-                              Positioned(
-                                right: 10,
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star_rounded,
-                                      color: Colors.amber,
-                                    ),
-                                    Text(
-                                      movies.voteAvg.substring(0, 3),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
+                      return GestureDetector(
+                        onTap: ()=> Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+                         DetailPage(rating: movies.voteAvg, overview: movies.overview,
+                          image: movies.posterPath, title: movies.title))),
+                        child: Card(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Stack(
+                              children: [
+                                CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/w300${movies.posterPath}',
+                                    placeholder: (context, st) => Center(
+                                            child: Text(
+                                          movies.title,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.white60),
+                                        )),
+                                    fit: BoxFit.cover),
+                                Positioned(
+                                  right: 10,
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                      ),
+                                      Text(
+                                        movies.voteAvg.substring(0, 3),
+                                        style:
+                                            const TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -507,3 +511,4 @@ class AllWidgetSection extends StatelessWidget {
     });
   }
 }
+ 
