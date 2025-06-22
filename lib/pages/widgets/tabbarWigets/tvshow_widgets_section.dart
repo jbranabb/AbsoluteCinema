@@ -209,7 +209,7 @@ class TvshowWidgetsSection extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     MyText(
-                      text: SectionTitle.inTheaters,
+                      text: SectionTitle.airingToday,
                     ),
                     MyText(
                       text: 'see all',
@@ -221,9 +221,9 @@ class TvshowWidgetsSection extends StatelessWidget {
                 width: double.infinity,
                 height: height * 0.21,
                 child: CarouselSlider.builder(
-                    itemCount: state.inTheaters.length,
+                    itemCount: state.airingToday.length,
                     itemBuilder: (context, index, realIndex) {
-                      var tvshows = state.inTheaters[index];
+                      var tvshows = state.airingToday[index];
                       return Card(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),
