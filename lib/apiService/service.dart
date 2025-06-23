@@ -1,22 +1,25 @@
-
-import 'package:absolutecinema/state/bloc/home_bloc.dart';
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:dio/dio.dart';
-
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
-String apiReadAcsessToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkODQ2ZWZhOTFhZGNhODllMjY0YjZhYTcyZTJhMzkwNyIsIm5iZiI6MTc0NzM2MTA4Ni4yNzQsInN1YiI6IjY4MjY5ZDNlOTA1OTk2NTJhZWFkYTc1MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Z2VmQNW5AIVUw0lJ0P9z-gk3RSb7nBAohb-k8egQQmA';
-String nowPlayingUrl = 'https://api.themoviedb.org/3/tv/popular?api_key=$imdbKey';
-void fetchdio()async{
-  Dio dio = Dio();
-  var response = await dio.get(tSurlOTA);
-  if(response.statusCode == 200 ){
-    print('Dio : Success');
-    print(response.data['results']);
-    print(response.data['page']);
-  }else{
-    print('Dio : failed');
+String urlname = 'https://api.themoviedb.org/3/tv/popular?api_key=d846efa91adca89e264b6aa72e2a3907';
+Dio dio = Dio();
+void fetchData()async{
+var response = await dio.get(urlname);
+if(response.statusCode == 200 ){
+  try{
+  print('berhasil');
+  // print(response.data['results'][0]['genre_ids']);
+List<dynamic> data = await response.data['results'];
+List<TrendingThisWeekModel> finaldata = data.map((e)=> TrendingThisWeekModel.fromJson(e)).toList();
+
+  }catch(e){
+  print('gagal: $e');
   }
+}else{
+  print('gagal');
+}
 }
 
 void main(){
-  fetchdio();
+  fetchData();
 }

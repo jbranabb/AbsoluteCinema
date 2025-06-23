@@ -255,3 +255,14 @@ class TopRatedTV{
   }
 }
 
+class Testing{
+  String id;
+  String genreIds;
+  String title;
+  Testing({required this.id, required this.genreIds, required this.title});
+  factory Testing.fromJson(Map<String, dynamic> json ){
+    return Testing(id: json['id']?? 'kosong id',
+     genreIds: json['genreIds'] ?? 'kosong genre',
+     title: json['title']?? 'kosong title');
+  }
+}
