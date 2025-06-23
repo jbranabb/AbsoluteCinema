@@ -261,8 +261,8 @@ class Testing{
   String title;
   Testing({required this.id, required this.genreIds, required this.title});
   factory Testing.fromJson(Map<String, dynamic> json ){
-    return Testing(id: json['id']?? 'kosong id',
-     genreIds: json['genreIds'] ?? 'kosong genre',
-     title: json['title']?? 'kosong title');
+    return Testing(id: json['id'].toString(),
+     genreIds: json['genre_ids'].toString(),
+     title: json['original_name']?? 'kosong title');
   }
 }

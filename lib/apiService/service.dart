@@ -10,8 +10,11 @@ if(response.statusCode == 200 ){
   print('berhasil');
   // print(response.data['results'][0]['genre_ids']);
 List<dynamic> data = await response.data['results'];
-List<TrendingThisWeekModel> finaldata = data.map((e)=> TrendingThisWeekModel.fromJson(e)).toList();
-
+List<Testing> finaldata = data.map((e)=> Testing.fromJson(e)).toList();
+// print(finaldata[0].genreIds);
+for(var i = 0 ; i < 10; i++){
+  print(finaldata[i].genreIds);
+}
   }catch(e){
   print('gagal: $e');
   }
