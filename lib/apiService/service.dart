@@ -11,9 +11,9 @@ if(response.statusCode == 200 ){
   // print(response.data['results'][0]['genre_ids']);
 List<dynamic> data = await response.data['results'];
 List<Testing> finaldata = data.map((e)=> Testing.fromJson(e)).toList();
-// print(finaldata[0].genreIds);
 for(var i = 0 ; i < 10; i++){
-  print(finaldata[i].genreIds);
+var datafinal = finaldata[i].genreIds.replaceFirst('[', ' ').replaceAll(']',' ');
+  print(datafinal);
 }
   }catch(e){
   print('gagal: $e');
