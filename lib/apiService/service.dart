@@ -13,16 +13,8 @@ List<dynamic> data = await response.data['results'];
 List<Testing> finaldata = data.map((e)=> Testing.fromJson(e)).toList();
 for(var i = 0 ; i < 10; i++){
 var datafinal = finaldata[i].genreIds.replaceFirst('[', ' ').replaceAll(']',' ');
-  
-Map<int, String> genreMap = {
-  28: 'Action',
-  12: 'Adventure',
-  878: 'Sci-Fi',
-};
-
-
+print(datafinal);
 }
-
   }catch(e){
   print('gagal: $e');
   }
