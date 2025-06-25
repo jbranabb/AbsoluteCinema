@@ -15,7 +15,9 @@ List<Testing> finaldata = data.map((e)=> Testing.fromJson(e)).toList();
 for(var i = 0 ; i < 10; i++){
 var datafinal = finaldata[i].genreIds.replaceFirst('[', ' ').replaceAll(']',' ');
 print(datafinal);
-
+}
+void fetchDataGenre(){
+  var resposnse = await dio.get(genreUrl);
 }
   }catch(e){
   print('gagal: $e');
