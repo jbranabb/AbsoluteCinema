@@ -28,7 +28,9 @@ void fetchDataGenre()async{
   var resposnsee = await dio.get(genreUrl);
   if(resposnsee.statusCode == 200){
     print('Berhasil Get Genre');
-    var data = resposnsee.data['genres'];
+    List<dynamic> data =  resposnsee.data['genres'];
+    List<Genres> finalData = data.map((e) =>  Genres.fromJson(e)).toList();
+   
   }
 }
 void main(){
