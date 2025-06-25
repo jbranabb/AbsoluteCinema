@@ -16,7 +16,7 @@ for(var i = 0 ; i < 10; i++){
 var datafinal = finaldata[i].genreIds.replaceFirst('[', ' ').replaceAll(']',' ');
 print(datafinal);
 }
-void fetchDataGenre(){
+void fetchDataGenre()async{
   var resposnse = await dio.get(genreUrl);
 }
   }catch(e){
