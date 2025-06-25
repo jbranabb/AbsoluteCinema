@@ -30,7 +30,9 @@ void fetchDataGenre()async{
     print('Berhasil Get Genre');
     List<dynamic> data =  resposnsee.data['genres'];
     List<Genres> finalData = data.map((e) =>  Genres.fromJson(e)).toList();
-   
+    for(var i = 0 ; i < finalData.length; i++ ){
+      print(finalData[i].name);
+    }
   }
 }
 void main(){
