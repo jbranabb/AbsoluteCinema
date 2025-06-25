@@ -266,3 +266,14 @@ class Testing{
      title: json['original_name']?? 'kosong title');
   }
 }
+class Genres{
+  String id;
+  String name;
+  Genres({required this.id, required this.name,});
+  factory Genres.fromJson(Map<String, dynamic> json ){
+    return Genres(
+    id: json['id'].toString(),
+    name: json['name'],
+    );
+   }
+}

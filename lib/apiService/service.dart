@@ -16,9 +16,6 @@ for(var i = 0 ; i < 10; i++){
 var datafinal = finaldata[i].genreIds.replaceFirst('[', ' ').replaceAll(']',' ');
 print(datafinal);
 }
-void fetchDataGenre()async{
-  var resposnse = await dio.get(genreUrl);
-}
   }catch(e){
   print('gagal: $e');
   }
@@ -26,6 +23,14 @@ void fetchDataGenre()async{
   print('gagal');
 }
 }
+
+void fetchDataGenre()async{
+  var resposnsee = await dio.get(genreUrl);
+  if(resposnsee.statusCode == 200){
+    print('Berhasil Get Genre');
+    var data = resposnsee.data['genres'];
+  }
+}
 void main(){
-  fetchData();
+  fetchDataGenre();
 }
