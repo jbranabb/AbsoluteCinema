@@ -14,11 +14,20 @@ void fetchDataGenres()async{
         genreMap = {
         for (var g in genreList) g['id'].toString() : g['name'],
        }; 
-       print(genreMap);
+       print(genreMap);  // berhasil munculin genreMap nya  
     }else{
         throw Exception('Gagal Ambil Data Genre');
     }
-
+    String setGrenreNames(List<dynamic> genreList){
+        return genreList.map((e) => genreMap[e.toString()] ?? 'unknown',).join(', ');
+        
+    }
+     Map<String, dynamic> mov = {
+        "title": "apakabar",
+        "genre_ids": [28, 35]
+    };
+    final texFia = setGrenreNames(mov['genre_ids']);
+print(texFia);
 }
 
 
