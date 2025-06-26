@@ -29,6 +29,17 @@ void fetchDataGenres()async{
     final texFia = setGrenreNames(mov['genre_ids']);
 print(texFia);
 }
+Future<String> fetchGenres()async{
+  var responseGenreApi = await dio.get(genreUrl);
+  if(responseGenreApi.statusCode  == 200 ){
+    print('Success : True');
+    try{
+
+    }catch(e){
+      throw Exception('Something Went Wrong: $e');
+    }
+  }
+}
 
 
 void main(){
