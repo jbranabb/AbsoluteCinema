@@ -255,13 +255,13 @@ class TopRatedTV{
   }
 }
 
-class Testing{
+class GenreFromApi{
   String id;
   String genreIds;
   String title;
-  Testing({required this.id, required this.genreIds, required this.title});
-  factory Testing.fromJson(Map<String, dynamic> json ){
-    return Testing(id: json['id'].toString(),
+  GenreFromApi({required this.id, required this.genreIds, required this.title});
+  factory GenreFromApi.fromJson(Map<String, dynamic> json ){
+    return GenreFromApi(id: json['id'].toString(),
      genreIds: json['genre_ids'].toString(),
      title: json['original_name']?? 'kosong title');
   }
