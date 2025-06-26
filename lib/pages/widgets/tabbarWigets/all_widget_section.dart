@@ -45,7 +45,7 @@ class AllWidgetSection extends StatelessWidget {
                 height: height * 0.209,
                 child: CarouselSlider.builder(
                     itemCount: state.allShows.length,
-                    itemBuilder: (context, index, realIndex) {
+                    itemBuilder: (context, index, realIndex){
                       var movies = state.allShows[index];
                       return GestureDetector(
                         onTap: () =>

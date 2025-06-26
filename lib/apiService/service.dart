@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
@@ -26,22 +28,34 @@ void fetchDataGenres()async{
         "title": "apakabar",
         "genre_ids": [28, 35]
     };
-    final texFia = setGrenreNames(mov['genre_ids']);
-print(texFia);
+    final texFia =  fetchGenres(mov['genre_ids']).then((value) => print('value : $value'),);
+print('hasil : $texFia');
 }
-Future<String> fetchGenres()async{
+
+
+ Future<String> fetchGenres(List<dynamic> genreListState)async{
+  late Map<String, dynamic> genreMaps;
   var responseGenreApi = await dio.get(genreUrl);
   if(responseGenreApi.statusCode  == 200 ){
     print('Success : True');
     try{
-
+      List<dynamic> dataApiGenres = responseGenreApi.data['genres'];
+      // print('List : $dataApiGenres'); 
+      genreMaps = {
+      for (var g in dataApiGenres) g['id'].toString() : g['name'] 
+      };
     }catch(e){
       throw Exception('Something Went Wrong: $e');
     }
   }
+  String names(List<dynamic> genreList){
+    return genreList.map((e) => genreMaps[e.toString()] ?? 'Unknown',).join(', ');
+  }
+  return names(genreListState);
 }
 
 
 void main(){
     fetchDataGenres();
+    // fetchGenres();
 }

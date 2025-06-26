@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

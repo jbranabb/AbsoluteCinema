@@ -97,6 +97,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               )
               .toList();
 
+
           // all
           List<dynamic> dataAll = responseAll.data['results'];
           final List<AllMovTv> all =
@@ -122,6 +123,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
           List<UpcomingModel> finaldataUpcoming =
               dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
+          
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,
