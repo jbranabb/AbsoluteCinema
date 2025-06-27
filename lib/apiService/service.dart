@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:dio/dio.dart';
-
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
 String genreUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
 String movieUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=$imdbKey';
@@ -16,7 +16,7 @@ void fetchDataGenres()async{
         genreMap = {
         for (var g in genreList) g['id'].toString() : g['name'],
        }; 
-       print(genreMap);  // berhasil munculin genreMap nya  
+      //  print(genreMap);  // berhasil munculin genreMap nya  
     }else{
         throw Exception('Gagal Ambil Data Genre');
     }
@@ -24,16 +24,14 @@ void fetchDataGenres()async{
         return genreList.map((e) => genreMap[e.toString()] ?? 'unknown',).join(', ');
         
     }
-     Map<String, dynamic> mov = {
-        "title": "apakabar",
-        "genre_ids": [28, 35]
-    };
-    final texFia =  fetchGenres(mov['genre_ids']).then((value) => print('value : $value'),);
-print('hasil : $texFia');
+    
+    // final texFia =  fetchGenres(mov['genre_ids']).then((value) => print('value : $value'),);
+// print('hasil : $texFia');
 }
 
 
- Future<String> fetchGenres(List<dynamic> genreListState)async{
+ Future<String> fetchGenres(
+  )async{
   late Map<String, dynamic> genreMaps;
   var responseGenreApi = await dio.get(genreUrl);
   if(responseGenreApi.statusCode  == 200 ){
@@ -48,14 +46,31 @@ print('hasil : $texFia');
       throw Exception('Something Went Wrong: $e');
     }
   }
-  String names(List<dynamic> genreList){
-    return genreList.map((e) => genreMaps[e.toString()] ?? 'Unknown',).join(', ');
+   Map<String, dynamic> mov = {
+        "title": "apakabar",
+        "genre_ids": [28, 35]
+    };
+ var responsemov = await dio.get(movieUrl);
+ List<dynamic> dataFinal = responsemov.data['results'];
+//  print(dataFinal.length);
+  var listtest = dataFinal[1]['genre_ids'];
+print(listtest);
+//  print('genremap : ${genreMaps.containsKey('genre_ids')}');
+
+  String names(List<dynamic>genreList){
+    return genreList.map((e) {
+      print('e di dalam $e');
+      print('e di genre maps ${genreMaps[e]}');
+      return genreMaps[e.toString()]?? 'Unknown';
+    },).join(', ');
   }
-  return names(genreListState);
+  return names(
+    mov['genre_ids']
+    );
 }
 
 
 void main(){
     fetchDataGenres();
-    // fetchGenres();
+    fetchGenres().then((val)=> print(val));
 }
