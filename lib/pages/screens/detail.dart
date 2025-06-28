@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class DetailPage extends StatelessWidget {
 
  
- DetailPage({super.key, required this.titile, required this.backdropImage, required this.posterImage}); 
+ DetailPage({super.key,required this.oveview, required this.titile, required this.backdropImage, required this.posterImage}); 
 String titile;
+String oveview;
  String backdropImage;
  String posterImage;
 
@@ -57,7 +58,8 @@ String titile;
                   left: 10,
                   child: Column(
                     children: [
-                      MyText(text: titile)
+                      MyText(text: titile),
+                      MyText(text: oveview),
                     ],
                   )),
                   ],
