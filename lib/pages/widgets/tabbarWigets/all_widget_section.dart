@@ -52,6 +52,7 @@ class AllWidgetSection extends StatelessWidget {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => DetailPage(
                                       titile: movies.title,
+                                      oveview: movies.overview,
                                       backdropImage: movies.backdropPath,
                                       posterImage: movies.posterPath,
                                     ))),
