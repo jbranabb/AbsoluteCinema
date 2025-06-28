@@ -123,7 +123,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
           List<UpcomingModel> finaldataUpcoming =
               dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
-          
+          finaldataUpcoming[0].genreId;
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,
