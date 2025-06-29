@@ -257,12 +257,12 @@ class TopRatedTV{
 
 class GenreFromApi{
   String id;
-  String genreIds;
+  List<int> genreIds;
   String title;
   GenreFromApi({required this.id, required this.genreIds, required this.title});
   factory GenreFromApi.fromJson(Map<String, dynamic> json ){
     return GenreFromApi(id: json['id'].toString(),
-     genreIds: json['genre_ids'].toString(),
+     genreIds: List<int>.from(json['genre_ids'] ?? []) ,
      title: json['original_name']?? 'kosong title');
   }
 }

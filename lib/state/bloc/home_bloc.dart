@@ -39,6 +39,9 @@ String tSurlAiringToday = 'https://api.themoviedb.org/3/tv/airing_today?api_key=
 String streamingUrl = trendingsurl;
 // String popularOnNetflixUrl
 String inTheaters = '$movieNowPlaying&with_release_type=5';
+//genres
+String genreUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
+
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
@@ -58,9 +61,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var responseTSonTheAir = await dio.get(tSurlOTA);
         var responsePopularTv = await dio.get(tSurlPopular);
         var responseTopRatedTv = await dio.get(tSurlTopRated);
+        //genres
+        var responseGenres = await dio.get(genreUrl);
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
+          Map<String,dynamic> genreMap = {};
+          List genre = responseGenres.data['genres'];
+          genreMap = {
+            for(var g in genre) g['id'] : g['name']
+          };
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
           final List<OnTheAirModel> finaldataOTA =  dataOTA.map((e) => OnTheAirModel.fromJson(e),).toList();
@@ -123,7 +133,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
           List<UpcomingModel> finaldataUpcoming =
               dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
-          finaldataUpcoming[0].genreId;
+
+           
           emit(StateLoaded(
               trending: moviesTrending,
               movieTopRated: moviesTopRated,

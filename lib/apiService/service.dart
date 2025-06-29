@@ -34,6 +34,11 @@ late Map<String, dynamic> genreMap;
 //  print('data final : $dataFinal');
 List<GenreFromApi> finaldata = dataFinal.map((x) => GenreFromApi.fromJson(x)).toList();
 
+  List<int> parseGenre = finaldata
+  .map((movie) => movie.genreIds)
+  .expand((x)=> x).cast<int>().toList();
+
+
   String names(List<dynamic>genreList){
     return genreList.map((e) {
       print('e di dalam $e');
@@ -41,6 +46,7 @@ List<GenreFromApi> finaldata = dataFinal.map((x) => GenreFromApi.fromJson(x)).to
     },).toString();
   }
   return names(
+    parseGenre
     );
 }
 
