@@ -18,8 +18,8 @@ class TrendingThisWeekModel {
     return TrendingThisWeekModel(
         title: json['title'],
         relaseDate: json['release_date'],
-      posterPath: json['poster_path'].toString(),
-      backdropPath: json['backdrop_path'],
+        posterPath: json['poster_path'].toString(),
+        backdropPath: json['backdrop_path'],
         overview: json['overview'],
         voteAvg: json['vote_average'].toString());
   }
@@ -39,18 +39,18 @@ class NowPlayingModel {
       required this.voteAvg,
       required this.relaseDate,
       required this.title});
-      factory NowPlayingModel.fromjson(Map<String, dynamic> json){
-        return NowPlayingModel(
-          genreId: json['genre_ids'].toString(),
-         overview: json['overview'],
-          posterPath: json['poster_path'],
-           voteAvg: json['vote_average'].toString(),
-            relaseDate: json['release_date'].toString(),
-             title: json['title']); 
-      }
+  factory NowPlayingModel.fromjson(Map<String, dynamic> json) {
+    return NowPlayingModel(
+        genreId: json['genre_ids'].toString(),
+        overview: json['overview'],
+        posterPath: json['poster_path'],
+        voteAvg: json['vote_average'].toString(),
+        relaseDate: json['release_date'].toString(),
+        title: json['title']);
+  }
 }
 
-class AiringTvShowsModel{
+class AiringTvShowsModel {
   String id;
   String title;
   String voteAvg;
@@ -58,21 +58,28 @@ class AiringTvShowsModel{
   String posterPath;
   String overview;
   String genreId;
-  AiringTvShowsModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  AiringTvShowsModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory AiringTvShowsModel.fromJson(Map<String, dynamic> json){
+  factory AiringTvShowsModel.fromJson(Map<String, dynamic> json) {
     return AiringTvShowsModel(
-    id: json['id'].toString(),
-     title: json['name'],
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['name'],
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
-class AllMovTv{
+
+class AllMovTv {
   String id;
   String title;
   String voteAvg;
@@ -80,21 +87,28 @@ class AllMovTv{
   String posterPath;
   String overview;
   String genreId;
-  AllMovTv({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  AllMovTv(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory AllMovTv.fromJson(Map<String, dynamic> json){
+  factory AllMovTv.fromJson(Map<String, dynamic> json) {
     return AllMovTv(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
-class InTheatersModel{
+
+class InTheatersModel {
   String id;
   String title;
   String voteAvg;
@@ -102,21 +116,28 @@ class InTheatersModel{
   String posterPath;
   String overview;
   String genreId;
-  InTheatersModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  InTheatersModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory InTheatersModel.fromJson(Map<String, dynamic> json){
+  factory InTheatersModel.fromJson(Map<String, dynamic> json) {
     return InTheatersModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
-class StreamingModel{
+
+class StreamingModel {
   String id;
   String title;
   String voteAvg;
@@ -124,21 +145,28 @@ class StreamingModel{
   String posterPath;
   String overview;
   String genreId;
-  StreamingModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  StreamingModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory StreamingModel.fromJson(Map<String, dynamic> json){
+  factory StreamingModel.fromJson(Map<String, dynamic> json) {
     return StreamingModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
-class UpcomingModel{
+
+class UpcomingModel {
   String id;
   String title;
   String voteAvg;
@@ -146,23 +174,28 @@ class UpcomingModel{
   String posterPath;
   String overview;
   String genreId;
-  UpcomingModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  UpcomingModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory UpcomingModel.fromJson(Map<String, dynamic> json){
+  factory UpcomingModel.fromJson(Map<String, dynamic> json) {
     return UpcomingModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
 
-
-class OnTheAirModel{
+class OnTheAirModel {
   String id;
   String title;
   String voteAvg;
@@ -170,22 +203,28 @@ class OnTheAirModel{
   String posterPath;
   String overview;
   String genreId;
-  OnTheAirModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  OnTheAirModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory OnTheAirModel.fromJson(Map<String, dynamic> json){
+  factory OnTheAirModel.fromJson(Map<String, dynamic> json) {
     return OnTheAirModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
 
-class TrendingTvModel{
+class TrendingTvModel {
   String id;
   String title;
   String voteAvg;
@@ -193,22 +232,28 @@ class TrendingTvModel{
   String posterPath;
   String overview;
   String genreId;
- TrendingTvModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  TrendingTvModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory TrendingTvModel.fromJson(Map<String, dynamic> json){
+  factory TrendingTvModel.fromJson(Map<String, dynamic> json) {
     return TrendingTvModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
 
-class PopularTVModel{
+class PopularTVModel {
   String id;
   String title;
   String voteAvg;
@@ -216,23 +261,28 @@ class PopularTVModel{
   String posterPath;
   String overview;
   String genreId;
- PopularTVModel({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  PopularTVModel(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory PopularTVModel.fromJson(Map<String, dynamic> json){
+  factory PopularTVModel.fromJson(Map<String, dynamic> json) {
     return PopularTVModel(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
 
-
-class TopRatedTV{
+class TopRatedTV {
   String id;
   String title;
   String voteAvg;
@@ -240,40 +290,57 @@ class TopRatedTV{
   String posterPath;
   String overview;
   String genreId;
- TopRatedTV({required this.id, required this.title, required this.voteAvg,
-  required this.backdropPath, required this.posterPath, required this.overview, required  this.genreId});
+  TopRatedTV(
+      {required this.id,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.genreId});
 
-  factory TopRatedTV.fromJson(Map<String, dynamic> json){
+  factory TopRatedTV.fromJson(Map<String, dynamic> json) {
     return TopRatedTV(
-    id: json['id'].toString(),
-     title: json['title']?? json['name']?? 'no title',
-      voteAvg:json['vote_average'].toString(),
-       backdropPath: json['backdrop_path'],
+        id: json['id'].toString(),
+        title: json['title'] ?? json['name'] ?? 'no title',
+        voteAvg: json['vote_average'].toString(),
+        backdropPath: json['backdrop_path'],
         posterPath: json['poster_path'],
-         overview: json['overview'],
-          genreId: json['genre_ids'].toString());
+        overview: json['overview'],
+        genreId: json['genre_ids'].toString());
   }
 }
 
-class GenreFromApi{
+class ConvertedModels {
   String id;
-  List<int> genreIds;
+  List<String> genreIds;
   String title;
-  GenreFromApi({required this.id, required this.genreIds, required this.title});
-  factory GenreFromApi.fromJson(Map<String, dynamic> json ){
-    return GenreFromApi(id: json['id'].toString(),
-     genreIds: List<int>.from(json['genre_ids'] ?? []) ,
-     title: json['original_name']?? 'kosong title');
-  }
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  ConvertedModels({
+    required this.id,
+    required this.genreIds,
+    required this.title,
+    required this.voteAvg,
+    required this.backdropPath,
+    required this.posterPath,
+    required this.overview,
+  });
 }
-class Genres{
+
+class Genres {
   String id;
   String name;
-  Genres({required this.id, required this.name,});
-  factory Genres.fromJson(Map<String, dynamic> json ){
+  Genres({
+    required this.id,
+    required this.name,
+  });
+  factory Genres.fromJson(Map<String, dynamic> json) {
     return Genres(
-    id: json['id'].toString(),
-    name: json['name'],
+      id: json['id'].toString(),
+      name: json['name'],
     );
-   }
+  }
 }
