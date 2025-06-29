@@ -52,20 +52,27 @@ void fetchDataGenres()async{
     };
  var responsemov = await dio.get(movieUrl);
  List<dynamic> dataFinal = responsemov.data['results'];
-//  print(dataFinal.length);
-  var listtest = dataFinal[1]['genre_ids'];
-print(listtest);
-//  print('genremap : ${genreMaps.containsKey('genre_ids')}');
+//  print('data final : $dataFinal');
+List<GenreFromApi> finaldata = dataFinal.map((x) => GenreFromApi.fromJson(x)).toList();
+//  print('data final : ${finaldata[1].genreIds}');
+List<dynamic> test = finaldata[1].genreIds.replaceFirst('[', '').replaceAll(']', '').split(' ');
+List<dynamic> loopingGenres = [
+for(var i = 0 ; i < finaldata.length ; i++){
+ finaldata[i].genreIds.replaceFirst('[', '').replaceAll(']', '')
+}
+]; 
 
+  // var listtest = dataFinal[1]['genre_ids'];
+// print(listtest);
+//  print('genremap : ${genreMaps.containsKey('genre_ids')}');
   String names(List<dynamic>genreList){
     return genreList.map((e) {
       print('e di dalam $e');
-      print('e di genre maps ${genreMaps[e]}');
       return genreMaps[e.toString()]?? 'Unknown';
     },).join(', ');
   }
   return names(
-    mov['genre_ids']
+    test
     );
 }
 
