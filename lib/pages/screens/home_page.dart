@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/tvshow_widgets_section.dart';
@@ -37,8 +38,8 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             if (state is StateError) {
               return Center(
-                child: Text('Something went wrong ${state.e}'),
-              );
+                child: MyText(text: 'Something Went Wrong\n ${state.e}')
+              ); 
             }
             if (state is StateLoaded) {
               return NestedScrollView(

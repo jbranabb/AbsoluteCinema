@@ -173,7 +173,7 @@ class UpcomingModel {
   String backdropPath;
   String posterPath;
   String overview;
-  String genreId;
+  List<int> genreIds;
   UpcomingModel(
       {required this.id,
       required this.title,
@@ -181,17 +181,17 @@ class UpcomingModel {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
-      required this.genreId});
+      required this.genreIds});
 
   factory UpcomingModel.fromJson(Map<String, dynamic> json) {
     return UpcomingModel(
         id: json['id'].toString(),
         title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average'].toString(),
-        backdropPath: json['backdrop_path'],
-        posterPath: json['poster_path'],
-        overview: json['overview'],
-        genreId: json['genre_ids'].toString());
+        voteAvg: json['vote_average']?.toString() ?? 'bla',
+        posterPath: json['poster_path']?.toString()?? '',
+        backdropPath: json['backdrop_path']?? 'nobackdrop',
+        overview: json['overview']?? 'noowvwes',
+        genreIds: List<int>.from(json['genre_ids'] ?? []));
   }
 }
 

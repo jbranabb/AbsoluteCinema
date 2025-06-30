@@ -69,7 +69,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           Map<String,dynamic> genreMap = {};
           List genre = responseGenres.data['genres'];
           genreMap = {
-            for(var g in genre) g['id'] : g['name']
+            for(var g in genre) g['id'].toString() : g['name']
           };
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
@@ -133,7 +133,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
           List<UpcomingModel> finaldataUpcoming =
               dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
-
+            List<ConvertedModels> convertedUpcomingMovie = finaldataUpcoming.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
            
           emit(StateLoaded(
               trending: moviesTrending,
@@ -146,7 +156,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               popularTv: finalddatPopularTv,
               topRated: finaldataTopRated,
               airingToday: finalDataAiringToday,
-              trendingTv: finaldataTv
+              trendingTv: finaldataTv,
+              convertedUpComingMovie: convertedUpcomingMovie
               ));
         } else {
           emit(StateError('Something Went Wrong'));

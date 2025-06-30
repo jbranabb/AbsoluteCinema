@@ -2,7 +2,7 @@
 
 // import 'package:absolutecinema/apiService/model.dart';
 // import 'package:dio/dio.dart';
-// String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
+String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
 // String genreUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
 // String movieUrl = 'https://api.themoviedb.org/3/movie/popular?api_key=$imdbKey';
 // Dio dio = Dio();
