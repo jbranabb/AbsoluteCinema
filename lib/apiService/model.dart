@@ -19,11 +19,13 @@ class MoviesModels {
     return MoviesModels(
         id: json['id'].toString(),
         title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average']?.toString() ?? 'bla',
-        posterPath: json['poster_path']?.toString()?? '',
-        backdropPath: json['backdrop_path']?? 'nobackdrop',
-        overview: json['overview']?? 'noowvwes',
-        genreIds: List<int>.from(json['genre_ids'] ?? []));
+        voteAvg: json['vote_average']?.toString() ?? '0.0',
+        posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
+        backdropPath: json['backdrop_path']?? 'noBackdropPath',
+        overview: json['overview']?? 'noReview',
+        genreIds: List<int>.from(json['genre_ids'] ?? [])
+        
+        );
   }
 }
 class TvShowsModels {
@@ -33,7 +35,7 @@ class TvShowsModels {
   String backdropPath;
   String posterPath;
   String overview;
-  String genreId;
+  List<int> genreIds;
   TvShowsModels(
       {required this.id,
       required this.title,
@@ -41,28 +43,30 @@ class TvShowsModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
-      required this.genreId});
+      required this.genreIds});
 
   factory TvShowsModels.fromJson(Map<String, dynamic> json) {
     return TvShowsModels(
         id: json['id'].toString(),
         title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average'].toString(),
-        backdropPath: json['backdrop_path'],
-        posterPath: json['poster_path'],
-        overview: json['overview'],
-        genreId: json['genre_ids'].toString());
+        voteAvg: json['vote_average']?.toString() ?? '0.0',
+        posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
+        backdropPath: json['backdrop_path']?? 'noBackdropPath',
+        overview: json['overview']?? 'noReview',
+        genreIds: List<int>.from(json['genre_ids'] ?? [])
+        
+        );
   }
 }
 
 class ConvertedModels {
   String id;
-  List<String> genreIds;
   String title;
   String voteAvg;
   String backdropPath;
   String posterPath;
   String overview;
+  List<String> genreIds;
   ConvertedModels({
     required this.id,
     required this.genreIds,
