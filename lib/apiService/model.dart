@@ -165,8 +165,8 @@ class StreamingModel {
         genreId: json['genre_ids'].toString());
   }
 }
-
-class UpcomingModel {
+// batas //////////
+class MoviesModels {
   String id;
   String title;
   String voteAvg;
@@ -174,7 +174,7 @@ class UpcomingModel {
   String posterPath;
   String overview;
   List<int> genreIds;
-  UpcomingModel(
+  MoviesModels(
       {required this.id,
       required this.title,
       required this.voteAvg,
@@ -183,8 +183,8 @@ class UpcomingModel {
       required this.overview,
       required this.genreIds});
 
-  factory UpcomingModel.fromJson(Map<String, dynamic> json) {
-    return UpcomingModel(
+  factory MoviesModels.fromJson(Map<String, dynamic> json) {
+    return MoviesModels(
         id: json['id'].toString(),
         title: json['title'] ?? json['name'] ?? 'no title',
         voteAvg: json['vote_average']?.toString() ?? 'bla',
@@ -194,8 +194,8 @@ class UpcomingModel {
         genreIds: List<int>.from(json['genre_ids'] ?? []));
   }
 }
-
-class OnTheAirModel {
+ //////////// batas /////////// 
+class TvShowsModels {
   String id;
   String title;
   String voteAvg;
@@ -203,7 +203,7 @@ class OnTheAirModel {
   String posterPath;
   String overview;
   String genreId;
-  OnTheAirModel(
+  TvShowsModels(
       {required this.id,
       required this.title,
       required this.voteAvg,
@@ -212,95 +212,8 @@ class OnTheAirModel {
       required this.overview,
       required this.genreId});
 
-  factory OnTheAirModel.fromJson(Map<String, dynamic> json) {
-    return OnTheAirModel(
-        id: json['id'].toString(),
-        title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average'].toString(),
-        backdropPath: json['backdrop_path'],
-        posterPath: json['poster_path'],
-        overview: json['overview'],
-        genreId: json['genre_ids'].toString());
-  }
-}
-
-class TrendingTvModel {
-  String id;
-  String title;
-  String voteAvg;
-  String backdropPath;
-  String posterPath;
-  String overview;
-  String genreId;
-  TrendingTvModel(
-      {required this.id,
-      required this.title,
-      required this.voteAvg,
-      required this.backdropPath,
-      required this.posterPath,
-      required this.overview,
-      required this.genreId});
-
-  factory TrendingTvModel.fromJson(Map<String, dynamic> json) {
-    return TrendingTvModel(
-        id: json['id'].toString(),
-        title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average'].toString(),
-        backdropPath: json['backdrop_path'],
-        posterPath: json['poster_path'],
-        overview: json['overview'],
-        genreId: json['genre_ids'].toString());
-  }
-}
-
-class PopularTVModel {
-  String id;
-  String title;
-  String voteAvg;
-  String backdropPath;
-  String posterPath;
-  String overview;
-  String genreId;
-  PopularTVModel(
-      {required this.id,
-      required this.title,
-      required this.voteAvg,
-      required this.backdropPath,
-      required this.posterPath,
-      required this.overview,
-      required this.genreId});
-
-  factory PopularTVModel.fromJson(Map<String, dynamic> json) {
-    return PopularTVModel(
-        id: json['id'].toString(),
-        title: json['title'] ?? json['name'] ?? 'no title',
-        voteAvg: json['vote_average'].toString(),
-        backdropPath: json['backdrop_path'],
-        posterPath: json['poster_path'],
-        overview: json['overview'],
-        genreId: json['genre_ids'].toString());
-  }
-}
-
-class TopRatedTV {
-  String id;
-  String title;
-  String voteAvg;
-  String backdropPath;
-  String posterPath;
-  String overview;
-  String genreId;
-  TopRatedTV(
-      {required this.id,
-      required this.title,
-      required this.voteAvg,
-      required this.backdropPath,
-      required this.posterPath,
-      required this.overview,
-      required this.genreId});
-
-  factory TopRatedTV.fromJson(Map<String, dynamic> json) {
-    return TopRatedTV(
+  factory TvShowsModels.fromJson(Map<String, dynamic> json) {
+    return TvShowsModels(
         id: json['id'].toString(),
         title: json['title'] ?? json['name'] ?? 'no title',
         voteAvg: json['vote_average'].toString(),
