@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class DetailPage extends StatelessWidget {
 
  
- DetailPage({super.key,required this.oveview, required this.titile, required this.backdropImage, required this.posterImage}); 
+ DetailPage({super.key,required this.oveview, required this.titile, required this.backdropImage, required this.posterImage, required this.genreNames}); 
 String titile;
 String oveview;
  String backdropImage;
  String posterImage;
-
+String genreNames;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +58,8 @@ String oveview;
                   left: 10,
                   child: Column(
                     children: [
-                      MyText(text: titile),
-                      MyText(text: oveview),
+                      MyText(text: genreNames),
+                      // MyText(text: oveview),
                     ],
                   )),
                   ],

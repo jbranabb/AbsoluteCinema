@@ -48,14 +48,14 @@ class AllWidgetSection extends StatelessWidget {
                     itemBuilder: (context, index, realIndex){
                       var movies = state.allShows[index];
                       return GestureDetector(
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => DetailPage(
-                                      titile: movies.title,
-                                      oveview: movies.overview,
-                                      backdropImage: movies.backdropPath,
-                                      posterImage: movies.posterPath,
-                                    ))),
+                        // onTap: () =>
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => DetailPage(
+                            //           titile: movies.title,
+                            //           oveview: movies.overview,
+                            //           backdropImage: movies.backdropPath,
+                            //           posterImage: movies.posterPath,
+                            //         ))),
                         child: Card(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
@@ -240,20 +240,29 @@ class AllWidgetSection extends StatelessWidget {
                 height: 170,
                 width: double.infinity,
                 child: CarouselSlider.builder(
-                    itemCount: state.upcoming.length,
+                    itemCount: state.convertedUpComingMovie.length,
                     itemBuilder: (context, index, realIndex) {
-                      var movies = state.upcoming[index];
+                      var movies = state.convertedUpComingMovie[index];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadiusGeometry.circular(8),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
-                              placeholder: (context, url) =>
-                                  Center(child: Text(movies.title)),
-                              fit: BoxFit.cover,
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: 
+                              (context) => DetailPage(oveview: movies.overview, titile: movies.title,
+                               backdropImage: movies.backdropPath, posterImage: movies.posterPath,
+                               genreNames: movies.genreIds.join(', '),
+                               ),));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                                placeholder: (context, url) =>
+                                    Center(child: Text(movies.title)),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Padding(
