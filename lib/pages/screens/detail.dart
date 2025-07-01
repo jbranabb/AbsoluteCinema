@@ -51,9 +51,10 @@ String genreNames;
                 Positioned(
                   top: 170,
                   right: 30,
-                  child: Container(height: 130, width: 90, child:
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+                  child: SizedBox(
+                    height: 130, width: 90,
+                     child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
                     child: CachedNetworkImage(imageUrl: 
                   'https://image.tmdb.org/t/p/w300$posterImage', fit: BoxFit.cover,),) ,))    
                 ,
@@ -64,10 +65,16 @@ String genreNames;
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyText(text: titile, fnweight: FontWeight.w800,),
-                      MyText(text: genreNames, fnweight: FontWeight.bold,
-                       clors: Colors.grey.shade400,
-                       fnSize: genreNames.length > 25 ? 12 : 14,
-                       ),
+                      Container(
+                        height: 20,
+                        width: 180,
+                        alignment: Alignment.centerLeft,
+                        child: MyText(text: genreNames, fnweight: FontWeight.bold,
+                         clors: Colors.grey.shade400,
+                         fnSize: genreNames.length > 25 ? 12 : 14,
+                         
+                         ),
+                      ),
                     ],
                   )),
                   ],

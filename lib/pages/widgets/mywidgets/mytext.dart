@@ -18,9 +18,8 @@ class MyText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text,
-    textAlign: TextAlign.center,
+    textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,
      style: GoogleFonts.openSans(
-      
       color: clors ==  null ? Colors.white : clors, 
       fontSize: fnSize != null ? fnSize : 14 ,
       fontWeight: fnweight !=null ? fnweight : FontWeight.normal 
