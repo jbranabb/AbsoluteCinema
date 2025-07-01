@@ -72,6 +72,7 @@ class ConvertedModels {
   String backdropPath;
   String posterPath;
   String overview;
+  String relaseDate;
   List<String> genreIds;
   ConvertedModels({
     required this.id,
@@ -81,6 +82,7 @@ class ConvertedModels {
     required this.backdropPath,
     required this.posterPath,
     required this.overview,
+    required this.relaseDate
   });
 }
 
