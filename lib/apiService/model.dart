@@ -25,7 +25,7 @@ class MoviesModels {
         posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
         backdropPath: json['backdrop_path']?? 'noBackdropPath',
         overview: json['overview']?? 'noReview',
-        relaseDate: json['release_date'] ??  'no date',
+        relaseDate: json['release_date']?.toString() ?? 'no date',
         genreIds: List<int>.from(json['genre_ids'] ?? [])
         
         );
@@ -58,7 +58,7 @@ class TvShowsModels {
         posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
         backdropPath: json['backdrop_path']?? 'noBackdropPath',
         overview: json['overview']?? 'noReview',
-        fristAirDate: json['first_air_date']?? 'no date',
+        fristAirDate: json['first_air_date']?.toString() ?? 'no date',
         genreIds: List<int>.from(json['genre_ids'] ?? [])
         
         );

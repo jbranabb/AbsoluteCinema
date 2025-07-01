@@ -83,7 +83,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
-                    overview: movie.overview);
+                    overview: movie.overview,
+                    relaseDate: movie.fristAirDate
+                    );
             }).toList();
 
           //Trending Tv
@@ -98,6 +100,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.fristAirDate,
                     overview: movie.overview);
             }).toList();
             
@@ -112,6 +115,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.fristAirDate,
                     overview: movie.overview);
             }).toList();
             
@@ -127,6 +131,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.fristAirDate,
                     overview: movie.overview);
             }).toList();
           //Trending this week
@@ -145,6 +150,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.relaseDate,
                     overview: movie.overview);
             }).toList();
 
@@ -165,6 +171,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate:movie.relaseDate,
                     overview: movie.overview);
             }).toList();
 
@@ -184,6 +191,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.fristAirDate,
                     overview: movie.overview);
             }).toList();
 
@@ -203,6 +211,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.relaseDate,
                     overview: movie.overview);
             }).toList();
           // intheaters
@@ -221,6 +230,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                   relaseDate: movie.relaseDate,
                     overview: movie.overview);
             }).toList();
               
@@ -241,6 +251,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
+                    relaseDate: movie.relaseDate,
                     overview: movie.overview);
             }).toList();
               
@@ -258,6 +269,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                genreIds: genreNames,
                 title: movie.title,
                  voteAvg: movie.voteAvg,
+                 relaseDate: movie.relaseDate,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                     overview: movie.overview);

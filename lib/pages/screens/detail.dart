@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 class DetailPage extends StatelessWidget {
 
  
- DetailPage({super.key,required this.oveview, required this.titile, required this.backdropImage, required this.posterImage, required this.genreNames}); 
+ DetailPage({super.key, 
+ required this.voteAvg,
+ required this.date,required this.oveview, required this.titile, required this.backdropImage, required this.posterImage, required this.genreNames}); 
 String titile;
 String oveview;
- String backdropImage;
- String posterImage;
+String backdropImage;
+String posterImage;
 String genreNames;
+String date;
+String voteAvg;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,9 +76,21 @@ String genreNames;
                         child: MyText(text: genreNames, fnweight: FontWeight.bold,
                          clors: Colors.grey.shade400,
                          fnSize: genreNames.length > 25 ? 12 : 14,
-                         
                          ),
                       ),
+                      Row(
+                        children: [
+                          MyText(text: date.substring(0, 4), clors: Colors.grey.shade500,fnSize: 14,fnweight: FontWeight.bold, ),
+                          MyText(text: ' | '),
+                          MyText(text:voteAvg.substring(0,3) != '0.0' ?  voteAvg.substring(0, 3) : 'No Ratings', clors: Colors.grey.shade500,fnSize: 14,fnweight: FontWeight.bold, ),
+                          Icon(Icons.star_rounded, color:
+                            Colors.grey.shade400 , size: voteAvg.substring(0,3) != '0.0' ? 12 : 0,),
+                        ],
+                      ),
+                      Container( 
+
+
+                      )
                     ],
                   )),
                   ],

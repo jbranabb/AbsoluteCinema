@@ -252,6 +252,8 @@ class AllWidgetSection extends StatelessWidget {
                               (context) => DetailPage(oveview: movies.overview, titile: movies.title,
                                backdropImage: movies.backdropPath, posterImage: movies.posterPath,
                                genreNames: movies.genreIds.join(', '),
+                               date: movies.relaseDate,
+                               voteAvg: movies.voteAvg,
                                ),));
                             },
                             child: ClipRRect(
