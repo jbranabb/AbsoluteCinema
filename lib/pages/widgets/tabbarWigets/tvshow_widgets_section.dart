@@ -284,9 +284,9 @@ class TvshowWidgetsSection extends StatelessWidget {
                 width: double.infinity,
                 height: height * 0.21,
                 child: CarouselSlider.builder(
-                    itemCount: state.topRated.length,
+                    itemCount: state.topRatedTv.length,
                     itemBuilder: (context, index, realIndex) {
-                      var tvshows = state.topRated[index];
+                      var tvshows = state.topRatedTv[index];
                       return Card(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(15),

@@ -10,18 +10,18 @@ class StateError extends HomeState {
   StateError(this.e);
 }
 class StateLoaded extends HomeState {
-  List<TrendingThisWeekModel> trending;
-  List<NowPlayingModel> movieTopRated;
-  List<AllMovTv> allShows;
-  List<InTheatersModel> inTheaters;
-  List<StreamingModel> streaming;
-  List<UpcomingModel> upcoming;
+  List<ConvertedModels> trending;
+  List<ConvertedModels> movieTopRated;
+  List<ConvertedModels> allShows;
+  List<ConvertedModels> inTheaters;
+  List<ConvertedModels> streaming;
+  List<ConvertedModels> upcoming;
   //tv
-  List<AiringTvShowsModel> airingToday;
-  List<TrendingTvModel> trendingTv;
-  List<OnTheAirModel> onTheAir;
-  List<PopularTVModel> popularTv;
-  List<TopRatedTV>  topRated;
+  List<ConvertedModels> airingToday;
+  List<ConvertedModels> trendingTv;
+  List<ConvertedModels> onTheAir;
+  List<ConvertedModels> popularTv;
+  List<ConvertedModels>  topRatedTv;
   //Converted
   List<ConvertedModels> convertedUpComingMovie;
   StateLoaded({required this.trending,
@@ -32,13 +32,9 @@ class StateLoaded extends HomeState {
    required this.streaming,
    required this.upcoming,
    required this.onTheAir,
-   required this.topRated,
+   required this.topRatedTv,
    required this.popularTv,
    required this.trendingTv,
    required this.convertedUpComingMovie
    });
-}
-class NowPlayingState extends HomeState{
-List<NowPlayingModel> listnp;
-  NowPlayingState({required this.listnp});
 }

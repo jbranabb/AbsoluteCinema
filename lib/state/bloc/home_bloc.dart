@@ -73,66 +73,184 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           };
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
-          final List<OnTheAirModel> finaldataOTA =  dataOTA.map((e) => OnTheAirModel.fromJson(e),).toList();
+          final List<TvShowsModels> finaldataOTA =  dataOTA.map((e) => TvShowsModels.fromJson(e),).toList();
+          List<ConvertedModels> convertedOntaTV = finaldataOTA.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+
           //Trending Tv
           List<dynamic> dataTrendingTv =  responseTrendingTv.data['results'];
-          final List<TrendingTvModel> finaldataTv = dataTrendingTv.map((e) => TrendingTvModel.fromJson(e),).toList();
+          final List<MoviesModels> finaldataTv = dataTrendingTv.map((e) => MoviesModels.fromJson(e),).toList();
+            List<ConvertedModels> convertedTrendingTv = finaldataOTA.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+            
           List<dynamic> dataPopularTV = responsePopularTv.data['results'];
-          List<PopularTVModel> finalddatPopularTv = dataPopularTV.map((e)=> PopularTVModel.fromJson(e)).toList();
+          List<TvShowsModels> finalddatPopularTv = dataPopularTV.map((e)=> TvShowsModels.fromJson(e)).toList();
+            List<ConvertedModels> convertedPopularTv = finalddatPopularTv.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+            
           //Top Rated Tv
           List<dynamic> dataTopRated = responseTopRatedTv.data['results'];
-          List<TopRatedTV> finaldataTopRated = dataTopRated.map((e)=> TopRatedTV.fromJson(e)).toList();
+          List<TvShowsModels> finaldataTopRated = dataTopRated.map((e)=> TvShowsModels.fromJson(e)).toList();
+           List<ConvertedModels> convertedTopRatedTv = finaldataTopRated.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
           //Trending this week
           List<dynamic> datatrening = responsetrending.data['results'];
-          final List<TrendingThisWeekModel> moviesTrending = datatrening
+          final List<MoviesModels> moviesTrending = datatrening
               .map(
-                (e) => TrendingThisWeekModel.fromJson(e),
+                (e) => MoviesModels.fromJson(e),
               )
               .toList();
+                       List<ConvertedModels> convertedTrendingMovies = moviesTrending.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
 
           // now playing
           List<dynamic> dataMovieTopRated =
               responseMovieTopRated.data['results'];
-          final List<NowPlayingModel> moviesTopRated = dataMovieTopRated
+          final List<MoviesModels> moviesTopRated = dataMovieTopRated
               .map(
-                (e) => NowPlayingModel.fromjson(e),
+                (e) => MoviesModels.fromJson(e),
               )
               .toList();
+                           List<ConvertedModels> convertedTopRatedMovies = moviesTopRated.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
 
           //tvShow
           List<dynamic> dataAiringToday = responseTvAiringToday.data['results'];
-          final List<AiringTvShowsModel> finalDataAiringToday = dataAiringToday
+          final List<TvShowsModels> finalDataAiringToday = dataAiringToday
               .map(
-                (e) => AiringTvShowsModel.fromJson(e),
+                (e) => TvShowsModels.fromJson(e),
               )
               .toList();
+                           List<ConvertedModels> convertedAiringTodayTV = finalDataAiringToday.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+
 
 
           // all
           List<dynamic> dataAll = responseAll.data['results'];
-          final List<AllMovTv> all =
-              dataAll.map((e) => AllMovTv.fromJson(e)).toList();
+          final List<MoviesModels> all =
+              dataAll.map((e) => MoviesModels.fromJson(e)).toList();
 
+                 List<ConvertedModels> convertedTrendingAll = all.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
           // intheaters
           List<dynamic> dataTheaters = responseInTherater.data['results'];
-          List<InTheatersModel> finalDataTheaters = dataTheaters
+          List<MoviesModels> finalDataTheaters = dataTheaters
               .map(
-                (e) => InTheatersModel.fromJson(e),
+                (e) => MoviesModels.fromJson(e),
               )
               .toList();
+                              List<ConvertedModels> convertedTheatersMovie = finalDataTheaters.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+              
 
           //streaming
           List<dynamic> dataStreaming = responStreamingUrl.data['results'];
-          List<StreamingModel> finalDataStreaming = dataStreaming
+          List<MoviesModels> finalDataStreaming = dataStreaming
               .map(
-                (e) => StreamingModel.fromJson(e),
+                (e) => MoviesModels.fromJson(e),
               )
               .toList();
+                                          List<ConvertedModels> convertedStreamingMovie = finalDataStreaming.map((movie){
+              List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
+              ?? 'unkwn').toList().cast<String>();
+              return ConvertedModels(id: movie.id,
+               genreIds: genreNames,
+                title: movie.title,
+                 voteAvg: movie.voteAvg,
+                  backdropPath: movie.backdropPath,
+                   posterPath: movie.posterPath,
+                    overview: movie.overview);
+            }).toList();
+              
 
           //upcoming
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
-          List<UpcomingModel> finaldataUpcoming =
-              dataUpcoming.map((e) => UpcomingModel.fromJson(e)).toList();
+          List<MoviesModels> finaldataUpcoming =
+              dataUpcoming.map((e) => MoviesModels.fromJson(e)).toList();
+            
+            
             List<ConvertedModels> convertedUpcomingMovie = finaldataUpcoming.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
@@ -146,17 +264,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             }).toList();
            
           emit(StateLoaded(
-              trending: moviesTrending,
-              movieTopRated: moviesTopRated,
-              allShows: all,
-              inTheaters: finalDataTheaters,
-              streaming: finalDataStreaming,
-              upcoming: finaldataUpcoming,
-              onTheAir: finaldataOTA,
-              popularTv: finalddatPopularTv,
-              topRated: finaldataTopRated,
-              airingToday: finalDataAiringToday,
-              trendingTv: finaldataTv,
+              trending: convertedTrendingMovies,
+              movieTopRated: convertedTopRatedMovies,
+              allShows: convertedTrendingAll ,
+              inTheaters: convertedTheatersMovie,
+              streaming: convertedStreamingMovie,
+              upcoming: convertedUpcomingMovie,
+              onTheAir: convertedOntaTV,
+              popularTv: convertedPopularTv,
+              topRatedTv: convertedTopRatedTv,
+              airingToday: convertedAiringTodayTV,
+              trendingTv: convertedTrendingTv,
               convertedUpComingMovie: convertedUpcomingMovie
               ));
         } else {
