@@ -5,6 +5,7 @@ class MoviesModels {
   String backdropPath;
   String posterPath;
   String overview;
+  String relaseDate;
   List<int> genreIds;
   MoviesModels(
       {required this.id,
@@ -13,6 +14,7 @@ class MoviesModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
+      required this.relaseDate,
       required this.genreIds});
 
   factory MoviesModels.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class MoviesModels {
         posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
         backdropPath: json['backdrop_path']?? 'noBackdropPath',
         overview: json['overview']?? 'noReview',
+        relaseDate: json['release_date'] ??  'no date',
         genreIds: List<int>.from(json['genre_ids'] ?? [])
         
         );
@@ -35,6 +38,7 @@ class TvShowsModels {
   String backdropPath;
   String posterPath;
   String overview;
+  String fristAirDate;
   List<int> genreIds;
   TvShowsModels(
       {required this.id,
@@ -43,6 +47,7 @@ class TvShowsModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
+      required this.fristAirDate,
       required this.genreIds});
 
   factory TvShowsModels.fromJson(Map<String, dynamic> json) {
@@ -53,6 +58,7 @@ class TvShowsModels {
         posterPath: json['poster_path']?.toString()?? 'noPosterpPath',
         backdropPath: json['backdrop_path']?? 'noBackdropPath',
         overview: json['overview']?? 'noReview',
+        fristAirDate: json['first_air_date']?? 'no date',
         genreIds: List<int>.from(json['genre_ids'] ?? [])
         
         );
