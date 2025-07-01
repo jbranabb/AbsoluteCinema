@@ -51,15 +51,23 @@ String genreNames;
                 Positioned(
                   top: 170,
                   right: 30,
-                  child: Container(height: 130, width: 90, color: Colors.amber,))    
+                  child: Container(height: 130, width: 90, child:
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: CachedNetworkImage(imageUrl: 
+                  'https://image.tmdb.org/t/p/w300$posterImage', fit: BoxFit.cover,),) ,))    
                 ,
                 Positioned(
                   top: 170,
                   left: 10,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MyText(text: genreNames),
-                      // MyText(text: oveview),
+                      MyText(text: titile, fnweight: FontWeight.w800,),
+                      MyText(text: genreNames, fnweight: FontWeight.bold,
+                       clors: Colors.grey.shade400,
+                       fnSize: genreNames.length > 25 ? 12 : 14,
+                       ),
                     ],
                   )),
                   ],

@@ -19,7 +19,7 @@ class MyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
     textAlign: TextAlign.center,
-     style: GoogleFonts.inter(
+     style: GoogleFonts.openSans(
       
       color: clors ==  null ? Colors.white : clors, 
       fontSize: fnSize != null ? fnSize : 14 ,
