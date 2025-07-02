@@ -84,7 +84,7 @@ class DetailPage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  height: 20,
+                  height: 25,
                   width: 200,
                   child: MyText(
                     text: titile,
@@ -118,11 +118,73 @@ class DetailPage extends StatelessWidget {
                       MyText(text: runtime, clors:Colors.grey.shade500 ,fnweight: FontWeight.bold,)
                     ],
                   ),
+                  
                 ),
-                Container()
+                Row(
+                  children: [
+                    MyText(text: ' DIRECTED BY', clors: Colors.grey.shade600, fnSize: 13, fnweight: FontWeight.w600,),
+                    ],
+                ),
+                MyText(text: ' $director', clors: Colors.grey.shade400, fnSize: 15, fnweight: FontWeight.bold,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: (){}, 
+                      style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.only(left:2 ,right:10),
+                      minimumSize: Size(50, 30),
+                        backgroundColor: Colors.white
+                      ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.play_arrow_rounded, color: Colors.black,),
+                          MyText(text: 'Trailer', clors: Colors.black,fnweight: FontWeight.bold,),
+                        ],
+                        
+                      ),
+                      ),
+                      const SizedBox(width: 5),
+                      ElevatedButtonDetail(icon: Icons.bookmark,),
+                      ElevatedButtonDetail(icon: Icons.share,),
+                        
+                    ],
+                  ),
+                ),
+               
+                // Container(
+                //   height: 100,
+                //   width: 100,
+                //   color: Colors.red,
+                // ),
               ],
             )),
       ],
     ));
+  }
+}
+
+class ElevatedButtonDetail extends StatelessWidget {
+ ElevatedButtonDetail({
+    super.key,
+    required this.icon
+  });
+  IconData? icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(onPressed: (){},
+    style: ElevatedButton.styleFrom(
+      padding: EdgeInsets.only(left: 0),
+      minimumSize: Size(11, 30),
+      fixedSize: Size(45, 30),
+      backgroundColor: Colors.white
+    ),
+     child: Icon(icon,
+      color: Colors.black,),
+    );
   }
 }
