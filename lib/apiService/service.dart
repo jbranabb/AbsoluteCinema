@@ -20,26 +20,19 @@ Future<Map<String, dynamic>> extraData(int id) async {
   final jam = runtime ~/ 60;
   final menit = runtime % 60;
   var finalRuntime = '${jam}h ${menit}m';
+  List<dynamic> country = data['production_countries'];
+  var finalCountry = country.map((e) =>  e['name'],).take(1).join(', ');
+    
   return {
     'director': crew['name'],
     'runtime': finalRuntime,
-    'tagline': tagline
+    'tagline': tagline,
+    'country': finalCountry,
   };
-}
-
-void test() async {
-  final detail =
-      await dio.get('https://api.themoviedb.org/3/movie/238?api_key=$imdbKey');
-  var response = detail.data;
-  var runtime = response['runtime'];
-  final jam = runtime ~/ 60;
-  final menit = runtime % 60;
-  var finalRuntime = '$jam Jam , $menit Menit';
-  print(finalRuntime);
 }
 
 void main() async {
   var data = await extraData(123);
   print(data['runtime']);
-  print(data['tagline']);
+  print(data['country']);
 }
