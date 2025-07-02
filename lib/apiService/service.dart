@@ -19,7 +19,7 @@ Future<Map<String, dynamic>> extraData(int id) async {
   var tagline = data['tagline'];
   final jam = runtime ~/ 60;
   final menit = runtime % 60;
-  var finalRuntime = '$jam Jam , $menit Menit';
+  var finalRuntime = '${jam}h ${menit}m';
   return {
     'director': crew['name'],
     'runtime': finalRuntime,

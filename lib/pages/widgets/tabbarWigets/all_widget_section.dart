@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/home_bloc.dart';
@@ -247,13 +248,19 @@ class AllWidgetSection extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GestureDetector(
-                            onTap: (){
+                        onTap: ()async{
+                          var idata  = int.parse(movies.id);
+                          var extra = await extraData(idata);
                               Navigator.of(context).push(MaterialPageRoute(builder: 
-                              (context) => DetailPage(oveview: movies.overview, titile: movies.title,
+                              (context)  
+                                => DetailPage(oveview: movies.overview, titile: movies.title,
                                backdropImage: movies.backdropPath, posterImage: movies.posterPath,
                                genreNames: movies.genreIds.join(', '),
                                date: movies.relaseDate,
                                voteAvg: movies.voteAvg,
+                               director: extra['director'],
+                               runtime: extra['runtime'],
+                               tagline: extra['tagline'],
                                ),));
                             },
                             child: ClipRRect(
