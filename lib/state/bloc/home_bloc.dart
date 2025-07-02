@@ -66,11 +66,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
-          Map<String,dynamic> genreMap = {};
-          List genre = responseGenres.data['genres'];
-          genreMap = {
-            for(var g in genre) g['id'].toString() : g['name']
-          };
+          // Map<String,dynamic> genreMap = {};
+          // List genre = responseGenres.data['genres'];
+          // genreMap = {
+          //   for(var g in genre) g['id'].toString() : g['name']
+          // };
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
           final List<TvShowsModels> finaldataOTA =  dataOTA.map((e) => TvShowsModels.fromJson(e),).toList();
