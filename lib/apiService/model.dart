@@ -100,3 +100,8 @@ class Genres {
     );
   }
 }
+class ExtraData{
+  String director;
+  String runtime;
+  ExtraData({required this.director , required this.runtime});
+}
