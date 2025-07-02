@@ -39,7 +39,6 @@ String tSurlAiringToday = 'https://api.themoviedb.org/3/tv/airing_today?api_key=
 String streamingUrl = trendingsurl;
 // String popularOnNetflixUrl
 String inTheaters = '$movieNowPlaying&with_release_type=5';
-//genres
 String genreUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
 
 
@@ -61,16 +60,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var responseTSonTheAir = await dio.get(tSurlOTA);
         var responsePopularTv = await dio.get(tSurlPopular);
         var responseTopRatedTv = await dio.get(tSurlTopRated);
-        //genres
-        var responseGenres = await dio.get(genreUrl);
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
-          // Map<String,dynamic> genreMap = {};
-          // List genre = responseGenres.data['genres'];
-          // genreMap = {
-          //   for(var g in genre) g['id'].toString() : g['name']
-          // };
+           Map<String,dynamic> genreMap = {};
+
+var responseGenre = await dio.get(genreUrl);
+      List genre = responseGenre.data['genres'];
+        genreMap = {
+            for(var g in genre) g['id'].toString() : g['name']
+          };
+
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
           final List<TvShowsModels> finaldataOTA =  dataOTA.map((e) => TvShowsModels.fromJson(e),).toList();
@@ -91,7 +91,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           //Trending Tv
           List<dynamic> dataTrendingTv =  responseTrendingTv.data['results'];
           final List<MoviesModels> finaldataTv = dataTrendingTv.map((e) => MoviesModels.fromJson(e),).toList();
-            List<ConvertedModels> convertedTrendingTv = finaldataOTA.map((movie){
+            List<ConvertedModels> convertedTrendingTv = finaldataTv.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
               return ConvertedModels(id: movie.id,
@@ -100,7 +100,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  voteAvg: movie.voteAvg,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
-                   relaseDate: movie.fristAirDate,
+                   relaseDate: movie.relaseDate,
                     overview: movie.overview);
             }).toList();
             
