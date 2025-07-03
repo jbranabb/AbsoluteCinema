@@ -111,8 +111,8 @@ class Cast {
       {required this.name, required this.character, required this.profilePath});
   factory Cast.fromJson(Map<String, dynamic> json) {
     return Cast(
-        name: json['name'],
-        character: json['character'],
-        profilePath: json['profile_path']);
+        name: json['name'] ?? 'sdas' ,
+        character: json['character']?? 'sdadas',
+        profilePath: json['profile_path']?? 'ada');
   }
 }

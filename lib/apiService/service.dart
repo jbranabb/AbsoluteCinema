@@ -1,4 +1,5 @@
 // // ignore_for_file: avoid_print
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:dio/dio.dart';
 
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
@@ -22,17 +23,22 @@ Future<Map<String, dynamic>> extraData(int id) async {
   var finalRuntime = '${jam}h ${menit}m';
   List<dynamic> country = data['production_countries'];
   var finalCountry = country.map((e) =>  e['name'],).take(1).join(', ');
-    
+  List<dynamic> datacast = credits.data['cast'];
+  final finaldatacast = datacast.map((e) => 
+    e['name'] ?? 'adsdada');
+
   return {
     'director': crew['name'],
     'runtime': finalRuntime,
     'tagline': tagline,
     'country': finalCountry,
+    'cast': finaldatacast
   };
 }
+
 void main() async {
   var data = await extraData(123);
-  print(data['runtime']);
-  print(data['country']);
+  // print(data['runtime']);
+  print(data['cast']);
 
 }
