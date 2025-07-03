@@ -116,18 +116,27 @@ class DetailPage extends StatelessWidget {
                         fnSize: 14,
                         fnweight: FontWeight.bold,
                       ),
-                      MyText(text: '•    ', fnweight: FontWeight.w800, clors: Colors.grey.shade500,),
-                       MyText(text: ' DIRECTED BY', clors: Colors.grey.shade600, fnSize: 11, fnweight: FontWeight.w600,),
+                      MyText(text: '•   ', fnweight: FontWeight.w800, clors: Colors.grey.shade500,),
+                       MyText(text: 'DIRECTED BY', clors: Colors.grey.shade600, fnSize: 11, fnweight: FontWeight.w600,),
                     ],
                   ),
                   
                 ),
+                MyText(text: ' $director', clors: Colors.grey.shade400, fnSize: 15, fnweight: FontWeight.bold,),
+                //desk
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                      MyText(text: runtime, clors:Colors.grey.shade500 ,fnweight: FontWeight.bold,)
+                      MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                MyText(text: 'rating', clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                MyText(text: country
+                  == 'United States of America' ? 'US' :
+                   country,  clors:Colors.grey.shade600 ,
+                   fnweight: FontWeight.w600,),
                     ],
                 ),
-                MyText(text: ' $director', clors: Colors.grey.shade400, fnSize: 15, fnweight: FontWeight.bold,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
