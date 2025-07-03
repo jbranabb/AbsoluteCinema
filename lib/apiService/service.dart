@@ -30,9 +30,9 @@ Future<Map<String, dynamic>> extraData(int id) async {
     'country': finalCountry,
   };
 }
-
 void main() async {
   var data = await extraData(123);
   print(data['runtime']);
   print(data['country']);
+
 }
