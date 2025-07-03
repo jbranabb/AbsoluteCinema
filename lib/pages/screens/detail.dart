@@ -212,6 +212,10 @@ class RowOfRatings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: List.generate(rating, (index) => Icon(Icons.star),));
+      mainAxisAlignment: MainAxisAlignment.start,
+        children: List.generate(rating, (index) => Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(Icons.star),
+        ),));
   }
 }
