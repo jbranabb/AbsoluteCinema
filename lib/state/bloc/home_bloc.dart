@@ -268,10 +268,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             List<ConvertedModels> convertedUpcomingMovie = finaldataUpcoming.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg:finalratings.toString(),
                  relaseDate: movie.relaseDate,
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,

@@ -128,14 +128,17 @@ class DetailPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                      MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
-                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical:5.0),
+                  child: MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600, fnSize:12 ,),
+                ),
+                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,fnSize: 12,),
                 buildRatings(int.parse(voteAvg.substring(0,1))),
-                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,fnSize: 12,),
                 MyText(text: country
                   == 'United States of America' ? 'US' :
                    country,  clors:Colors.grey.shade600 ,
-                   fnweight: FontWeight.w600,),
+                   fnweight: FontWeight.w600,fnSize: 12,),
                     ],
                 ),
                 Padding(
@@ -198,25 +201,27 @@ Widget buildRatings(int rating){
   print(rating);
   switch(rating){
     case > 0 && == 1:
-    return RowOfRatings( rating: 1,);
+    return RowOfRatings(rating: 1,size: 22,);
     case >=2 && <3:
-    return RowOfRatings(rating: 2);
+    return RowOfRatings(rating: 2,size: 20,);
     case >=3 && <4:
-    return RowOfRatings(rating: 3);
+    return RowOfRatings(rating: 3,size: 18,);
     case >=4 && <5:
-    return RowOfRatings(rating: 4);
+    return RowOfRatings(rating: 4,size: 16,);
     case >= 5 && <6:
-    return RowOfRatings(rating: 5); 
+    return RowOfRatings(rating: 5,size: 20,); 
     default: 
-    return MyText(text: 'No Rating`s yet', fnSize: 12,); 
+    return MyText(text: 'No Rating`s yet', fnSize: 12,clors: Colors.grey.shade500,); 
   }
 }
 
 class RowOfRatings extends StatelessWidget {
   int rating;
+  double? size; 
   RowOfRatings({
     super.key,
     required this.rating,
+    this.size
   });
 
   @override
@@ -224,8 +229,10 @@ class RowOfRatings extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(rating, (index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(Icons.star),
+          padding: const EdgeInsets.all(1.0),
+          child: Icon(Icons.star,
+          size: size,
+          ),
         ),));
   }
 }
