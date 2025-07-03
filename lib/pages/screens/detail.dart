@@ -30,6 +30,7 @@ class DetailPage extends StatelessWidget {
   String country;
   @override
   Widget build(BuildContext context) {
+    print(buildRatings(int.parse(voteAvg.substring(0,1))),);
     return Scaffold(
         body: Stack(
       children: [
@@ -129,7 +130,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                       MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
                 MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
-                buildRatings(double.parse(voteAvg)),
+                buildRatings(int.parse(voteAvg.substring(0,1))),
                 MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
                 MyText(text: country
                   == 'United States of America' ? 'US' :
@@ -193,12 +194,21 @@ class ElevatedButtonDetail extends StatelessWidget {
     );
   }
 }
-Widget buildRatings(double rating){
+Widget buildRatings(int rating){
+  print(rating);
   switch(rating){
-    case >= 1 :
+    case > 0 && == 1:
     return RowOfRatings( rating: 1,);
+    case >=2 && <3:
+    return RowOfRatings(rating: 2);
+    case >=3 && <4:
+    return RowOfRatings(rating: 3);
+    case >=4 && <5:
+    return RowOfRatings(rating: 4);
+    case >= 5 && <6:
+    return RowOfRatings(rating: 5); 
     default: 
-    return Container(); 
+    return MyText(text: 'No Rating`s yet', fnSize: 12,); 
   }
 }
 
