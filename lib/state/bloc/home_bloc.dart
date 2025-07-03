@@ -65,7 +65,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           print('Succses : True');
            Map<String,dynamic> genreMap = {};
 
-var responseGenre = await dio.get(genreUrl);
+      var responseGenre = await dio.get(genreUrl);
       List genre = responseGenre.data['genres'];
         genreMap = {
             for(var g in genre) g['id'].toString() : g['name']
@@ -77,10 +77,13 @@ var responseGenre = await dio.get(genreUrl);
           List<ConvertedModels> convertedOntaTV = finaldataOTA.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
-              return ConvertedModels(id: movie.id,
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
+              return ConvertedModels(
+              id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                     overview: movie.overview,

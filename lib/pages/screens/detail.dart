@@ -129,7 +129,7 @@ class DetailPage extends StatelessWidget {
                   children: [
                       MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
                 MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
-                MyText(text: 'rating', clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
+                buildRatings(double.parse(voteAvg)),
                 MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,),
                 MyText(text: country
                   == 'United States of America' ? 'US' :
@@ -165,12 +165,6 @@ class DetailPage extends StatelessWidget {
                     ],
                   ),
                 ),
-               
-                // Container(
-                //   height: 100,
-                //   width: 100,
-                //   color: Colors.red,
-                // ),
               ],
             )),
       ],
@@ -197,5 +191,27 @@ class ElevatedButtonDetail extends StatelessWidget {
      child: Icon(icon,
       color: Colors.black,),
     );
+  }
+}
+Widget buildRatings(double rating){
+  switch(rating){
+    case >= 1 :
+    return RowOfRatings( rating: 1,);
+    default: 
+    return Container(); 
+  }
+}
+
+class RowOfRatings extends StatelessWidget {
+  int rating;
+  RowOfRatings({
+    super.key,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        children: List.generate(rating, (index) => Icon(Icons.star),));
   }
 }
