@@ -258,6 +258,7 @@ class AllWidgetSection extends StatelessWidget {
                                genreNames: movies.genreIds.join(', '),
                                date: movies.relaseDate,
                                voteAvg: movies.voteAvg,
+                               country: extra['country'],
                                director: extra['director'],
                                runtime: extra['runtime'],
                                tagline: extra['tagline'],

@@ -15,6 +15,7 @@ class DetailPage extends StatelessWidget {
       required this.titile,
       required this.backdropImage,
       required this.posterImage,
+      required this.country,
       required this.genreNames});
   String titile;
   String oveview;
@@ -26,6 +27,7 @@ class DetailPage extends StatelessWidget {
   String runtime;
   String director;
   String tagline;
+  String country;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,14 +117,14 @@ class DetailPage extends StatelessWidget {
                         fnweight: FontWeight.bold,
                       ),
                       MyText(text: '•    ', fnweight: FontWeight.w800, clors: Colors.grey.shade500,),
-                      MyText(text: runtime, clors:Colors.grey.shade500 ,fnweight: FontWeight.bold,)
+                       MyText(text: ' DIRECTED BY', clors: Colors.grey.shade600, fnSize: 11, fnweight: FontWeight.w600,),
                     ],
                   ),
                   
                 ),
                 Row(
                   children: [
-                    MyText(text: ' DIRECTED BY', clors: Colors.grey.shade600, fnSize: 13, fnweight: FontWeight.w600,),
+                      MyText(text: runtime, clors:Colors.grey.shade500 ,fnweight: FontWeight.bold,)
                     ],
                 ),
                 MyText(text: ' $director', clors: Colors.grey.shade400, fnSize: 15, fnweight: FontWeight.bold,),
