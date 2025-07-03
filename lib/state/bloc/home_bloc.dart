@@ -97,10 +97,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             List<ConvertedModels> convertedTrendingTv = finaldataTv.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.relaseDate,
@@ -112,10 +115,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             List<ConvertedModels> convertedPopularTv = finalddatPopularTv.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.fristAirDate,
@@ -128,10 +134,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
            List<ConvertedModels> convertedTopRatedTv = finaldataTopRated.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.fristAirDate,
@@ -147,10 +156,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                        List<ConvertedModels> convertedTrendingMovies = moviesTrending.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.relaseDate,
@@ -168,10 +180,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                            List<ConvertedModels> convertedTopRatedMovies = moviesTopRated.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate:movie.relaseDate,
@@ -188,10 +203,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                            List<ConvertedModels> convertedAiringTodayTV = finalDataAiringToday.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.fristAirDate,
@@ -208,10 +226,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                  List<ConvertedModels> convertedTrendingAll = all.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.relaseDate,
@@ -227,10 +248,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                               List<ConvertedModels> convertedTheatersMovie = finalDataTheaters.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                    relaseDate: movie.relaseDate,
@@ -248,10 +272,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                                           List<ConvertedModels> convertedStreamingMovie = finalDataStreaming.map((movie){
               List<String> genreNames = movie.genreIds.map((id)=> genreMap[id.toString()]
               ?? 'unkwn').toList().cast<String>();
+
+              var ratings =  double.parse(movie.voteAvg);
+              var finalratings =  (ratings / 10  * 5);
               return ConvertedModels(id: movie.id,
                genreIds: genreNames,
                 title: movie.title,
-                 voteAvg: movie.voteAvg,
+                 voteAvg: finalratings.toString(),
                   backdropPath: movie.backdropPath,
                    posterPath: movie.posterPath,
                     relaseDate: movie.relaseDate,
