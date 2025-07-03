@@ -270,7 +270,7 @@ class AllWidgetSection extends StatelessWidget {
                                 imageUrl:
                                     'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
                                 placeholder: (context, url) =>
-                                    Center(child: Text(movies.title)),
+                                    Center(child: MyText(text: movies.title)),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -279,7 +279,7 @@ class AllWidgetSection extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 2.0),
                             child: Text(
-                              movies.title,
+                              movies.title,maxLines: 1,
                               style: GoogleFonts.inter(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
