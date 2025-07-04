@@ -23,25 +23,25 @@ class AllWidgetSection extends StatelessWidget {
             children: [
               // trending all
               SectionTitleWidget(title: SectionTitle.trendingAll),
-              SectionWidget(list: state.allShows,),
+              SectionWidget(list: state.allShows, isreverse: false,),
               // trending movies
               SectionTitleWidget(title: SectionTitle.trendingMovies),
-              SectionWidget(list: state.trending,),
+              SectionWidget(list: state.trending,isreverse: false,),
               //now streaming
               SectionTitleWidget(title: SectionTitle.streaming),
-              SectionWidget(list: state.streaming,),
+              SectionWidget(list: state.streaming,isreverse: true,),
               //upcoming
               SectionTitleWidget(title: SectionTitle.upcoming),
               SectionCaraouselSliderWidget(list: state.convertedUpComingMovie),
               // in theaters
               SectionTitleWidget(title: SectionTitle.inTheaters),
-              SectionWidget(list: state.inTheaters,),
+              SectionWidget(list: state.inTheaters,isreverse: false,),
               //trending tv
-              SectionTitleWidget(title: SectionTitle.inTheaters),
-              SectionWidget(list: state.inTheaters,),
+              SectionTitleWidget(title: SectionTitle.trendingTv),
+              SectionWidget(list: state.trendingTv, isreverse: false,),
               // on the air
-              SectionTitleWidget(title: SectionTitle.popularTv),
-              SectionWidget(list: state.allShows,),
+              SectionTitleWidget(title: SectionTitle.onTheAir),
+              SectionWidget(list: state.allShows, isreverse: false,),
               //popularTv
               SectionTitleWidget(title: SectionTitle.popularTv),
               SectionCaraouselSliderWidget(list: state.convertedUpComingMovie),

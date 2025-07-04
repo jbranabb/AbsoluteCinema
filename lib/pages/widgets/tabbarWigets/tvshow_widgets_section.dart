@@ -23,19 +23,19 @@ class TvshowWidgetsSection extends StatelessWidget {
             children: [
                //trending Tv
               SectionTitleWidget(title: SectionTitle.trendingTv),
-              SectionWidget(list: state.trendingTv),
+              SectionWidget( isreverse: false, list: state.trendingTv),
               //on the air
               SectionTitleWidget(title: SectionTitle.onTheAir),
-              SectionWidget(list: state.onTheAir),
+              SectionWidget( isreverse: false, list: state.onTheAir),
               //popular
               SectionTitleWidget(title: SectionTitle.popularTv),
               SectionCaraouselSliderWidget(list: state.popularTv),
-              //aiirng today
+              //airng today
               SectionTitleWidget(title: SectionTitle.airingToday),
-              SectionWidget(list: state.airingToday),
+              SectionWidget( isreverse: false, list: state.airingToday),
               //toprated tv
               SectionTitleWidget(title: SectionTitle.topRatedTv),
-              SectionWidget(list: state.topRatedTv),
+              SectionWidget( isreverse: false, list: state.topRatedTv),
               const SizedBox(
                 height: 20,
               ),

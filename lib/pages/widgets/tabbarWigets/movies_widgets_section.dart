@@ -29,19 +29,19 @@ class MoviesWidgetsSection extends StatelessWidget {
             children: [
               //trending
               SectionTitleWidget(title: SectionTitle.trendingMovies),
-              SectionWidget(list: state.trending),
+              SectionWidget(list: state.trending, isreverse: false,),
               //Streaming
               SectionTitleWidget(title: SectionTitle.streaming),
-              SectionWidget(list: state.streaming),
+              SectionWidget(list: state.streaming, isreverse: true,),
               //Upcoming
               SectionTitleWidget(title: SectionTitle.upcoming),
               SectionCaraouselSliderWidget(list: state.upcoming),
               //theaters
               SectionTitleWidget(title: SectionTitle.inTheaters),
-              SectionWidget(list: state.inTheaters),
+              SectionWidget(list: state.inTheaters, isreverse: false,),
               //toprated
               SectionTitleWidget(title: SectionTitle.topRatedMov),
-              SectionWidget(list: state.movieTopRated),
+              SectionWidget(list: state.movieTopRated,isreverse: false,),
 
              const SizedBox(height: 20,),
             Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600,)),

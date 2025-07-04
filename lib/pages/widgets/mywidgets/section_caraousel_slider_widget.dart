@@ -3,6 +3,7 @@ import 'package:absolutecinema/apiService/model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // ignore: must_be_immutable
 class SectionCaraouselSliderWidget extends StatelessWidget {
@@ -21,38 +22,32 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
       child: CarouselSlider.builder(
           itemCount: list.length,
           itemBuilder: (context, index, realIndex) {
-            var tvshows = list[index];
+            var movies = list[index];
             return Card(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
-                child: Stack(
+                child: Column(
                   children: [
                     CachedNetworkImage(
                       fit: BoxFit.cover,
                       imageUrl:
-                          'https://image.tmdb.org/t/p/w300${tvshows.posterPath}',
+                          'https://image.tmdb.org/t/p/w300${movies.posterPath}',
                       placeholder: (context, url) => Center(
                         child: Text(
-                          tvshows.title,
+                          movies.title,
                           textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    Positioned(
-                        right: 10,
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.star_rounded,
-                              color: Colors.amber,
-                            ),
-                            Text(
-                              tvshows.voteAvg.substring(0, 3),
-                              style: const TextStyle(
-                                  color: Colors.white),
-                            ),
-                          ],
-                        ))
+                  Text(
+                    movies.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold
+                    ),
+                  )
                   ],
                 ),
               ),

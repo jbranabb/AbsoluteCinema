@@ -9,8 +9,10 @@ class SectionWidget extends StatelessWidget {
    SectionWidget({
     super.key,
     required this.list,
+    required this.isreverse,
   });
    List<ConvertedModels> list;
+   bool isreverse;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class SectionWidget extends StatelessWidget {
               options: CarouselOptions(
                   aspectRatio: 16 / 9,
                   initialPage: 0,
+                  reverse: isreverse,
                   viewportFraction: 0.3)),
         );    
       }
