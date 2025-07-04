@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
@@ -19,6 +20,7 @@ class AllWidgetSection extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is StateLoaded) {
+        var trendingAll = state.allShows;
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,66 +43,8 @@ class AllWidgetSection extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                width: double.infinity,
-                height: height * 0.209,
-                child: CarouselSlider.builder(
-                    itemCount: state.allShows.length,
-                    itemBuilder: (context, index, realIndex){
-                      var movies = state.allShows[index];
-                      return GestureDetector(
-                        // onTap: () =>
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => DetailPage(
-                            //           titile: movies.title,
-                            //           oveview: movies.overview,
-                            //           backdropImage: movies.backdropPath,
-                            //           posterImage: movies.posterPath,
-                            //         ))),
-                        child: Card(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Stack(
-                              children: [
-                                CachedNetworkImage(
-                                    imageUrl:
-                                        'https://image.tmdb.org/t/p/w300${movies.posterPath}',
-                                    placeholder: (context, st) => Center(
-                                            child: Text(
-                                          movies.title,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                              color: Colors.white60),
-                                        )),
-                                    fit: BoxFit.cover),
-                                Positioned(
-                                  right: 10,
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.amber,
-                                      ),
-                                      Text(
-                                        movies.voteAvg.substring(0, 3),
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    options: CarouselOptions(
-                        aspectRatio: 16 / 9,
-                        initialPage: 0,
-                        viewportFraction: 0.3)),
-              ),
-              Padding(
+                SectionWidget(height: height, list: state.allShows,),
+             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,11 +53,12 @@ class AllWidgetSection extends StatelessWidget {
                       text: SectionTitle.trendingMovies,
                     ),
                     MyText(
-                      text: 'see all',
+                      text: 'test all',
                     )
                   ],
                 ),
               ),
+
               SizedBox(
                 width: double.infinity,
                 height: height * 0.21,
@@ -557,4 +502,80 @@ class AllWidgetSection extends StatelessWidget {
       return Container();
     });
   }
+}
+
+class SectionWidget extends StatelessWidget {
+   SectionWidget({
+    super.key,
+    required this.height,
+    required this.list,
+  });
+  final double height;
+   List<ConvertedModels> list;
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+    // BlocBuilder(
+      
+      // builder: (context, state) {
+        // if(state is StateLoaded){
+        // return 
+        SizedBox(
+          width: double.infinity,
+          height: height * 0.209,
+          child: CarouselSlider.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index, realIndex){
+                var movies = list[index];
+                return GestureDetector(
+                    child: Card(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Stack(
+                        children: [
+                          CachedNetworkImage(
+                              imageUrl:
+                                  'https://image.tmdb.org/t/p/w300${movies.posterPath}',
+                              placeholder: (context, st) => Center(
+                                      child: Text(
+                                    movies.title,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        color: Colors.white60),
+                                  )),
+                              fit: BoxFit.cover),
+                          Positioned(
+                            right: 10,
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.star_rounded,
+                                  color: Colors.amber,
+                                ),
+                                Text(
+                                  movies.voteAvg.substring(0, 3),
+                                  style: const TextStyle(
+                                      color: Colors.white),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+              options: CarouselOptions(
+                  aspectRatio: 16 / 9,
+                  initialPage: 0,
+                  viewportFraction: 0.3)),
+        );
+      
+        }
+        // return Container();
+        // }
+//     );
+//   }
 }
