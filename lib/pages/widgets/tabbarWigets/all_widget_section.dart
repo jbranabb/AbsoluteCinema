@@ -28,8 +28,8 @@ class AllWidgetSection extends StatelessWidget {
               SectionTitleWidget(title: SectionTitle.trendingMovies),
               SectionWidget(list: state.trending,),
               //now streaming
-              SectionTitleWidget(title: SectionTitle.trendingMovies),
-              SectionWidget(list: state.trending,),
+              SectionTitleWidget(title: SectionTitle.streaming),
+              SectionWidget(list: state.streaming,),
               //upcoming
               SectionTitleWidget(title: SectionTitle.upcoming),
               SectionCaraouselSliderWidget(list: state.convertedUpComingMovie),

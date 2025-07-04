@@ -17,7 +17,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
     var height =  MediaQuery.of(context).size.height;
     return SizedBox(
       width: double.infinity,
-      height: height * 0.209,
+      height: 170,
       child: CarouselSlider.builder(
           itemCount: list.length,
           itemBuilder: (context, index, realIndex) {
@@ -59,10 +59,9 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
             );
           },
           options: CarouselOptions(
-              aspectRatio: 16 / 9,
-              initialPage: 0,
-              viewportFraction: 0.3,
-              reverse: true)),
+              viewportFraction: 0.69,
+              
+              enlargeCenterPage: true)),
     );
   }
 }
