@@ -1,5 +1,8 @@
 
 import 'package:absolutecinema/apiService/model.dart';
+import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/pages/screens/detail.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -16,47 +19,59 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height =  MediaQuery.of(context).size.height;
-    return SizedBox(
-      width: double.infinity,
-      height: 170,
-      child: CarouselSlider.builder(
-          itemCount: list.length,
-          itemBuilder: (context, index, realIndex) {
-            var movies = list[index];
-            return Card(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Column(
-                  children: [
-                    CachedNetworkImage(
-                      fit: BoxFit.cover,
-                      imageUrl:
-                          'https://image.tmdb.org/t/p/w300${movies.posterPath}',
-                      placeholder: (context, url) => Center(
-                        child: Text(
-                          movies.title,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  Text(
-                    movies.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold
-                    ),
-                  )
-                  ],
-                ),
-              ),
-            );
-          },
-          options: CarouselOptions(
-              viewportFraction: 0.69,
-              
-              enlargeCenterPage: true)),
-    );
+    return  SizedBox(
+                height: 170,
+                width: double.infinity,
+                child: CarouselSlider.builder(
+                    itemCount: list.length,
+                    itemBuilder: (context, index, realIndex) {
+                      var movies = list[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                        onTap: ()async{
+                          var idata  = int.parse(movies.id);
+                          var extra = await extraData(idata);
+                              Navigator.of(context).push(MaterialPageRoute(builder: 
+                              (context)  
+                                => DetailPage(oveview: movies.overview, titile: movies.title,
+                               backdropImage: movies.backdropPath, posterImage: movies.posterPath,
+                               genreNames: movies.genreIds.join(', '),
+                               date: movies.relaseDate,
+                               voteAvg: movies.voteAvg,
+                               country: extra['country'],
+                               director: extra['director'],
+                               runtime: extra['runtime'],
+                               tagline: extra['tagline'],
+                               ),));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                                placeholder: (context, url) =>
+                                    Center(child: MyText(text: movies.title)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 2.0),
+                            child: Text(
+                              movies.title,maxLines: 1,
+                              style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      );
+                    },
+                    options: CarouselOptions(
+                        viewportFraction: 0.69, enlargeCenterPage: true)));
+             
   }
 }
