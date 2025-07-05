@@ -84,9 +84,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
-          final List<TvShowsModels> finaldataOTA = dataOTA
+          final List<CombaineModels> finaldataOTA = dataOTA
               .map(
-                (e) => TvShowsModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedOntaTV = finaldataOTA.map((movie) {
@@ -104,14 +104,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
                 overview: movie.overview,
-                relaseDate: movie.fristAirDate);
+                relaseDate: movie.relaseDate);
           }).toList();
 
           //Trending Tv
           List<dynamic> dataTrendingTv = responseTrendingTv.data['results'];
-          final List<MoviesModels> finaldataTv = dataTrendingTv
+          final List<CombaineModels> finaldataTv = dataTrendingTv
               .map(
-                (e) => MoviesModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedTrendingTv = finaldataTv.map((movie) {
@@ -135,8 +135,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }).toList();
 
           List<dynamic> dataPopularTV = responsePopularTv.data['results'];
-          List<TvShowsModels> finalddatPopularTv =
-              dataPopularTV.map((e) => TvShowsModels.fromJson(e)).toList();
+          List<CombaineModels> finalddatPopularTv =
+              dataPopularTV.map((e) => CombaineModels.fromJson(e)).toList();
           List<ConvertedModels> convertedPopularTv =
               finalddatPopularTv.map((movie) {
             List<String> genreNames = movie.genreIds
@@ -153,14 +153,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                relaseDate: movie.fristAirDate,
+                relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
 
           //Top Rated Tv
           List<dynamic> dataTopRated = responseTopRatedTv.data['results'];
-          List<TvShowsModels> finaldataTopRated =
-              dataTopRated.map((e) => TvShowsModels.fromJson(e)).toList();
+          List<CombaineModels> finaldataTopRated =
+              dataTopRated.map((e) => CombaineModels.fromJson(e)).toList();
           List<ConvertedModels> convertedTopRatedTv =
               finaldataTopRated.map((movie) {
             List<String> genreNames = movie.genreIds
@@ -177,14 +177,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                relaseDate: movie.fristAirDate,
+                relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
           //Trending this week
           List<dynamic> datatrening = responsetrending.data['results'];
-          final List<MoviesModels> moviesTrending = datatrening
+          final List<CombaineModels> moviesTrending = datatrening
               .map(
-                (e) => MoviesModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedTrendingMovies =
@@ -210,9 +210,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           // now playing
           List<dynamic> dataMovieTopRated =
               responseMovieTopRated.data['results'];
-          final List<MoviesModels> moviesTopRated = dataMovieTopRated
+          final List<CombaineModels> moviesTopRated = dataMovieTopRated
               .map(
-                (e) => MoviesModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedTopRatedMovies =
@@ -237,9 +237,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           //tvShow
           List<dynamic> dataAiringToday = responseTvAiringToday.data['results'];
-          final List<TvShowsModels> finalDataAiringToday = dataAiringToday
+          final List<CombaineModels> finalDataAiringToday = dataAiringToday
               .map(
-                (e) => TvShowsModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedAiringTodayTV =
@@ -258,14 +258,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                relaseDate: movie.fristAirDate,
+                relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
 
           // all
           List<dynamic> dataAll = responseAll.data['results'];
-          final List<MoviesModels> all =
-              dataAll.map((e) => MoviesModels.fromJson(e)).toList();
+          final List<CombaineModels> all =
+              dataAll.map((e) => CombaineModels.fromJson(e)).toList();
 
           List<ConvertedModels> convertedTrendingAll = all.map((movie) {
             List<String> genreNames = movie.genreIds
@@ -288,9 +288,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }).toList();
           // intheaters
           List<dynamic> dataTheaters = responseInTherater.data['results'];
-          List<MoviesModels> finalDataTheaters = dataTheaters
+          List<CombaineModels> finalDataTheaters = dataTheaters
               .map(
-                (e) => MoviesModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedTheatersMovie =
@@ -315,9 +315,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           //streaming
           List<dynamic> dataStreaming = responStreamingUrl.data['results'];
-          List<MoviesModels> finalDataStreaming = dataStreaming
+          List<CombaineModels> finalDataStreaming = dataStreaming
               .map(
-                (e) => MoviesModels.fromJson(e),
+                (e) => CombaineModels.fromJson(e),
               )
               .toList();
           List<ConvertedModels> convertedStreamingMovie =
@@ -342,8 +342,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           //upcoming
           List<dynamic> dataUpcoming = responUpcoming.data['results'];
-          List<MoviesModels> finaldataUpcoming =
-              dataUpcoming.map((e) => MoviesModels.fromJson(e)).toList();
+          List<CombaineModels> finaldataUpcoming =
+              dataUpcoming.map((e) => CombaineModels.fromJson(e)).toList();
 
           List<ConvertedModels> convertedUpcomingMovie =
               finaldataUpcoming.map((movie) {
