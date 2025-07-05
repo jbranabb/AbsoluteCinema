@@ -253,8 +253,8 @@ class DetailPage extends StatelessWidget {
                             Positioned(
                               bottom: 0,
                               child: AnimatedContainer(
-                                duration: Durations.short1,
-                                height: 20,
+                                duration: Durations.short4,
+                                height: 40,
                                 width: width * 0.9,
                               decoration: BoxDecoration(
 
@@ -267,7 +267,7 @@ class DetailPage extends StatelessWidget {
                                   ] : [
 
                                     Colors.transparent,
-                                    Colors.grey.withOpacity(0.4)
+                                    Colors.grey.withOpacity(0.2)
                                 ] : [
                                   Colors.transparent,
                                   Colors.transparent

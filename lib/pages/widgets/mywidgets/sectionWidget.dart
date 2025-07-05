@@ -34,7 +34,7 @@ class SectionWidget extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) =>
-                      Center(child: CircularProgressIndicator()),
+                       const Center(child:LoadingWidget()),
                 );
                 try {
                   var idata = int.parse(movies.id);
@@ -118,5 +118,27 @@ class SectionWidget extends StatelessWidget {
               reverse: isreverse,
               viewportFraction: 0.3)),
     );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  const LoadingWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+     mainAxisAlignment: MainAxisAlignment.center,
+     crossAxisAlignment: CrossAxisAlignment.center,
+     children: [
+     const SizedBox(
+         height: 10,
+         width: 45,
+         child: CircularProgressIndicator()),
+         const SizedBox(height: 5,),
+         MyText(text: 'Loading Please Wait...',fnSize: 10, fnweight: FontWeight.bold,)
+     ],
+                          );
   }
 }

@@ -2,6 +2,7 @@ import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                     onTap: () async {
                       showDialog(
                         context: context,
-                        builder: (context) => Center(child: CircularProgressIndicator()),
+                        builder: (context) => const Center(child:LoadingWidget()),
                       );
                       try {
                         var idata = int.parse(movies.id);

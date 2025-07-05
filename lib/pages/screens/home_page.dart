@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/tvshow_widgets_section.dart';
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               );
             }
             return Center(
-              child: CircularProgressIndicator(),
+              child: LoadingWidget(),
             );
           },
         ),
