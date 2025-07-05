@@ -41,7 +41,7 @@ class ConvertedModels {
   String posterPath;
   String overview;
   String relaseDate;
-  String? mediatype;
+  String mediatype;
   List<String> genreIds;
   ConvertedModels(
       {required this.id,
@@ -51,7 +51,7 @@ class ConvertedModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
-       this.mediatype,
+      required this.mediatype,
       required this.relaseDate});
 }
 

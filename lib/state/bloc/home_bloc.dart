@@ -99,6 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return ConvertedModels(
                 id: movie.id,
                 genreIds: genreNames,
+                mediatype: movie.mediaType,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
@@ -148,6 +149,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             var finalratings = (ratings / 10 * 5);
             return ConvertedModels(
                 id: movie.id,
+                mediatype: movie.mediaType,
                 genreIds: genreNames,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
@@ -174,6 +176,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 id: movie.id,
                 genreIds: genreNames,
                 title: movie.title,
+                mediatype: movie.mediaType,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
@@ -203,6 +206,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
+                mediatype: movie.mediaType,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -231,6 +235,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
+                mediatype: movie.mediaType,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -259,6 +264,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
+                mediatype: movie.mediaType,
                 overview: movie.overview);
           }).toList();
 
@@ -309,6 +315,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
+                mediatype: movie.mediaType,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -335,6 +342,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
+                mediatype: movie.mediaType,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
@@ -356,6 +364,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return ConvertedModels(
                 id: movie.id,
                 genreIds: genreNames,
+                mediatype: movie.mediaType,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 relaseDate: movie.relaseDate,
