@@ -9,17 +9,20 @@ class MyText extends StatelessWidget {
       this.clors,
       this.fnSize,
       this.fnweight,
-      this.maxlines
+      this.maxlines,
+      this.ecips,
       });
   String text;
   Color? clors;
   double? fnSize;
   FontWeight? fnweight;
   int?  maxlines;
+  TextOverflow? ecips;
   @override
   Widget build(BuildContext context) {
     return Text(text,
-    textAlign: TextAlign.center,overflow: TextOverflow.ellipsis,
+    textAlign: TextAlign.center ,
+    overflow: ecips != null ? ecips : TextOverflow.ellipsis,
     maxLines: maxlines != null ? maxlines : 1 ,
      style: GoogleFonts.openSans(
       color: clors ==  null ? Colors.white : clors, 

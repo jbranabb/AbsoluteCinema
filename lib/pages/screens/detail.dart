@@ -2,6 +2,7 @@ import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage(
@@ -30,7 +31,10 @@ class DetailPage extends StatelessWidget {
   String country;
   @override
   Widget build(BuildContext context) {
-    print(buildRatings(int.parse(voteAvg.substring(0,1))),);
+    var width = MediaQuery.of(context).size.width;
+    print(
+      buildRatings(int.parse(voteAvg.substring(0, 1))),
+    );
     return Scaffold(
         body: Stack(
       children: [
@@ -117,58 +121,128 @@ class DetailPage extends StatelessWidget {
                         fnSize: 14,
                         fnweight: FontWeight.bold,
                       ),
-                      MyText(text: '•   ', fnweight: FontWeight.w800, clors: Colors.grey.shade500,),
-                       MyText(text: 'DIRECTED BY', clors: Colors.grey.shade600, fnSize: 11, fnweight: FontWeight.w600,),
+                      MyText(
+                        text: '•   ',
+                        fnweight: FontWeight.w800,
+                        clors: Colors.grey.shade500,
+                      ),
+                      MyText(
+                        text: 'DIRECTED BY',
+                        clors: Colors.grey.shade600,
+                        fnSize: 11,
+                        fnweight: FontWeight.w600,
+                      ),
                     ],
                   ),
-                  
                 ),
-                MyText(text: ' $director', clors: Colors.grey.shade400, fnSize: 15, fnweight: FontWeight.bold,),
+                MyText(
+                  text: ' $director',
+                  clors: Colors.grey.shade400,
+                  fnSize: 15,
+                  fnweight: FontWeight.bold,
+                ),
                 //desk
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical:5.0),
-                  child: MyText(text: runtime, clors:Colors.grey.shade600 ,fnweight: FontWeight.w600, fnSize:12 ,),
-                ),
-                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,fnSize: 12,),
-                buildRatings(int.parse(voteAvg.substring(0,1))),
-                MyText(text: ' | ',   clors:Colors.grey.shade600 ,fnweight: FontWeight.w600,fnSize: 12,),
-                MyText(text: country
-                  == 'United States of America' ? 'US' :
-                   country,  clors:Colors.grey.shade600 ,
-                   fnweight: FontWeight.w600,fnSize: 12,),
-                    ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: MyText(
+                        text: runtime,
+                        clors: Colors.grey.shade600,
+                        fnweight: FontWeight.w600,
+                        fnSize: 12,
+                      ),
+                    ),
+                    MyText(
+                      text: ' | ',
+                      clors: Colors.grey.shade600,
+                      fnweight: FontWeight.w600,
+                      fnSize: 12,
+                    ),
+                    buildRatings(int.parse(voteAvg.substring(0, 1))),
+                    MyText(
+                      text: ' | ',
+                      clors: Colors.grey.shade600,
+                      fnweight: FontWeight.w600,
+                      fnSize: 12,
+                    ),
+                    MyText(
+                      text: country == 'United States of America'
+                          ? 'US'
+                          : country,
+                      clors: Colors.grey.shade600,
+                      fnweight: FontWeight.w600,
+                      fnSize: 12,
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       ElevatedButton(
-                        onPressed: (){}, 
-                      style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.only(left:2 ,right:10),
-                      minimumSize: Size(50, 30),
-                        backgroundColor: Colors.white
-                      ),
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.only(left: 2, right: 10),
+                            minimumSize: Size(50, 30),
+                            backgroundColor: Colors.white),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(Icons.play_arrow_rounded, color: Colors.black,),
-                          MyText(text: 'Trailer', clors: Colors.black,fnweight: FontWeight.bold,),
-                        ],
-                        
-                      ),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.play_arrow_rounded,
+                              color: Colors.black,
+                            ),
+                            MyText(
+                              text: 'Trailer',
+                              clors: Colors.black,
+                              fnweight: FontWeight.bold,
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(width: 5),
-                      ElevatedButtonDetail(icon: Icons.bookmark,),
-                      ElevatedButtonDetail(icon: Icons.share,),
-                        
+                      ElevatedButtonDetail(
+                        icon: Icons.bookmark,
+                      ),
+                      ElevatedButtonDetail(
+                        icon: Icons.share,
+                      ),
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: AnimatedContainer(
+                    duration: Durations.medium4,
+                    height: 120,
+                    width: width * 0.9,
+                    child: SingleChildScrollView(
+                      physics:const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MyText(
+                            text: tagline,
+                            clors: Colors.grey.shade400,
+                            fnweight: FontWeight.bold,
+                            fnSize: 11,
+                          ),
+                          Text(
+                            oveview,
+                            style: GoogleFonts.inter(
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12
+                            ),
+                          )                       
+                        ],
+                      ),
+                    ),
+                  ),
+                )
               ],
             )),
       ],
@@ -177,62 +251,81 @@ class DetailPage extends StatelessWidget {
 }
 
 class ElevatedButtonDetail extends StatelessWidget {
- ElevatedButtonDetail({
-    super.key,
-    required this.icon
-  });
+  ElevatedButtonDetail({super.key, required this.icon});
   IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: (){},
-    style: ElevatedButton.styleFrom(
-      padding: EdgeInsets.only(left: 0),
-      minimumSize: Size(11, 30),
-      fixedSize: Size(45, 30),
-      backgroundColor: Colors.white
-    ),
-     child: Icon(icon,
-      color: Colors.black,),
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.only(left: 0),
+          minimumSize: Size(11, 30),
+          fixedSize: Size(45, 30),
+          backgroundColor: Colors.white),
+      child: Icon(
+        icon,
+        color: Colors.black,
+      ),
     );
   }
 }
-Widget buildRatings(int rating){
+
+Widget buildRatings(int rating) {
   print(rating);
-  switch(rating){
+  switch (rating) {
     case > 0 && == 1:
-    return RowOfRatings(rating: 1,size: 22,);
-    case >=2 && <3:
-    return RowOfRatings(rating: 2,size: 20,);
-    case >=3 && <4:
-    return RowOfRatings(rating: 3,size: 18,);
-    case >=4 && <5:
-    return RowOfRatings(rating: 4,size: 16,);
-    case >= 5 && <6:
-    return RowOfRatings(rating: 5,size: 20,); 
-    default: 
-    return MyText(text: 'No Rating`s yet', fnSize: 12,clors: Colors.grey.shade500,); 
+      return RowOfRatings(
+        rating: 1,
+        size: 22,
+      );
+    case >= 2 && < 3:
+      return RowOfRatings(
+        rating: 2,
+        size: 20,
+      );
+    case >= 3 && < 4:
+      return RowOfRatings(
+        rating: 3,
+        size: 18,
+      );
+    case >= 4 && < 5:
+      return RowOfRatings(
+        rating: 4,
+        size: 16,
+      );
+    case >= 5 && < 6:
+      return RowOfRatings(
+        rating: 5,
+        size: 20,
+      );
+    default:
+      return MyText(
+        text: 'No Rating`s yet',
+        fnSize: 12,
+        clors: Colors.grey.shade500,
+      );
   }
 }
 
 class RowOfRatings extends StatelessWidget {
   int rating;
-  double? size; 
-  RowOfRatings({
-    super.key,
-    required this.rating,
-    this.size
-  });
+  double? size;
+  RowOfRatings({super.key, required this.rating, this.size});
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(rating, (index) => Padding(
-          padding: const EdgeInsets.all(1.0),
-          child: Icon(Icons.star,
-          size: size,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: List.generate(
+          rating,
+          (index) => Padding(
+            padding: const EdgeInsets.all(1.0),
+            child: Icon(
+              Icons.star,
+              size: size,
+            ),
           ),
-        ),));
+        ));
   }
 }
