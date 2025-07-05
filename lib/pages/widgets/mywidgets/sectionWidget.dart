@@ -48,7 +48,7 @@ class SectionWidget extends StatelessWidget {
                 );
                 try {
                   var idata = int.parse(movies.id);
-                  var extra = await extraData(idata);
+                  var extra = await extraData(idata, movies.mediatype.toString());
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => DetailPage(

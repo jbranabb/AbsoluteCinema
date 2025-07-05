@@ -4,11 +4,11 @@ import 'package:dio/dio.dart';
 
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
 Dio dio = Dio();
-Future<Map<String, dynamic>> extraData(int id) async {
+Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
   final detail =
-      await dio.get('https://api.themoviedb.org/3/movie/$id?api_key=$imdbKey');
+      await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$imdbKey');
   final credits = await dio
-      .get('https://api.themoviedb.org/3/movie/$id/credits?api_key=$imdbKey');
+      .get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$imdbKey');
   List<dynamic> director = credits.data['crew'];
   final crew = director.firstWhere(
     (x) => x['job'] == 'Director',
@@ -37,7 +37,7 @@ Future<Map<String, dynamic>> extraData(int id) async {
 }
 
 void main() async {
-  var data = await extraData(123);
+  var data = await extraData(123, 'tv');
   // print(data['runtime']);
   print(data['cast']);
 
