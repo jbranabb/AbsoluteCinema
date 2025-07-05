@@ -34,9 +34,17 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print(
-      oveview.length
-    );
+    print('titile : $titile');
+    print('backdropImage :$backdropImage');
+    print('posterImage :$posterImage');
+    print('genreNames :$genreNames');
+    print('date :$date');
+    print('voteAvg :$voteAvg');
+    print('runtime :$runtime');
+    print('director :$director');
+    print('tagline :${tagline.length}');
+    print('country :$country');
+    print('oveview :${oveview.length}'); 
     return Scaffold(
         body: Stack(
       children: [
@@ -225,11 +233,13 @@ class DetailPage extends StatelessWidget {
                           children: [
                             AnimatedContainer(
                               duration: Durations.medium4,
-                              height: oveview.length > 230 ? state ?  150 : 110 : 110,
+                              height: oveview.length > 250 ? state ?  150 : 110 : 110,
                               width: width * 0.9,
                               child: SingleChildScrollView(
                                 physics: const NeverScrollableScrollPhysics(),
-                                child: Column(
+                                child: 
+                                
+                                tagline.isNotEmpty ? Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     MyText(
@@ -247,7 +257,25 @@ class DetailPage extends StatelessWidget {
                                           fontSize: 12),
                                     )
                                   ],
-                                ),
+                                ) :  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // MyText(
+                                    //   text: tagline,
+                                    //   clors: Colors.grey.shade400,
+                                    //   fnweight: FontWeight.bold,
+                                    //   fnSize: 11,
+                                    // ),
+                                    Text(
+                                      oveview,
+                                      overflow: TextOverflow.fade,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12),
+                                    )
+                                  ],
+                                ) ,
                               ),
                             ),
                             Positioned(
@@ -261,7 +289,7 @@ class DetailPage extends StatelessWidget {
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  colors: oveview.length > 230 ? state ? [
+                                  colors: oveview.length > 250 ? state ? [
                                     Colors.transparent,
                                     Colors.grey.withOpacity(0.0)
                                   ] : [
@@ -311,7 +339,7 @@ class ElevatedButtonDetail extends StatelessWidget {
 }
 
 Widget buildRatings(int rating) {
-  print(rating);
+  // print(rating);
   switch (rating) {
     case > 0 && == 1:
       return RowOfRatings(

@@ -38,6 +38,9 @@ class SectionWidget extends StatelessWidget {
                 print('id : ${movies.id}');
                 print('relaseDate : ${movies.relaseDate}');
                 print('genreIDs : ${movies.genreIds}');
+                print('posterPath : ${movies.posterPath}');
+                print('mediatype : ${movies.mediatype}');
+                print('overview : ${movies.overview}');
                 showDialog(
                   context: context,
                   builder: (context) =>

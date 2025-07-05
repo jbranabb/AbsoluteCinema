@@ -41,7 +41,7 @@ class AllWidgetSection extends StatelessWidget {
               SectionWidget(initialpage: 0, list: state.trendingTv, isreverse: false,),
               // on the air
               SectionTitleWidget(title: SectionTitle.onTheAir),
-              SectionWidget(initialpage: 0, list: state.allShows, isreverse: false,),
+              SectionWidget(initialpage: 0, list: state.onTheAir, isreverse: false,),
               //popularTv
               SectionTitleWidget(title: SectionTitle.popularTv),
               SectionCaraouselSliderWidget(list: state.convertedUpComingMovie),
