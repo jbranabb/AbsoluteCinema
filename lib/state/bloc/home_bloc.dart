@@ -70,26 +70,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
-          Map<String, dynamic> genreMapMov = {};
-          Map<String, dynamic> genreMapTv = {};
+          // Map<String, dynamic> genreMapMov = {};
+          // Map<String, dynamic> genreMapTv = {};
           Map<String, dynamic> genreMapCombaine = {};
           var responseGenre = await dio.get(genreUrlMov);
-          List genre = responseGenre.data['genres'];
-          genreMapMov = {for (var g in genre) g['id'].toString(): g['name']};
           var responseGenreMapTv = await dio.get(genreUrlTv);
+          List genre = responseGenre.data['genres'];
           List genreTv = responseGenreMapTv.data['genres'];
-          genreMapTv = {for (var g in genreTv) g['id'].toString(): g['name']};
-          
           genreMapCombaine = {
             for(var x in genreTv) x['id'].toString() : x['name'],
             for(var x in genre) x['id'].toString() : x['name']
           };
-          print(genreMapCombaine.length);
-          print(genreMapTv.length);
-          print(genreMapMov.length);
-          print(genreMapCombaine);
-          print(genreMapMov);
-          print(genreMapTv);
 
           //On The Air
           List<dynamic> dataOTA = responseTSonTheAir.data['results'];
@@ -100,7 +91,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               .toList();
           List<ConvertedModels> convertedOntaTV = finaldataOTA.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapTv[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
             var ratings = double.parse(movie.voteAvg);
@@ -125,7 +116,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               .toList();
           List<ConvertedModels> convertedTrendingTv = finaldataTv.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapTv[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -148,7 +139,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedPopularTv =
               finalddatPopularTv.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapTv[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -172,7 +163,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedTopRatedTv =
               finaldataTopRated.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -198,7 +189,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedTrendingMovies =
               moviesTrending.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -226,7 +217,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedTopRatedMovies =
               moviesTopRated.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -253,7 +244,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedAiringTodayTV =
               finalDataAiringToday.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapTv[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -277,7 +268,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
           List<ConvertedModels> convertedTrendingAll = all.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -303,7 +294,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedTheatersMovie =
               finalDataTheaters.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -330,7 +321,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedStreamingMovie =
               finalDataStreaming.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
 
@@ -355,7 +346,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List<ConvertedModels> convertedUpcomingMovie =
               finaldataUpcoming.map((movie) {
             List<String> genreNames = movie.genreIds
-                .map((id) => genreMapMov[id.toString()] ?? 'unkwn')
+                .map((id) => genreMapCombaine[id.toString()] ?? 'unkwn')
                 .toList()
                 .cast<String>();
             var ratings = double.parse(movie.voteAvg);

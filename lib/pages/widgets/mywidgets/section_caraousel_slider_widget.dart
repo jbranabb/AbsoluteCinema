@@ -60,6 +60,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                           }, child:  const Text('Close'))
                          ], 
                         ));
+                            Navigator.of(context).pop();
                       }
                     },
                     child: ClipRRect(

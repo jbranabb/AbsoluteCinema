@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
-
-import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section.dart';

@@ -13,9 +13,11 @@ class SectionWidget extends StatelessWidget {
     super.key,
     required this.list,
     required this.isreverse,
+    required this.initialpage,
   });
   List<ConvertedModels> list;
   bool isreverse;
+  int initialpage;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class SectionWidget extends StatelessWidget {
                                   child: const Text('Close'))
                             ],
                           ));
+                                    Navigator.of(context).pop();
                 }
               },
               child: Card(
@@ -111,7 +114,7 @@ class SectionWidget extends StatelessWidget {
           },
           options: CarouselOptions(
               aspectRatio: 16 / 9,
-              initialPage: 0,
+              initialPage: initialpage,
               reverse: isreverse,
               viewportFraction: 0.3)),
     );

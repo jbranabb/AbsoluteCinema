@@ -1,7 +1,9 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
@@ -33,7 +35,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     print(
-      buildRatings(int.parse(voteAvg.substring(0, 1))),
+      oveview.length
     );
     return Scaffold(
         body: Stack(
@@ -215,31 +217,68 @@ class DetailPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: AnimatedContainer(
-                    duration: Durations.medium4,
-                    height: 120,
-                    width: width * 0.9,
-                    child: SingleChildScrollView(
-                      physics:const NeverScrollableScrollPhysics(),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MyText(
-                            text: tagline,
-                            clors: Colors.grey.shade400,
-                            fnweight: FontWeight.bold,
-                            fnSize: 11,
-                          ),
-                          Text(
-                            oveview,
-                            style: GoogleFonts.inter(
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12
+                  child: GestureDetector(
+                    onTap: ()=> context.read<AnimatedExpands>().changeState(),
+                    child: BlocBuilder<AnimatedExpands, bool>(
+                      builder: (context, state) {
+                        return Stack(
+                          children: [
+                            AnimatedContainer(
+                              duration: Durations.medium4,
+                              height: oveview.length > 230 ? state ?  150 : 110 : 110,
+                              width: width * 0.9,
+                              child: SingleChildScrollView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MyText(
+                                      text: tagline,
+                                      clors: Colors.grey.shade400,
+                                      fnweight: FontWeight.bold,
+                                      fnSize: 11,
+                                    ),
+                                    Text(
+                                      oveview,
+                                      overflow: TextOverflow.fade,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                          )                       
-                        ],
-                      ),
+                            Positioned(
+                              bottom: 0,
+                              child: AnimatedContainer(
+                                duration: Durations.short1,
+                                height: 20,
+                                width: width * 0.9,
+                              decoration: BoxDecoration(
+
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: oveview.length > 230 ? state ? [
+                                    Colors.transparent,
+                                    Colors.grey.withOpacity(0.0)
+                                  ] : [
+
+                                    Colors.transparent,
+                                    Colors.grey.withOpacity(0.4)
+                                ] : [
+                                  Colors.transparent,
+                                  Colors.transparent
+                                ]
+                                  )
+                              ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
                     ),
                   ),
                 )
