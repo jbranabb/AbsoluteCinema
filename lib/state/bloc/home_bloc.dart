@@ -130,6 +130,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
+                mediatype: movie.mediaType,
                 overview: movie.overview);
           }).toList();
 
@@ -281,6 +282,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
+                mediatype: movie.mediaType,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();

@@ -5,6 +5,7 @@ class MoviesModels {
   String backdropPath;
   String posterPath;
   String overview;
+  String mediaType;
   String relaseDate;
   List<int> genreIds;
   MoviesModels(
@@ -14,6 +15,7 @@ class MoviesModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
+      required this.mediaType,
       required this.relaseDate,
       required this.genreIds});
 
@@ -25,7 +27,9 @@ class MoviesModels {
         posterPath: json['poster_path']?.toString() ?? 'noPosterpPath',
         backdropPath: json['backdrop_path'] ?? 'noBackdropPath',
         overview: json['overview'] ?? 'noReview',
-        relaseDate: json['release_date']?.toString() ?? '-',
+        mediaType: json['media_type'] ?? 'mars',
+        relaseDate: json['release_date'] ?? json['first_air_date']?.toString() ?? '-',
+
         genreIds: List<int>.from(json['genre_ids'] ?? []));
   }
 }
@@ -57,7 +61,7 @@ class TvShowsModels {
         posterPath: json['poster_path']?.toString() ?? 'noPosterpPath',
         backdropPath: json['backdrop_path'] ?? 'noBackdropPath',
         overview: json['overview'] ?? 'noReview',
-        fristAirDate: json['first_air_date']?.toString() ?? '-',
+        fristAirDate: json['first_air_date'] ?? json['release_date']?.toString() ?? '-',
         genreIds: List<int>.from(json['genre_ids'] ?? []));
   }
 }
@@ -70,6 +74,7 @@ class ConvertedModels {
   String posterPath;
   String overview;
   String relaseDate;
+  String? mediatype;
   List<String> genreIds;
   ConvertedModels(
       {required this.id,
@@ -79,6 +84,7 @@ class ConvertedModels {
       required this.backdropPath,
       required this.posterPath,
       required this.overview,
+       this.mediatype,
       required this.relaseDate});
 }
 
