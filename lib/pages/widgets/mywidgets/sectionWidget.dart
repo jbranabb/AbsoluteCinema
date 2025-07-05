@@ -31,6 +31,13 @@ class SectionWidget extends StatelessWidget {
             var movies = list[index];
             return GestureDetector(
               onTap: () async {
+                print('List : ${list.length}');
+                print('title : ${movies.title}');
+                print('voteavg : ${movies.voteAvg}');
+                print('backdropPath : ${movies.backdropPath}');
+                print('id : ${movies.id}');
+                print('relaseDate : ${movies.relaseDate}');
+                print('genreIDs : ${movies.genreIds}');
                 showDialog(
                   context: context,
                   builder: (context) =>
