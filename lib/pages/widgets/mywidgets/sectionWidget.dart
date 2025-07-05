@@ -1,4 +1,6 @@
 import 'package:absolutecinema/apiService/model.dart';
+import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -26,6 +28,43 @@ class SectionWidget extends StatelessWidget {
               itemBuilder: (context, index, realIndex){
                 var movies = list[index];
                 return GestureDetector(
+                  onTap: ()async{
+
+                      showDialog(
+                        context: context,
+                        builder: (context) => Center(child: CircularProgressIndicator()),
+                      );
+                      try {
+                        var idata = int.parse(movies.id);
+                        var extra = await extraData(idata);
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                            oveview: movies.overview,
+                            titile: movies.title,
+                            backdropImage: movies.backdropPath,
+                            posterImage: movies.posterPath,
+                            genreNames: movies.genreIds.join(', '),
+                            date: movies.relaseDate,
+                            voteAvg: movies.voteAvg,
+                            country: extra['country'],
+                            director: extra['director'],
+                            runtime: extra['runtime'],
+                            tagline: extra['tagline'],
+                          ),
+                        ));
+                      } catch (e) {
+                        showDialog(context: context, builder: (context) => AlertDialog(
+                          title: const Text('Sorry Something Went Wrong'),
+                          content: Text(e.toString()),
+                         actions: [
+                          ElevatedButton(onPressed: (){
+                            Navigator.of(context).pop();
+                          }, child:  const Text('Close'))
+                         ], 
+                        ));
+                      }
+                  },
                     child: Card(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
