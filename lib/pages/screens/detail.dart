@@ -177,7 +177,7 @@ class DetailPage extends StatelessWidget {
                     ),
                     buildRatings(int.parse(voteAvg.substring(0, 1))),
                     MyText(
-                      text: ' | ',
+                      text: '| ',
                       clors: Colors.grey.shade600,
                       fnweight: FontWeight.w600,
                       fnSize: 12,
@@ -206,7 +206,7 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
+                           const Icon(
                               Icons.play_arrow_rounded,
                               color: Colors.black,
                             ),
@@ -363,7 +363,7 @@ Widget buildRatings(int rating) {
     case >= 5 && < 6:
       return RowOfRatings(
         rating: 5,
-        size: 20,
+        size: 14,
       );
     default:
       return MyText(
@@ -386,7 +386,7 @@ class RowOfRatings extends StatelessWidget {
         children: List.generate(
           rating,
           (index) => Padding(
-            padding: const EdgeInsets.all(1.0),
+            padding: const EdgeInsets.all(0.2),
             child: Icon(
               Icons.star,
               size: size,

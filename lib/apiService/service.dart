@@ -15,7 +15,7 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
     (x) => x['job'] == 'Director',
     orElse: () => director.firstWhere((t) => t['department'] == 'Directing' 
     || t['known_for_department'] == 'Directing', orElse: 
-    ()=> {'name': 'Unknown'})
+    ()=> {'name': 'A Man'})
     
   );
   late int jam = 0;
@@ -33,11 +33,11 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
   List<dynamic> datacast = credits.data['cast'];
   final finaldatacast = datacast.map((e) =>  
     e['name'] ?? 'adsdada').take(5);
-    // print()
+  var sesason = '${data['number_of_seasons']} Season';
 
   return {
     'director': crew['name'] ?? 'no name',
-    'rtns': mediaType == 'tv' ? data['number_of_seasons'].toString() : finalRuntime,
+    'rtns': mediaType == 'tv' ?  sesason : finalRuntime,
     'tagline': tagline ?? 'no tag',
     'country': finalCountry,
     // 'cast': finaldatacast.join(', '),
