@@ -3,7 +3,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/sectionTitleWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_widget.dart';
 import 'package:absolutecinema/section_title.dart';
-import 'package:absolutecinema/state/bloc/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

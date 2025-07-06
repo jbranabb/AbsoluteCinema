@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:absolutecinema/state/bloc/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';

@@ -8,7 +8,7 @@ import 'package:absolutecinema/pages/widgets/tabbarWigets/movies_widgets_section
 import 'package:absolutecinema/pages/widgets/tabbarWigets/tvshow_widgets_section.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/appbar.dart';
 import 'package:absolutecinema/pages/widgets/widgetsfrist/slider.dart';
-import 'package:absolutecinema/state/bloc/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
