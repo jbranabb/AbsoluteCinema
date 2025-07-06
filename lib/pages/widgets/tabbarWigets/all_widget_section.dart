@@ -32,7 +32,7 @@ class AllWidgetSection extends StatelessWidget {
               SectionWidget(initialpage: 0, list: state.streaming,isreverse: true,),
               //upcoming
               SectionTitleWidget(title: SectionTitle.upcoming),
-              SectionCaraouselSliderWidget(list: state.convertedUpComingMovie),
+              SectionCaraouselSliderWidget(list: state.upcoming),
               // in theaters
               SectionTitleWidget(title: SectionTitle.inTheaters),
               SectionWidget(initialpage: 0, list: state.inTheaters,isreverse: false,),

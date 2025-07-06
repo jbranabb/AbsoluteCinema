@@ -22,8 +22,6 @@ class StateLoaded extends HomeState {
   List<ConvertedModels> onTheAir;
   List<ConvertedModels> popularTv;
   List<ConvertedModels>  topRatedTv;
-  //Converted
-  List<ConvertedModels> convertedUpComingMovie;
   StateLoaded({required this.trending,
    required this.movieTopRated, 
    required this.airingToday,
@@ -35,6 +33,5 @@ class StateLoaded extends HomeState {
    required this.topRatedTv,
    required this.popularTv,
    required this.trendingTv,
-   required this.convertedUpComingMovie
    });
 }

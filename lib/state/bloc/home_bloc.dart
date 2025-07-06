@@ -6,6 +6,7 @@ import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -15,6 +16,11 @@ part 'home_state.dart';
 Dio dio = Dio();
 // apiKey
 String apiKey = imdbKey;
+
+class MediaType {
+  static const tv = 'tv';
+  static const mov = 'movie';
+}
 
 //all
 String allUrl =
@@ -70,8 +76,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if (responsetrending.statusCode == 200 &&
             responseMovieTopRated.statusCode == 200) {
           print('Succses : True');
-          // Map<String, dynamic> genreMapMov = {};
-          // Map<String, dynamic> genreMapTv = {};
           Map<String, dynamic> genreMapCombaine = {};
           var responseGenre = await dio.get(genreUrlMov);
           var responseGenreMapTv = await dio.get(genreUrlTv);
@@ -99,7 +103,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return ConvertedModels(
                 id: movie.id,
                 genreIds: genreNames,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.tv,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
@@ -131,7 +135,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.tv,
                 overview: movie.overview);
           }).toList();
 
@@ -149,7 +153,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             var finalratings = (ratings / 10 * 5);
             return ConvertedModels(
                 id: movie.id,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.tv,
                 genreIds: genreNames,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
@@ -176,7 +180,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 id: movie.id,
                 genreIds: genreNames,
                 title: movie.title,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.tv,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
@@ -206,7 +210,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.mov,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -235,7 +239,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.mov,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -264,7 +268,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.tv,
                 overview: movie.overview);
           }).toList();
 
@@ -315,7 +319,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
                 posterPath: movie.posterPath,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.mov,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
           }).toList();
@@ -342,7 +346,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 backdropPath: movie.backdropPath,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.mov,
                 posterPath: movie.posterPath,
                 relaseDate: movie.relaseDate,
                 overview: movie.overview);
@@ -364,7 +368,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             return ConvertedModels(
                 id: movie.id,
                 genreIds: genreNames,
-                mediatype: movie.mediaType,
+                mediatype: MediaType.mov,
                 title: movie.title,
                 voteAvg: finalratings.toString(),
                 relaseDate: movie.relaseDate,
@@ -385,7 +389,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               topRatedTv: convertedTopRatedTv,
               airingToday: convertedAiringTodayTV,
               trendingTv: convertedTrendingTv,
-              convertedUpComingMovie: convertedUpcomingMovie));
+              ));
         } else {
           emit(StateError('Something Went Wrong'));
           print('Succses : False');

@@ -27,7 +27,7 @@ class CombaineModels {
         posterPath: json['poster_path']?.toString() ?? 'noPosterpPath',
         backdropPath: json['backdrop_path'] ?? 'noBackdropPath',
         overview: json['overview'] ?? 'noReview',
-        mediaType: json['media_type'] ?? 'salah',
+        mediaType: json['media_type'] ??  'unknown',
         relaseDate: json['first_air_date'] ?? json['release_date']?.toString() ?? '-',
         genreIds: List<int>.from(json['genre_ids'] ?? []));
   }
