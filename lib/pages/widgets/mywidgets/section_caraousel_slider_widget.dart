@@ -68,7 +68,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                       borderRadius: BorderRadiusGeometry.circular(8),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                            'https://image.tmdb.org/t/p/w780${movies.backdropPath}',
                         placeholder: (context, url) =>
                             Center(child: MyText(text: movies.title)),
                         fit: BoxFit.cover,

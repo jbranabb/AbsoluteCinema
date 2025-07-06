@@ -65,7 +65,7 @@ class DetailPage extends StatelessWidget {
                 width: double.infinity,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://image.tmdb.org/t/p/w300$backdropImage'),
+                    imageUrl: 'https://image.tmdb.org/t/p/w780$backdropImage'),
               ),
               Align(
                 alignment: Alignment.bottomRight,

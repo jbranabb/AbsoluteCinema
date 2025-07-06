@@ -55,7 +55,7 @@ class SliderWidget extends StatelessWidget {
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
                                 imageUrl:
-                                    'https://image.tmdb.org/t/p/w300${movies.backdropPath}',
+                                    'https://image.tmdb.org/t/p/w780${movies.backdropPath}',
                                 errorWidget: (context, url, error) => Center(
                                   child: Text('Something Went Wrong $error'),
                                 ),
