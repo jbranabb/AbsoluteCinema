@@ -1,5 +1,6 @@
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
+import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
@@ -14,6 +15,7 @@ void main() {
       BlocProvider(create: (context) => HomeBloc()),
       BlocProvider(create: (context) => DotIndicator()),
       BlocProvider(create: (context) => AnimatedExpands()),
+      BlocProvider(create: (context) => CastBloc()),
     ],
     child: const MyApp()));
 }

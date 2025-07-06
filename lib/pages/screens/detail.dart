@@ -1,5 +1,6 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,22 +8,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatelessWidget {
-  DetailPage(
-      {super.key,
-      required this.voteAvg,
-      required this.runtime,
-      required this.director,
-      required this.tagline,
-      required this.date,
-      required this.oveview,
-      required this.titile,
-      required this.backdropImage,
-      required this.posterImage,
-      required this.country,
-      required this.genreNames,
-      this.id,
-      this.mediatype,
-      });
+  DetailPage({
+    super.key,
+    required this.voteAvg,
+    required this.runtime,
+    required this.director,
+    required this.tagline,
+    required this.date,
+    required this.oveview,
+    required this.titile,
+    required this.backdropImage,
+    required this.posterImage,
+    required this.country,
+    required this.genreNames,
+    this.id,
+    this.mediatype,
+  });
   String titile;
   String oveview;
   String backdropImage;
@@ -49,7 +50,7 @@ class DetailPage extends StatelessWidget {
     print('director :$director');
     print('tagline :${tagline.length}');
     print('country :$country');
-    print('oveview :${oveview.length}'); 
+    print('oveview :${oveview.length}');
     return Scaffold(
         body: Stack(
       children: [
@@ -206,7 +207,7 @@ class DetailPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                           const Icon(
+                            const Icon(
                               Icons.play_arrow_rounded,
                               color: Colors.black,
                             ),
@@ -231,50 +232,56 @@ class DetailPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: GestureDetector(
-                    onTap: ()=> context.read<AnimatedExpands>().changeState(),
+                    onTap: () => context.read<AnimatedExpands>().changeState(),
                     child: BlocBuilder<AnimatedExpands, bool>(
                       builder: (context, state) {
                         return Stack(
                           children: [
                             AnimatedContainer(
                               duration: Durations.medium4,
-                              height: oveview.length > 250 ? state ?  150 : 110 : 110,
+                              height: oveview.length > 250
+                                  ? state
+                                      ? 150
+                                      : 110
+                                  : 110,
                               width: width * 0.9,
                               child: SingleChildScrollView(
                                 physics: const NeverScrollableScrollPhysics(),
-                                child: 
-                                
-                                tagline.isNotEmpty ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MyText(
-                                      text: tagline,
-                                      clors: Colors.grey.shade400,
-                                      fnweight: FontWeight.bold,
-                                      fnSize: 11,
-                                    ),
-                                    Text(
-                                      oveview,
-                                      overflow: TextOverflow.fade,
-                                      style: GoogleFonts.inter(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
-                                    )
-                                  ],
-                                ) :  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      oveview,
-                                      overflow: TextOverflow.fade,
-                                      style: GoogleFonts.inter(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
-                                    )
-                                  ],
-                                ) ,
+                                child: tagline.isNotEmpty
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          MyText(
+                                            text: tagline,
+                                            clors: Colors.grey.shade400,
+                                            fnweight: FontWeight.bold,
+                                            fnSize: 11,
+                                          ),
+                                          Text(
+                                            oveview,
+                                            overflow: TextOverflow.fade,
+                                            style: GoogleFonts.inter(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12),
+                                          )
+                                        ],
+                                      )
+                                    : Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            oveview,
+                                            overflow: TextOverflow.fade,
+                                            style: GoogleFonts.inter(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12),
+                                          )
+                                        ],
+                                      ),
                               ),
                             ),
                             Positioned(
@@ -283,24 +290,24 @@ class DetailPage extends StatelessWidget {
                                 duration: Durations.short4,
                                 height: 40,
                                 width: width * 0.9,
-                              decoration: BoxDecoration(
-
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: oveview.length > 250 ? state ? [
-                                    Colors.transparent,
-                                    Colors.grey.withOpacity(0.0)
-                                  ] : [
-
-                                    Colors.transparent,
-                                    Colors.grey.withOpacity(0.2)
-                                ] : [
-                                  Colors.transparent,
-                                  Colors.transparent
-                                ]
-                                  )
-                              ),
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: oveview.length > 250
+                                            ? state
+                                                ? [
+                                                    Colors.transparent,
+                                                    Colors.grey.withOpacity(0.0)
+                                                  ]
+                                                : [
+                                                    Colors.transparent,
+                                                    Colors.grey.withOpacity(0.2)
+                                                  ]
+                                            : [
+                                                Colors.transparent,
+                                                Colors.transparent
+                                              ])),
                               ),
                             )
                           ],
@@ -308,7 +315,16 @@ class DetailPage extends StatelessWidget {
                       },
                     ),
                   ),
-                )
+                ),
+                BlocBuilder<CastBloc, CastState>(builder: (context, state) {
+                  if (state is StateLoaded) {
+                    return Container(
+                      height: 300,
+                      width: width * 0.95,
+                    );
+                  }
+                  return Container();
+                })
               ],
             )),
       ],
