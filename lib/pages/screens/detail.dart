@@ -39,17 +39,17 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    // print('titile : $titile');
-    // print('backdropImage :$backdropImage');
-    // print('posterImage :$posterImage');
-    // print('genreNames :$genreNames');
-    // print('date :$date');
-    // print('voteAvg :$voteAvg');
-    // print('runtime :$runtime');
-    // print('director :$director');
-    // print('tagline :${tagline.length}');
-    // print('country :$country');
-    // print('oveview :${oveview.length}'); 
+    print('titile : $titile');
+    print('backdropImage :$backdropImage');
+    print('posterImage :$posterImage');
+    print('genreNames :$genreNames');
+    print('date :$date');
+    print('voteAvg :$voteAvg');
+    print('runtime :$runtime');
+    print('director :$director');
+    print('tagline :${tagline.length}');
+    print('country :$country');
+    print('oveview :${oveview.length}'); 
     return Scaffold(
         body: Stack(
       children: [

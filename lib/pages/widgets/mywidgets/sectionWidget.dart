@@ -61,7 +61,7 @@ class SectionWidget extends StatelessWidget {
                       voteAvg: movies.voteAvg,
                       country: extra['country'],
                       director: extra['director'],
-                      runtime: extra['runtime'],
+                      runtime: extra['rtns'],
                       tagline: extra['tagline'],
                     ),
                   ));

@@ -9,6 +9,7 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
       await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$imdbKey');
   final credits = await dio
       .get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$imdbKey');
+
   List<dynamic> director = credits.data['crew'];
   final crew = director.firstWhere(
     (x) => x['job'] == 'Director',
@@ -21,24 +22,25 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
   late int menit = 0;
   var data = detail.data;
   if(mediaType != 'tv'){
-  var runtime = data['runtime'];
+  var runtime = data['runtime'] ?? '123';
    jam = runtime ~/ 60;
    menit = runtime % 60;
   }
-  var tagline = data['tagline'];
+  var tagline = data['tagline'] ?? 'no tagline';
   var finalRuntime = '${jam}h ${menit}m';
   List<dynamic> country = data['production_countries'];
   var finalCountry = country.map((e) =>  e['name'],).take(1).join(', ');
   List<dynamic> datacast = credits.data['cast'];
   final finaldatacast = datacast.map((e) =>  
     e['name'] ?? 'adsdada').take(5);
+    // print()
 
   return {
-    'director': crew['name'],
-    'rtns': mediaType == 'tv' ? data['number_of_seasons'] :finalRuntime,
-    'tagline': tagline,
+    'director': crew['name'] ?? 'no name',
+    'rtns': mediaType == 'tv' ? data['number_of_seasons'].toString() : finalRuntime,
+    'tagline': tagline ?? 'no tag',
     'country': finalCountry,
-    'cast': finaldatacast.join(', '),
+    // 'cast': finaldatacast.join(', '),
     };
 }
 Future<Map<String,dynamic>> test(String mediatype, int id)async{
