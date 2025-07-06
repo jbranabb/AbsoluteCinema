@@ -19,7 +19,10 @@ class DetailPage extends StatelessWidget {
       required this.backdropImage,
       required this.posterImage,
       required this.country,
-      required this.genreNames});
+      required this.genreNames,
+      this.id,
+      this.mediatype,
+      });
   String titile;
   String oveview;
   String backdropImage;
@@ -31,20 +34,22 @@ class DetailPage extends StatelessWidget {
   String director;
   String tagline;
   String country;
+  String? mediatype;
+  int? id;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print('titile : $titile');
-    print('backdropImage :$backdropImage');
-    print('posterImage :$posterImage');
-    print('genreNames :$genreNames');
-    print('date :$date');
-    print('voteAvg :$voteAvg');
-    print('runtime :$runtime');
-    print('director :$director');
-    print('tagline :${tagline.length}');
-    print('country :$country');
-    print('oveview :${oveview.length}'); 
+    // print('titile : $titile');
+    // print('backdropImage :$backdropImage');
+    // print('posterImage :$posterImage');
+    // print('genreNames :$genreNames');
+    // print('date :$date');
+    // print('voteAvg :$voteAvg');
+    // print('runtime :$runtime');
+    // print('director :$director');
+    // print('tagline :${tagline.length}');
+    // print('country :$country');
+    // print('oveview :${oveview.length}'); 
     return Scaffold(
         body: Stack(
       children: [
@@ -260,12 +265,6 @@ class DetailPage extends StatelessWidget {
                                 ) :  Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // MyText(
-                                    //   text: tagline,
-                                    //   clors: Colors.grey.shade400,
-                                    //   fnweight: FontWeight.bold,
-                                    //   fnSize: 11,
-                                    // ),
                                     Text(
                                       oveview,
                                       overflow: TextOverflow.fade,
