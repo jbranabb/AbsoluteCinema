@@ -1,5 +1,6 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   DetailPage({
     super.key,
     required this.voteAvg,
@@ -21,8 +22,8 @@ class DetailPage extends StatelessWidget {
     required this.posterImage,
     required this.country,
     required this.genreNames,
-    this.id,
-    this.mediatype,
+    required this.id,
+    required this.mediatype,
   });
   String titile;
   String oveview;
@@ -36,21 +37,34 @@ class DetailPage extends StatelessWidget {
   String tagline;
   String country;
   String? mediatype;
-  int? id;
+  int id;
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+
+}
+int idp = 0;
+class _DetailPageState extends State<DetailPage> {
+
+  @override
+  void initState() {
+    super.initState();
+   context.read<CastBloc>().add(FetchCast(id:widget.id,mediaType: widget.mediatype.toString() ));
+  }
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print('titile : $titile');
-    print('backdropImage :$backdropImage');
-    print('posterImage :$posterImage');
-    print('genreNames :$genreNames');
-    print('date :$date');
-    print('voteAvg :$voteAvg');
-    print('runtime :$runtime');
-    print('director :$director');
-    print('tagline :${tagline.length}');
-    print('country :$country');
-    print('oveview :${oveview.length}');
+    print('titile : ${widget.titile}');
+    print('backdropImage :${widget.backdropImage}');
+    print('posterImage :${widget.posterImage}');
+    print('genreNames :${widget.genreNames}');
+    print('date :${widget.date}');
+    print('voteAvg :${widget.voteAvg}');
+    print('runtime :${widget.runtime}');
+    print('director :${widget.director}');
+    print('tagline :${widget.tagline.length}');
+    print('country :${widget.country}');
+    print('oveview :${widget.oveview.length}');
     return Scaffold(
         body: Stack(
       children: [
@@ -66,7 +80,7 @@ class DetailPage extends StatelessWidget {
                 width: double.infinity,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://image.tmdb.org/t/p/w780$backdropImage'),
+                    imageUrl: 'https://image.tmdb.org/t/p/w780${widget.backdropImage}'),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -94,7 +108,7 @@ class DetailPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: CachedNetworkImage(
-                  imageUrl: 'https://image.tmdb.org/t/p/w300$posterImage',
+                  imageUrl: 'https://image.tmdb.org/t/p/w300${widget.posterImage}',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -110,8 +124,8 @@ class DetailPage extends StatelessWidget {
                   height: 25,
                   width: 200,
                   child: MyText(
-                    text: titile,
-                    fnSize: titile.length > 16 ? 16 : 20,
+                    text: widget.titile,
+                    fnSize: widget.titile.length > 16 ? 16 : 20,
                     fnweight: FontWeight.w800,
                   ),
                 ),
@@ -120,10 +134,10 @@ class DetailPage extends StatelessWidget {
                   width: 180,
                   alignment: Alignment.centerLeft,
                   child: MyText(
-                    text: genreNames,
+                    text: widget.genreNames,
                     fnweight: FontWeight.bold,
                     clors: Colors.grey.shade400,
-                    fnSize: genreNames.length > 25 ? 12 : 14,
+                    fnSize: widget.genreNames.length > 25 ? 12 : 14,
                   ),
                 ),
                 Padding(
@@ -132,7 +146,7 @@ class DetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MyText(
-                        text: date.substring(0, 4),
+                        text: widget.date.substring(0, 4),
                         clors: Colors.grey.shade500,
                         fnSize: 14,
                         fnweight: FontWeight.bold,
@@ -152,7 +166,7 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
                 MyText(
-                  text: ' $director',
+                  text: ' ${widget.director}',
                   clors: Colors.grey.shade400,
                   fnSize: 15,
                   fnweight: FontWeight.bold,
@@ -164,7 +178,7 @@ class DetailPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: MyText(
-                        text: runtime,
+                        text: widget.runtime,
                         clors: Colors.grey.shade600,
                         fnweight: FontWeight.w600,
                         fnSize: 12,
@@ -176,7 +190,7 @@ class DetailPage extends StatelessWidget {
                       fnweight: FontWeight.w600,
                       fnSize: 12,
                     ),
-                    buildRatings(int.parse(voteAvg.substring(0, 1))),
+                    buildRatings(int.parse(widget.voteAvg.substring(0, 1))),
                     MyText(
                       text: '| ',
                       clors: Colors.grey.shade600,
@@ -184,9 +198,9 @@ class DetailPage extends StatelessWidget {
                       fnSize: 12,
                     ),
                     MyText(
-                      text: country == 'United States of America'
+                      text: widget.country == 'United States of America'
                           ? 'US'
-                          : country,
+                          : widget.country,
                       clors: Colors.grey.shade600,
                       fnweight: FontWeight.w600,
                       fnSize: 12,
@@ -239,7 +253,7 @@ class DetailPage extends StatelessWidget {
                           children: [
                             AnimatedContainer(
                               duration: Durations.medium4,
-                              height: oveview.length > 250
+                              height: widget.oveview.length > 250
                                   ? state
                                       ? 150
                                       : 110
@@ -247,19 +261,19 @@ class DetailPage extends StatelessWidget {
                               width: width * 0.9,
                               child: SingleChildScrollView(
                                 physics: const NeverScrollableScrollPhysics(),
-                                child: tagline.isNotEmpty
+                                child: widget.tagline.isNotEmpty
                                     ? Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           MyText(
-                                            text: tagline,
+                                            text: widget.tagline,
                                             clors: Colors.grey.shade400,
                                             fnweight: FontWeight.bold,
                                             fnSize: 11,
                                           ),
                                           Text(
-                                            oveview,
+                                            widget.oveview,
                                             overflow: TextOverflow.fade,
                                             style: GoogleFonts.inter(
                                                 color: Colors.grey.shade600,
@@ -273,7 +287,7 @@ class DetailPage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            oveview,
+                                            widget.oveview,
                                             overflow: TextOverflow.fade,
                                             style: GoogleFonts.inter(
                                                 color: Colors.grey.shade600,
@@ -294,7 +308,7 @@ class DetailPage extends StatelessWidget {
                                     gradient: LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
-                                        colors: oveview.length > 250
+                                        colors: widget.oveview.length > 250
                                             ? state
                                                 ? [
                                                     Colors.transparent,
@@ -318,12 +332,29 @@ class DetailPage extends StatelessWidget {
                 ),
                 BlocBuilder<CastBloc, CastState>(builder: (context, state) {
                   if (state is StateLoaded) {
+                    var cast =  state.cast[0];
                     return Container(
                       height: 300,
                       width: width * 0.95,
+                      child: MyText(text:  cast.name),
+                      color: Colors.red,
                     );
+                  }else if(state is StateError){
+                   return Container(
+                    color: Colors.red,
+                    height: 50,
+                    width: 50,
+                    child: Text(state.e),
+                   );
+                  }else if(state  is StateLoading){
+                    return Center(child: LoadingWidget(),);
                   }
-                  return Container();
+                  return Container(
+                    color: Colors.amber,
+                    height: 10,
+                    width: 10,
+                    // child: ,
+                  );
                 })
               ],
             )),

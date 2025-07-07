@@ -2,10 +2,13 @@ import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 
 // ignore: must_be_immutable
 class SectionWidget extends StatelessWidget {
@@ -47,6 +50,7 @@ class SectionWidget extends StatelessWidget {
                        const Center(child:LoadingWidget()),
                 );
                 try {
+               
                   var idata = int.parse(movies.id);
                   var extra = await extraData(idata, movies.mediatype.toString());
                   Navigator.of(context).pop();
@@ -63,9 +67,11 @@ class SectionWidget extends StatelessWidget {
                       director: extra['director'],
                       runtime: extra['rtns'],
                       tagline: extra['tagline'],
+                      id: int.parse(movies.id),
+                      mediatype: movies.mediatype,
                     ),
                   ));
-                } catch (e) {
+                 } catch (e) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(

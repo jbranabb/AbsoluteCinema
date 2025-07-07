@@ -49,6 +49,8 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                             director: extra['director'],
                             runtime: extra['rtns'],
                             tagline: extra['tagline'],
+                            id: int.parse(movies.id),
+                            mediatype:movies.mediatype,
                           ),
                         ));
                       } catch (e) {
