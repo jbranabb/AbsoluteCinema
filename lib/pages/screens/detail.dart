@@ -4,6 +4,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -330,14 +331,52 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
+                MyText(text: 'Cast'),
                 BlocBuilder<CastBloc, CastState>(builder: (context, state) {
                   if (state is StateLoaded) {
-                    var cast =  state.cast[0];
+                    print(state.cast.length);
                     return Container(
                       height: 300,
                       width: width * 0.95,
-                      child: MyText(text:  cast.name),
-                      color: Colors.red,
+                      child: CarouselSlider.builder(
+                        itemCount: state.cast.length,
+                         itemBuilder: (context, index, realIndex) {
+                        var cast =  state.cast[index];
+                           return Row(
+                            mainAxisAlignment: MainAxisAlignment.start ,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 110,
+                                width: 90,
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadiusGeometry.circular(50),
+                                      child: Container(
+                                        height: 70,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                        color: Colors.amber,
+                                        borderRadius: BorderRadius.circular(50)
+                                        ),
+                                        child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${cast.profilePath}'
+                                        , fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  MyText(text: cast.name),
+                                  MyText(text: cast.character),
+                                  ],
+                                ),
+                                
+                              )
+                            ],
+                           );
+                         }, options: CarouselOptions(
+                            viewportFraction: 0.3
+
+                         )),
                     );
                   }else if(state is StateError){
                    return Container(
