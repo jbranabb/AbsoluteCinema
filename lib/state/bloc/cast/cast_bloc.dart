@@ -13,19 +13,22 @@ class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc() : super(CastInitial()) {
     on<FetchCast>((event, emit) async {
       String castUrl =
-          'https://api.themoviedb.org/3/${event.mediaType}/${event.id}?api_key=$imdbKey';
+          'https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$imdbKey';
+          print(castUrl);
       final response = await dio.get(castUrl);
       emit(StateLoading());
       if (response.statusCode == 200) {
         try {
           List<dynamic> data = response.data['cast'];
-          List<Cast> dataCast = data
+          print('data : $data');
+          List<Cast> datacast = data
               .map(
                 (e) => Cast.fromJson(e),
               )
               .take(5)
               .toList();
-          emit(StateLoaded(cast: dataCast));
+              print('datacast: $datacast');
+          emit(StateLoaded(cast: datacast));
         } catch (e) {
           emit(StateError(e: e.toString()));
         }

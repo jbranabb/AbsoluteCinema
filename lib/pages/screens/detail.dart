@@ -342,8 +342,8 @@ class _DetailPageState extends State<DetailPage> {
                   }else if(state is StateError){
                    return Container(
                     color: Colors.red,
-                    height: 50,
-                    width: 50,
+                    height: 300,
+                    width: width * 0.95,
                     child: Text(state.e),
                    );
                   }else if(state  is StateLoading){
