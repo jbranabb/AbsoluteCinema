@@ -42,16 +42,17 @@ class DetailPage extends StatefulWidget {
 
   @override
   State<DetailPage> createState() => _DetailPageState();
-
 }
-int idp = 0;
-class _DetailPageState extends State<DetailPage> {
 
+int idp = 0;
+
+class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-  //  context.read<CastBloc>().add(FetchCast(id:widget.id,mediaType: widget.mediatype.toString() ));
+    //  context.read<CastBloc>().add(FetchCast(id:widget.id,mediaType: widget.mediatype.toString() ));
   }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -81,7 +82,8 @@ class _DetailPageState extends State<DetailPage> {
                 width: double.infinity,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl: 'https://image.tmdb.org/t/p/w780${widget.backdropImage}'),
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w780${widget.backdropImage}'),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -109,7 +111,8 @@ class _DetailPageState extends State<DetailPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: CachedNetworkImage(
-                  imageUrl: 'https://image.tmdb.org/t/p/w300${widget.posterImage}',
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w300${widget.posterImage}',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -331,62 +334,97 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
-                MyText(text: 'Cast'),
+                Padding(
+              padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
+                  child: MyText(text: 'Cast', fnweight: FontWeight.bold,fnSize: 15, ),
+                ),
                 BlocBuilder<CastBloc, CastState>(builder: (context, state) {
                   if (state is StateLoaded) {
                     print(state.cast.length);
                     return Container(
                       height: 300,
                       width: width * 0.95,
+                      // color: Colors.red,
+                      alignment: Alignment.topCenter,
                       child: CarouselSlider.builder(
-                        itemCount: state.cast.length,
-                         itemBuilder: (context, index, realIndex) {
-                        var cast =  state.cast[index];
-                           return Row(
-                            mainAxisAlignment: MainAxisAlignment.start ,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 110,
-                                width: 90,
-                                child: Column(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadiusGeometry.circular(50),
-                                      child: Container(
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                        color: Colors.amber,
-                                        borderRadius: BorderRadius.circular(50)
-                                        ),
-                                        child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${cast.profilePath}'
-                                        , fit: BoxFit.cover,
+                          itemCount: state.cast.length,
+                          itemBuilder: (context, index, realIndex) {
+                            var cast = state.cast[index];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 110,
+                                  width: 90,
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadiusGeometry.circular(50),
+                                        child: Container(
+                                          height: 70,
+                                          width: 70,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                'https://image.tmdb.org/t/p/w780${cast.profilePath}',
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                Center(
+                                              child: MyText(
+                                                text: cast.name,
+                                                fnweight: FontWeight.bold,
+                                                fnSize: 9,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Container(
+                                                    color: Colors.grey.shade400,
+                                                    child: Icon(
+                                                      Icons.person,
+                                                      size: 47,
+                                                    )),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  MyText(text: cast.name),
-                                  MyText(text: cast.character),
-                                  ],
-                                ),
-                                
-                              )
-                            ],
-                           );
-                         }, options: CarouselOptions(
-                            viewportFraction: 0.3
-
-                         )),
+                                      MyText(
+                                        text: cast.name,
+                                        fnSize: 11,
+                                        fnweight: FontWeight.bold,
+                                      ),
+                                      MyText(
+                                        text: cast.character,
+                                        fnSize: 10,
+                                        fnweight: FontWeight.w600,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                          options: CarouselOptions(
+                              viewportFraction: 0.3,
+                              reverse: false,
+                              initialPage: 0,
+                              padEnds: false,
+                              enableInfiniteScroll: false)),
                     );
-                  }else if(state is StateError){
-                   return Container(
-                    color: Colors.red,
-                    height: 300,
-                    width: width * 0.95,
-                    child: Text(state.e),
-                   );
-                  }else if(state  is StateLoading){
-                    return Center(child: LoadingWidget(),);
+                  } else if (state is StateError) {
+                    return Container(
+                      color: Colors.red,
+                      height: 300,
+                      width: width * 0.95,
+                      child: Text(state.e),
+                    );
+                  } else if (state is StateLoading) {
+                    return const Center(
+                      child: LoadingWidget(),
+                    );
                   }
                   return Container(
                     color: Colors.amber,
