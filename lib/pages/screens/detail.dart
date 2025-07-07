@@ -1,4 +1,6 @@
-import 'package:absolutecinema/apiService/service.dart';
+// ignore_for_file: deprecated_member_use
+import 'package:absolutecinema/pages/widgets/mywidgets/detail/build_ratings.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/detail/elevated_button_detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
@@ -56,28 +58,28 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    print('titile : ${widget.titile}');
-    print('backdropImage :${widget.backdropImage}');
-    print('posterImage :${widget.posterImage}');
-    print('genreNames :${widget.genreNames}');
-    print('date :${widget.date}');
-    print('voteAvg :${widget.voteAvg}');
-    print('runtime :${widget.runtime}');
-    print('director :${widget.director}');
-    print('tagline :${widget.tagline.length}');
-    print('country :${widget.country}');
-    print('oveview :${widget.oveview.length}');
+    // print('titile : ${widget.titile}');
+    // print('backdropImage :${widget.backdropImage}');
+    // print('posterImage :${widget.posterImage}');
+    // print('genreNames :${widget.genreNames}');
+    // print('date :${widget.date}');
+    // print('voteAvg :${widget.voteAvg}');
+    // print('runtime :${widget.runtime}');
+    // print('director :${widget.director}');
+    // print('tagline :${widget.tagline.length}');
+    // print('country :${widget.country}');
+    // print('oveview :${widget.oveview.length}');
     return Scaffold(
         body: Stack(
       children: [
         Container(
           color: Colors.black,
         ),
-        Container(
+        SizedBox(
           height: 250,
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 height: 250,
                 width: double.infinity,
                 child: CachedNetworkImage(
@@ -218,8 +220,8 @@ class _DetailPageState extends State<DetailPage> {
                       ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.only(left: 2, right: 10),
-                            minimumSize: Size(50, 30),
+                            padding: const EdgeInsets.only(left: 2, right: 10),
+                            minimumSize: const Size(50, 30),
                             backgroundColor: Colors.white),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -340,7 +342,6 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 BlocBuilder<CastBloc, CastState>(builder: (context, state) {
                   if (state is StateLoaded) {
-                    print(state.cast.length);
                     return Container(
                       height: 300,
                       width: width * 0.95,
@@ -354,7 +355,7 @@ class _DetailPageState extends State<DetailPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 110,
                                   width: 90,
                                   child: Column(
@@ -384,7 +385,7 @@ class _DetailPageState extends State<DetailPage> {
                                                     error) =>
                                                 Container(
                                                     color: Colors.grey.shade400,
-                                                    child: Icon(
+                                                    child: const Icon(
                                                       Icons.person,
                                                       size: 47,
                                                     )),
@@ -440,82 +441,3 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-class ElevatedButtonDetail extends StatelessWidget {
-  ElevatedButtonDetail({super.key, required this.icon});
-  IconData? icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.only(left: 0),
-          minimumSize: Size(11, 30),
-          fixedSize: Size(45, 30),
-          backgroundColor: Colors.white),
-      child: Icon(
-        icon,
-        color: Colors.black,
-      ),
-    );
-  }
-}
-
-Widget buildRatings(int rating) {
-  // print(rating);
-  switch (rating) {
-    case > 0 && == 1:
-      return RowOfRatings(
-        rating: 1,
-        size: 22,
-      );
-    case >= 2 && < 3:
-      return RowOfRatings(
-        rating: 2,
-        size: 20,
-      );
-    case >= 3 && < 4:
-      return RowOfRatings(
-        rating: 3,
-        size: 18,
-      );
-    case >= 4 && < 5:
-      return RowOfRatings(
-        rating: 4,
-        size: 16,
-      );
-    case >= 5 && < 6:
-      return RowOfRatings(
-        rating: 5,
-        size: 14,
-      );
-    default:
-      return MyText(
-        text: 'No Rating`s yet',
-        fnSize: 12,
-        clors: Colors.grey.shade500,
-      );
-  }
-}
-
-class RowOfRatings extends StatelessWidget {
-  int rating;
-  double? size;
-  RowOfRatings({super.key, required this.rating, this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(
-          rating,
-          (index) => Padding(
-            padding: const EdgeInsets.all(0.2),
-            child: Icon(
-              Icons.star,
-              size: size,
-            ),
-          ),
-        ));
-  }
-}
