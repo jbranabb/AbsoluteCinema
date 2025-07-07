@@ -34,6 +34,7 @@ class SectionWidget extends StatelessWidget {
             var movies = list[index];
             return GestureDetector(
               onTap: () async {
+                 context.read<CastBloc>().add(FetchCast(id:int.parse(movies.id),mediaType: movies.mediatype.toString() ));
                 print('List : ${list.length}');
                 print('title : ${movies.title}');
                 print('voteavg : ${movies.voteAvg}');

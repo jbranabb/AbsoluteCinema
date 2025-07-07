@@ -49,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-   context.read<CastBloc>().add(FetchCast(id:widget.id,mediaType: widget.mediatype.toString() ));
+  //  context.read<CastBloc>().add(FetchCast(id:widget.id,mediaType: widget.mediatype.toString() ));
   }
   @override
   Widget build(BuildContext context) {
