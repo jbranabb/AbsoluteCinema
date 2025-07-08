@@ -25,7 +25,7 @@ class CombaineModels {
         title: json['title'] ?? json['name'] ?? 'no title',
         voteAvg: json['vote_average']?.toString() ?? '0.0',
         posterPath: json['poster_path']?.toString() ?? 'noPosterpPath',
-        backdropPath: json['backdrop_path'] ?? 'noBackdropPath',
+        backdropPath: json['backdrop_path']?? json['poster_path'] ?? 'noBackdropPath',
         overview: json['overview'] ?? 'noReview',
         mediaType: json['media_type'] ??  'unknown',
         relaseDate: json['first_air_date'] ?? json['release_date']?.toString() ?? '-',

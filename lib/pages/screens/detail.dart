@@ -64,7 +64,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
         body: SingleChildScrollView(
       child: SizedBox(
-        height: height + 400,
+        height: height + 200,
         child: Stack(
           children: [
             Container(
@@ -361,49 +361,60 @@ class _DetailPageState extends State<DetailPage> {
                           child: Text(state.e),
                         );
                       } else if (state is StateLoaded) {
-                        return Column(
-                          children: [
-                            Container(
-                              height: 140,
-                              width: width,
-                              // color: Colors.red,
-                              child: CarouselSlider.builder(
-                                  itemCount: state.cast.length,
-                                  itemBuilder: (context, index, realIndex) {
-                                    var cast = state.cast[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: 80,
-                                            width: 80,
-                                            // color: Colors.blue,
-                                            child: ClipRRect(borderRadius: BorderRadius.circular(50),
-                                            child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${cast.profilePath}', fit: BoxFit.cover,),),
-                                          ),
-                                          Container(
-                                            height: 40,
-                                            // color: Colors.blueGrey,
-                                            child: Column(
-                                              children: [
-                                                MyText(text: cast.name, fnSize: 10,fnweight: FontWeight.w800, clors: Colors.grey.shade400,),
-                                                MyText(text:cast.character, fnSize: 9, fnweight: FontWeight.bold,),
-                                              ],
+                        return Container(
+                          height: 400,
+                          // color: Colors.grey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 140,
+                                width: width,
+                                // color: Colors.red,
+                                child: CarouselSlider.builder(
+                                    itemCount: state.cast.length,
+                                    itemBuilder: (context, index, realIndex) {
+                                      var cast = state.cast[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: 80,
+                                              width: 80,
+                                              // color: Colors.blue,
+                                              child: ClipRRect(borderRadius: BorderRadius.circular(50),
+                                              child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${cast.profilePath}', fit: BoxFit.cover,),),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  options: CarouselOptions(
-                                      viewportFraction: 0.3,
-                                      aspectRatio: 16 / 9,
-                                      enableInfiniteScroll: false,
-                                      padEnds: false)),
-                            ),
-                       
-                          ],
+                                            Container(
+                                              height: 40,
+                                              // color: Colors.blueGrey,
+                                              child: Column(
+                                                children: [
+                                                  MyText(text: cast.name, fnSize: 10,fnweight: FontWeight.w800, clors: Colors.grey.shade400,),
+                                                  MyText(text:cast.character, fnSize: 9, fnweight: FontWeight.bold,),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    options: CarouselOptions(
+                                        viewportFraction: 0.3,
+                                        aspectRatio: 16 / 9,
+                                        enableInfiniteScroll: false,
+                                        padEnds: false)),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: MyText(text: 'You May Also Like', fnSize: 12,fnweight: FontWeight.bold,),
+                              ),
+                            Container(
+                              width: width,
+                              child: SectionCaraouselSliderWidget(list: state.recomendations, ))
+                            ],
+                          ),
                         );
                       }
                       return Container(
