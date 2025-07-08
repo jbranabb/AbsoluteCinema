@@ -13,6 +13,7 @@ Dio dio = Dio();
 class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc() : super(CastInitial()) {
     on<FetchCast>((event, emit) async {
+      emit(StateLoading());
       String castUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$imdbKey';
       String recomendationUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/recommendations?api_key=$imdbKey';
           print(recomendationUrl);
@@ -27,8 +28,6 @@ class CastBloc extends Bloc<CastEvent, CastState> {
             for(var x in genreTv) x['id'].toString() : x['name'],
             for(var x in genre) x['id'].toString() : x['name']
           };
-
-      emit(StateLoading());
       if (response.statusCode == 200) {
         try {
           List<dynamic> data = response.data['cast'];
@@ -45,8 +44,8 @@ class CastBloc extends Bloc<CastEvent, CastState> {
             List<CombaineModels> dataMap = dataRec.map((e) => CombaineModels.fromJson(e),).toList();
             List<ConvertedModels> finalData = dataMap.map((mov) {
             List<String> genreList = mov.genreIds.map((e) =>  genreMapCombaine[e.toString()],).toList().cast<String>();
-             int ratings = int.parse(mov.voteAvg);
-             var finalratings = (ratings * 10 / 5);
+             var ratings = double.parse(mov.voteAvg);
+             var finalratings = (ratings / 10 * 5);
              return ConvertedModels(id: mov.id, genreIds:
                genreList, title: mov.title, voteAvg: finalratings.toString(), backdropPath: 
                mov.backdropPath, posterPath: mov.posterPath, overview: mov.overview, 
@@ -57,6 +56,7 @@ class CastBloc extends Bloc<CastEvent, CastState> {
           ));
         } catch (e) {
           emit(StateError(e: e.toString()));
+          print(e);
         }
       } else {
         emit(StateError(e: 'Terjadi Kesalahan'));

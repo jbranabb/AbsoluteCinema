@@ -7,7 +7,8 @@ final class CastInitial extends CastState {}
 class StateLoading extends CastState{}
 class StateLoaded extends CastState{
   List<Cast> cast;
-  StateLoaded({required this.cast});
+  List<ConvertedModels> recomendations;
+  StateLoaded({required this.cast, required this.recomendations});
 }
 class StateError extends CastState{
   String e;
