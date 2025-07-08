@@ -47,24 +47,25 @@ class DetailPage extends StatefulWidget {
   State<DetailPage> createState() => _DetailPageState();
 }
 
-
 class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CastBloc>().add(FetchCast(id:widget.id, mediaType: widget.mediatype.toString()));
-     }
+    context
+        .read<CastBloc>()
+        .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height= MediaQuery.of(context).size.height;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
         body: SingleChildScrollView(
-          child: SizedBox(
-          height: height + 300,
-            child: Stack(
-                  children: [
+      child: SizedBox(
+        height: height + 400,
+        child: Stack(
+          children: [
             Container(
               color: Colors.black,
             ),
@@ -213,7 +214,8 @@ class _DetailPageState extends State<DetailPage> {
                           ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.only(left: 2, right: 10),
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 10),
                                 minimumSize: const Size(50, 30),
                                 backgroundColor: Colors.white),
                             child: Row(
@@ -245,7 +247,8 @@ class _DetailPageState extends State<DetailPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: GestureDetector(
-                        onTap: () => context.read<AnimatedExpands>().changeState(),
+                        onTap: () =>
+                            context.read<AnimatedExpands>().changeState(),
                         child: BlocBuilder<AnimatedExpands, bool>(
                           builder: (context, state) {
                             return Stack(
@@ -259,7 +262,8 @@ class _DetailPageState extends State<DetailPage> {
                                       : 110,
                                   width: width * 0.9,
                                   child: SingleChildScrollView(
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     child: widget.tagline.isNotEmpty
                                         ? Column(
                                             crossAxisAlignment:
@@ -311,11 +315,13 @@ class _DetailPageState extends State<DetailPage> {
                                                 ? state
                                                     ? [
                                                         Colors.transparent,
-                                                        Colors.grey.withOpacity(0.0)
+                                                        Colors.grey
+                                                            .withOpacity(0.0)
                                                       ]
                                                     : [
                                                         Colors.transparent,
-                                                        Colors.grey.withOpacity(0.2)
+                                                        Colors.grey
+                                                            .withOpacity(0.2)
                                                       ]
                                                 : [
                                                     Colors.transparent,
@@ -330,8 +336,12 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
-                      child: MyText(text: 'Cast', fnweight: FontWeight.bold,fnSize: 15, ),
+                      padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
+                      child: MyText(
+                        text: 'Cast',
+                        fnweight: FontWeight.bold,
+                        fnSize: 15,
+                      ),
                     ),
                     BlocBuilder<CastBloc, CastState>(builder: (context, state) {
                       if (state is StateLoading) {
@@ -340,103 +350,46 @@ class _DetailPageState extends State<DetailPage> {
                           // color: Colors.blue,
                           width: width * 0.95,
                           alignment: Alignment.topCenter,
-                          child:LoadingWidget(),
+                          child: LoadingWidget(),
                         );
                       } else if (state is StateError) {
                         return Container(
-                          // color: Colors.red,
+                          color: Colors.red,
                           height: 300,
                           width: width * 0.95,
                           child: Text(state.e),
                         );
                       } else if (state is StateLoaded) {
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Container(
-                                // color: Colors.amber,
-                                height: height * 0.28,
-                                // width: width * 0.95,
-                                // color: Colors.red,
-                                alignment: Alignment.topCenter,
-                                child: CarouselSlider.builder(
-                                    itemCount: state.cast.length,
-                                    itemBuilder: (context, index, realIndex) {
-                                      var cast = state.cast[index];
-                                      return Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                height: 110,
-                                                width: 90,
-                                                child: Column(
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadiusGeometry.circular(50),
-                                                      child: Container(
-                                                        height: 70,
-                                                        width: 70,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius.circular(30)),
-                                                        child: CachedNetworkImage(
-                                                          imageUrl:
-                                                              'https://image.tmdb.org/t/p/w780${cast.profilePath}',
-                                                          fit: BoxFit.cover,
-                                                          placeholder: (context, url) =>
-                                                              Center(
-                                                            child: MyText(
-                                                              text: cast.name,
-                                                              fnweight: FontWeight.bold,
-                                                              fnSize: 9,
-                                                            ),
-                                                          ),
-                                                          errorWidget: (context, url,
-                                                                  error) =>
-                                                              Container(
-                                                                  color: Colors.grey.shade400,
-                                                                  child: const Icon(
-                                                                    Icons.person,
-                                                                    size: 47,
-                                                                  )),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    MyText(
-                                                      text: cast.name,
-                                                      fnSize: 11,
-                                                      fnweight: FontWeight.bold,
-                                                    ),
-                                                    MyText(
-                                                      text: cast.character,
-                                                      fnSize: 10,
-                                                      fnweight: FontWeight.w600,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                    options: CarouselOptions(
-                                        viewportFraction: 0.28,
-                                        reverse: false,
-                                        initialPage: 0,
-                                        padEnds: false,
-                                        enableInfiniteScroll: false)),
-                              ),
-                              Container(
-                                height: 200,
-                                color: Colors.orange,
-                              )
-                            ],
-                          ),
+                        return Column(
+                          children: [
+                            Container(
+                              height: 120,
+                              width: width,
+                              color: Colors.red,
+                              child: CarouselSlider.builder(
+                                  itemCount: state.cast.length,
+                                  itemBuilder: (context, index, realIndex) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                      color: Colors.amber,
+                                      ),
+                                    );
+                                  },
+                                  options:  CarouselOptions(
+                                    viewportFraction: 0.3,
+                                    aspectRatio: 16 / 9, 
+                                    enableInfiniteScroll: false,
+                                    padEnds: false
+                                  )),
+                            ),
+                            Container(
+                              height: 200,
+                              width: 100,
+                              
+                              color: Colors.orange,
+                            )
+                          ],
                         );
                       }
                       return Container(
@@ -448,10 +401,9 @@ class _DetailPageState extends State<DetailPage> {
                     })
                   ],
                 )),
-                  ],
-                ),
-          ),
-        ));
+          ],
+        ),
+      ),
+    ));
   }
 }
-
