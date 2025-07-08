@@ -7,3 +7,4 @@ class FetchCast extends CastEvent{
   String mediaType;
   FetchCast({required this.id, required this.mediaType});
 }
+class RestoreCast extends CastEvent {}

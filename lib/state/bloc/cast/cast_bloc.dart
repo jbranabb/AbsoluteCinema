@@ -12,7 +12,11 @@ Dio dio = Dio();
 
 class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc() : super(CastInitial()) {
+    CastState? _previousState;
     on<FetchCast>((event, emit) async {
+      if(state is StateLoaded && (state as StateLoaded).cast.isNotEmpty){
+        _previousState = state;
+      }
       emit(StateLoading());
       String castUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$imdbKey';
       String recomendationUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/recommendations?api_key=$imdbKey';
@@ -62,5 +66,10 @@ class CastBloc extends Bloc<CastEvent, CastState> {
         emit(StateError(e: 'Terjadi Kesalahan'));
       }
     });
+    on<RestoreCast>((event, emit) {
+  if (_previousState != null) {
+    emit(_previousState!);
+  }
+});
   }
 }
