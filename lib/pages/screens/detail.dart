@@ -198,14 +198,7 @@ class _DetailPageState extends State<DetailPage> {
                           fnweight: FontWeight.w600,
                           fnSize: 12,
                         ),
-                        MyText(
-                          text: widget.country == 'United States of America'
-                              ? 'US'
-                              : widget.country,
-                          clors: Colors.grey.shade600,
-                          fnweight: FontWeight.w600,
-                          fnSize: 12,
-                        ),
+                        countrys(widget.country)
                       ],
                     ),
                     Padding(
@@ -430,5 +423,15 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
     ));
+  }
+}
+Widget countrys(String country){
+  switch(country){
+    case == 'United Kingdom':
+    return MyText(clors: Colors.grey.shade600,fnweight: FontWeight.w600, text: 'UK');
+    case == 'United States of America':
+    return MyText(clors: Colors.grey.shade600,fnweight: FontWeight.w600, text: 'US');
+    default:
+    return MyText(clors: Colors.grey.shade600,fnweight: FontWeight.w600, text: country);
   }
 }
