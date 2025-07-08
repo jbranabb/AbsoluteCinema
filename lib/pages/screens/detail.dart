@@ -2,6 +2,7 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/build_ratings.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/elevated_button_detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionTitleWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_widget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
@@ -354,7 +355,7 @@ class _DetailPageState extends State<DetailPage> {
                         );
                       } else if (state is StateError) {
                         return Container(
-                          color: Colors.red,
+                          // color: Colors.red,
                           height: 300,
                           width: width * 0.95,
                           child: Text(state.e),
@@ -363,32 +364,45 @@ class _DetailPageState extends State<DetailPage> {
                         return Column(
                           children: [
                             Container(
-                              height: 120,
+                              height: 140,
                               width: width,
-                              color: Colors.red,
+                              // color: Colors.red,
                               child: CarouselSlider.builder(
                                   itemCount: state.cast.length,
                                   itemBuilder: (context, index, realIndex) {
+                                    var cast = state.cast[index];
                                     return Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                      color: Colors.amber,
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 80,
+                                            width: 80,
+                                            // color: Colors.blue,
+                                            child: ClipRRect(borderRadius: BorderRadius.circular(50),
+                                            child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${cast.profilePath}', fit: BoxFit.cover,),),
+                                          ),
+                                          Container(
+                                            height: 40,
+                                            // color: Colors.blueGrey,
+                                            child: Column(
+                                              children: [
+                                                MyText(text: cast.name, fnSize: 10,fnweight: FontWeight.w800, clors: Colors.grey.shade400,),
+                                                MyText(text:cast.character, fnSize: 9, fnweight: FontWeight.bold,),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     );
                                   },
-                                  options:  CarouselOptions(
-                                    viewportFraction: 0.3,
-                                    aspectRatio: 16 / 9, 
-                                    enableInfiniteScroll: false,
-                                    padEnds: false
-                                  )),
+                                  options: CarouselOptions(
+                                      viewportFraction: 0.3,
+                                      aspectRatio: 16 / 9,
+                                      enableInfiniteScroll: false,
+                                      padEnds: false)),
                             ),
-                            Container(
-                              height: 200,
-                              width: 100,
-                              
-                              color: Colors.orange,
-                            )
+                       
                           ],
                         );
                       }
