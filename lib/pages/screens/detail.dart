@@ -31,6 +31,7 @@ class DetailPage extends StatefulWidget {
     required this.genreNames,
     required this.id,
     required this.mediatype,
+    required this.ytkey,
   });
   String titile;
   String oveview;
@@ -45,11 +46,14 @@ class DetailPage extends StatefulWidget {
   String country;
   String? mediatype;
   int id;
+  String ytkey;
+
 
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
 
+ String parseKey  = '';
 class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
@@ -57,14 +61,16 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<CastBloc>()
         .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
-    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${widget.backdropImage}');
-  Future<void> _launchUrl() async {
+  String key = '${widget.ytkey}';
+  parseKey = key;
+  }
+ 
+    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${parseKey}');
+    Future<void> _launchUrl() async {
   if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch the Url');
   }
 }
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,9 +228,7 @@ class _DetailPageState extends State<DetailPage> {
                         child: Row(
                           children: [
                             ElevatedButton(
-                              onPressed: () {
-                                
-                              },
+                              onPressed: _launchUrl,
                               style: ElevatedButton.styleFrom(
                                   padding:
                                       const EdgeInsets.only(left: 2, right: 10),

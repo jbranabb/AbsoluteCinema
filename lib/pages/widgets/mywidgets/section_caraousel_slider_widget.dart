@@ -57,6 +57,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                                 director: extra['director'],
                                 runtime: extra['rtns'],
                                 tagline: extra['tagline'],
+                                ytkey: extra['ytkey'],
                                 id: int.parse(movies.id),
                                 mediatype: movies.mediatype,
                               ),
