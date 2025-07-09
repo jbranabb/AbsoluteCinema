@@ -45,6 +45,7 @@ class CastBloc extends Bloc<CastEvent, CastState> {
               print('datacast: $datacast');
 
             List<dynamic> dataRec = responsRec.data['results'];
+        
             List<CombaineModels> dataMap = dataRec.map((e) => CombaineModels.fromJson(e),).toList();
             List<ConvertedModels> finalData = dataMap.map((mov) {
             List<String> genreList = mov.genreIds.map((e) =>  genreMapCombaine[e.toString()],).toList().cast<String>();
@@ -56,8 +57,9 @@ class CastBloc extends Bloc<CastEvent, CastState> {
                mediatype: event.mediaType, relaseDate: mov.relaseDate);
             }).toList();
           emit(StateLoaded(cast: datacast,
-          recomendations: finalData ,
+          recomendations: finalData,
           ));
+
         } catch (e) {
           emit(StateError(e: e.toString()));
           print(e);

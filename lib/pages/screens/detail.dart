@@ -71,7 +71,7 @@ class _DetailPageState extends State<DetailPage> {
       child: Scaffold(
           body: SingleChildScrollView(
         child: SizedBox(
-          height: height + 200,
+          height: height + 150,
           child: Stack(
             children: [
               Container(
@@ -369,8 +369,8 @@ class _DetailPageState extends State<DetailPage> {
                           );
                         } else if (state is StateLoaded) {
                           return Container(
-                            height: 400,
-                            // color: Colors.grey,
+                            height: 140,
+                            // color: Colors.amber,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -382,6 +382,9 @@ class _DetailPageState extends State<DetailPage> {
                                       itemCount: state.cast.length,
                                       itemBuilder: (context, index, realIndex) {
                                         var cast = state.cast[index];
+                                         if(state.recomendations.isNotEmpty){
+                                  
+                                }
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
@@ -429,20 +432,21 @@ class _DetailPageState extends State<DetailPage> {
                                           aspectRatio: 16 / 9,
                                           enableInfiniteScroll: false,
                                           padEnds: false)),
+                                          
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: MyText(
-                                    text: 'You May Also Like',
-                                    fnSize: 12,
-                                    fnweight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                    width: width,
-                                    child: SectionCaraouselSliderWidget(
-                                      list: state.recomendations,
-                                    ))
+                                // Padding(
+                                //   padding: const EdgeInsets.all(10.0),
+                                //   child: MyText(
+                                //     text: 'You May Also Like',
+                                //     fnSize: 12,
+                                //     fnweight: FontWeight.bold,
+                                //   ),
+                                // ),
+                                // Container(
+                                //     width: width,
+                                //     child: SectionCaraouselSliderWidget(
+                                //       list: state.recomendations,
+                                //     ))
                               ],
                             ),
                           );
@@ -453,7 +457,25 @@ class _DetailPageState extends State<DetailPage> {
                           width: 10,
                           // child: ,
                         );
-                      })
+                      }),
+                      BlocBuilder<CastBloc, CastState>(builder: (context, state) {
+                        if(state is StateLoaded && state.recomendations.isNotEmpty){
+                          var recomendations =  state.recomendations;
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MyText(text: 'You May Also Like', fnSize: 12,fnweight: FontWeight.bold,),
+                              Container(
+                                width: width,
+                                child: SectionCaraouselSliderWidget(list: recomendations),
+                              )
+                            ],
+                          );
+                        }
+                        return Container();
+                      },)
+
                     ],
                   )),
             ],
