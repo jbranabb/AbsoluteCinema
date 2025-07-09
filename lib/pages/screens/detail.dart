@@ -65,6 +65,7 @@ class _DetailPageState extends State<DetailPage> {
     return WillPopScope(
       onWillPop: () async {
         context.read<CastBloc>().add(RestoreCast());
+        CircularProgressIndicator();
         return true;
       },
       child: Scaffold(

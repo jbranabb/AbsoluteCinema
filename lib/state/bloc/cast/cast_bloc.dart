@@ -12,10 +12,10 @@ Dio dio = Dio();
 
 class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc() : super(CastInitial()) {
-    CastState? _previousState;
+    final List<StateLoaded> _statestack = [];
     on<FetchCast>((event, emit) async {
-      if(state is StateLoaded && (state as StateLoaded).cast.isNotEmpty){
-        _previousState = state;
+      if(state is StateLoaded){
+    _statestack.add(state as StateLoaded);
       }
       emit(StateLoading());
       String castUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$imdbKey';
@@ -67,9 +67,11 @@ class CastBloc extends Bloc<CastEvent, CastState> {
       }
     });
     on<RestoreCast>((event, emit) {
-  if (_previousState != null) {
-    emit(_previousState!);
-  }
+      if(_statestack.isNotEmpty){
+        emit(_statestack.removeLast());
+      }
+
+
 });
   }
 }
