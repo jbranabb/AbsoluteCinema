@@ -44,18 +44,18 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
     };
 }
 
-Future<Map<String,dynamic>> test(int id, String mediatype,)async{
-  String url = 'https://api.themoviedb.org/3/$mediatype/$id?api_key=$imdbKey';
-  final response = await dio.get(url);
-    var data = response.data;
-    print(mediatype);
-  return {
-    'test': mediatype == 'tv' ?  data['number_of_seasons'] : data['runtime'],
-  };
+void test()async{
+  String url = 'https://api.themoviedb.org/3/tv/60625/videos?api_key=d846efa91adca89e264b6aa72e2a3907';
+final respoinse = await dio.get(url);
+ List<dynamic> data = respoinse.data['results'];
+var rawdata = data.firstWhere((x) => x['type'] == 'Trailer',);
+print(rawdata);
+
 }
 
 
 void main() async {
+test();
 // var data  = await test(60625, 'tv',);
 // print(data['director']);
 // print(data['rtns']);

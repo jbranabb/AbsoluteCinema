@@ -13,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatefulWidget {
   DetailPage({
@@ -56,6 +57,13 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<CastBloc>()
         .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
+    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${widget.backdropImage}');
+  Future<void> _launchUrl() async {
+  if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch the Url');
+  }
+}
+
   }
 
   @override
@@ -214,7 +222,9 @@ class _DetailPageState extends State<DetailPage> {
                         child: Row(
                           children: [
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                
+                              },
                               style: ElevatedButton.styleFrom(
                                   padding:
                                       const EdgeInsets.only(left: 2, right: 10),
