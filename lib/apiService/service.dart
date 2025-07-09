@@ -5,10 +5,14 @@ import 'package:dio/dio.dart';
 String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
 Dio dio = Dio();
 Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
-  final detail =
-      await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$imdbKey');
-  final credits = await dio
-      .get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$imdbKey');
+  final detail = await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$imdbKey');
+  final credits = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$imdbKey');
+  final videosUrl = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/videos?api_key=$imdbKey');
+
+  List<dynamic> response = videosUrl.data['results'];
+  var youtubekey = response.firstWhere(
+   (x) => x['type'] == 'Trailer', 
+  ); 
 
   List<dynamic> director = credits.data['crew'];
   final crew = director.firstWhere(
@@ -40,29 +44,29 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
     'rtns': mediaType == 'tv' ?  sesason : finalRuntime,
     'tagline': tagline ?? 'no tag',
     'country': finalCountry,
-    // 'cast': finaldatacast.join(', '),
+    'ytkey': youtubekey['key']
     };
 }
 
-void test()async{
-  String url = 'https://api.themoviedb.org/3/tv/60625/videos?api_key=d846efa91adca89e264b6aa72e2a3907';
-final respoinse = await dio.get(url);
- List<dynamic> data = respoinse.data['results'];
-var rawdata = data.firstWhere((x) => x['type'] == 'Trailer',);
-print(rawdata);
+// void test()async{
+//  final respoinse = await dio.get(url);
+//  List<dynamic> data = respoinse.data['results'];
+// var rawdata = data.firstWhere((x) => x['type'] == 'Trailer',);
+// var finaldata = rawdata['key'];
+// print(finaldata);
 
-}
+// }
 
 
 void main() async {
-test();
-// var data  = await test(60625, 'tv',);
-// print(data['director']);
+// test();
+var data  = await extraData(60625, 'tv',);
+print(data['ytkey']);
 // print(data['rtns']);
 // print(data['country']);
 // print(data['cast']);
 
-
+ 
 
 
 }
