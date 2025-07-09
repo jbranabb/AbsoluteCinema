@@ -50,11 +50,25 @@ class DetailPage extends StatelessWidget {
 
 
 Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://www.youtube.com/embed/$ytkey?autoplay=1');
+    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=$ytkey');
     print('$_url');
-  if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+    try{
+  if (!await launchUrl(_url, mode: LaunchMode.externalApplication,
+  webViewConfiguration: const WebViewConfiguration(
+    enableJavaScript: true,
+    enableDomStorage: true,
+  )
+  )) {
     throw Exception('Could not launch the Url');
   }
+    }catch(e){
+       print('Error launching URL: $e');
+    // Fallback ke browser default
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch the URL with fallback');
+    }
+
+    }
 }
  
 
