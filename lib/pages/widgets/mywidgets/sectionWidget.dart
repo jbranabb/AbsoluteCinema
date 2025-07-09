@@ -40,10 +40,7 @@ class SectionWidget extends StatelessWidget {
                        const Center(child:LoadingWidget()),
                 );
                 try {
-                context
-        .read<CastBloc>()
-        .add(FetchCast(id: int.parse(movies.id), mediaType: movies.mediatype.toString()));
-
+          
                   var idata = int.parse(movies.id);
                   var extra = await extraData(idata, movies.mediatype.toString());
                   Navigator.of(context).pop();

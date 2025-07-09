@@ -50,7 +50,7 @@ class DetailPage extends StatelessWidget {
 
 
 Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${ytkey}');
+    final Uri _url = Uri.parse('https://www.youtube.com/embed/$ytkey?autoplay=1');
     print('$_url');
   if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch the Url');
@@ -61,9 +61,14 @@ Future<void> _launchUrl() async {
   @override
   Widget build(BuildContext context) {
 
+                context
+        .read<CastBloc>()
+        .add(FetchCast(id: id, mediaType:  mediatype.toString()));
+    print(ytkey);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return WillPopScope(
+      
       onWillPop: () async {
         context.read<CastBloc>().add(RestoreCast());
         CircularProgressIndicator();

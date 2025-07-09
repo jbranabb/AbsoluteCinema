@@ -32,17 +32,19 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
+                        final currentContext = context;
                         showDialog(
-                          context: context,
-                          builder: (context) =>
+                          context: currentContext,
+                          builder: (_) =>
                               const Center(child: LoadingWidget()),
                         );
                         try {
+
                           var idata = int.parse(movies.id);
                           var extra = await extraData(
                               idata, movies.mediatype.toString());
-                          Navigator.of(context).pop();
-                          Navigator.of(context).push(MaterialPageRoute(
+                          Navigator.of(currentContext).pop();
+                          Navigator.of(currentContext).push(MaterialPageRoute(
                             builder: (_) => BlocProvider.value(
                               value: context.read<CastBloc>(),
                               child: DetailPage(
@@ -64,8 +66,9 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                             ),
                           ));
                         } catch (e) {
+                          Navigator.of(currentContext).pop(); 
                           showDialog(
-                              context: context,
+                              context: currentContext,
                               builder: (context) => AlertDialog(
                                     title: const Text(
                                         'Sorry Something Went Wrong'),
@@ -78,7 +81,7 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                                           child: const Text('Close'))
                                     ],
                                   ));
-                          Navigator.of(context).pop();
+                          Navigator.of(currentContext).pop();
                         }
                       },
                       child: ClipRRect(
