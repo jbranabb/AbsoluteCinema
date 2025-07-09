@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailPage extends StatefulWidget {
+class DetailPage extends StatelessWidget {
   DetailPage({
     super.key,
     required this.voteAvg,
@@ -33,47 +33,34 @@ class DetailPage extends StatefulWidget {
     required this.mediatype,
     required this.ytkey,
   });
-  String titile;
-  String oveview;
-  String backdropImage;
-  String posterImage;
-  String genreNames;
-  String date;
-  String voteAvg;
-  String runtime;
-  String director;
-  String tagline;
-  String country;
-  String? mediatype;
-  int id;
-  String ytkey;
+  final String titile;
+  final String oveview;
+  final String backdropImage;
+  final String posterImage;
+  final String genreNames;
+  final String date;
+  final String voteAvg;
+  final String runtime;
+  final String director;
+  final String tagline;
+  final String country;
+  final String? mediatype;
+  final int id;
+  final String ytkey;
 
 
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
- String parseKey  = '';
-class _DetailPageState extends State<DetailPage> {
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<CastBloc>()
-        .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
-  String key = '${widget.ytkey}';
-  parseKey = key;
-  }
- 
-    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${parseKey}');
-    Future<void> _launchUrl() async {
+Future<void> _launchUrl() async {
+    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${ytkey}');
+    print('$_url');
   if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
     throw Exception('Could not launch the Url');
   }
 }
+ 
 
   @override
   Widget build(BuildContext context) {
+
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return WillPopScope(
@@ -101,7 +88,7 @@ class _DetailPageState extends State<DetailPage> {
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl:
-                              'https://image.tmdb.org/t/p/w780${widget.backdropImage}'),
+                              'https://image.tmdb.org/t/p/w780${backdropImage}'),
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
@@ -130,7 +117,7 @@ class _DetailPageState extends State<DetailPage> {
                       borderRadius: BorderRadius.circular(15),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/w300${widget.posterImage}',
+                            'https://image.tmdb.org/t/p/w300${posterImage}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -146,8 +133,8 @@ class _DetailPageState extends State<DetailPage> {
                         height: 25,
                         width: 200,
                         child: MyText(
-                          text: widget.titile,
-                          fnSize: widget.titile.length > 16 ? 16 : 20,
+                          text: titile,
+                          fnSize: titile.length > 16 ? 16 : 20,
                           fnweight: FontWeight.w800,
                         ),
                       ),
@@ -156,10 +143,10 @@ class _DetailPageState extends State<DetailPage> {
                         width: 180,
                         alignment: Alignment.centerLeft,
                         child: MyText(
-                          text: widget.genreNames,
+                          text: genreNames,
                           fnweight: FontWeight.bold,
                           clors: Colors.grey.shade400,
-                          fnSize: widget.genreNames.length > 25 ? 12 : 14,
+                          fnSize: genreNames.length > 25 ? 12 : 14,
                         ),
                       ),
                       Padding(
@@ -168,7 +155,7 @@ class _DetailPageState extends State<DetailPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             MyText(
-                              text: widget.date.substring(0, 4),
+                              text: date.substring(0, 4),
                               clors: Colors.grey.shade500,
                               fnSize: 14,
                               fnweight: FontWeight.bold,
@@ -188,7 +175,7 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                       MyText(
-                        text: ' ${widget.director}',
+                        text: ' ${director}',
                         clors: Colors.grey.shade400,
                         fnSize: 15,
                         fnweight: FontWeight.bold,
@@ -200,7 +187,7 @@ class _DetailPageState extends State<DetailPage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: MyText(
-                              text: widget.runtime,
+                              text: runtime,
                               clors: Colors.grey.shade600,
                               fnweight: FontWeight.w600,
                               fnSize: 12,
@@ -213,14 +200,14 @@ class _DetailPageState extends State<DetailPage> {
                             fnSize: 12,
                           ),
                           buildRatings(
-                              int.parse(widget.voteAvg.substring(0, 1))),
+                              int.parse(voteAvg.substring(0, 1))),
                           MyText(
                             text: '| ',
                             clors: Colors.grey.shade600,
                             fnweight: FontWeight.w600,
                             fnSize: 12,
                           ),
-                          countrys(widget.country)
+                          countrys(country)
                         ],
                       ),
                       Padding(
@@ -271,7 +258,7 @@ class _DetailPageState extends State<DetailPage> {
                                 children: [
                                   AnimatedContainer(
                                     duration: Durations.medium4,
-                                    height: widget.oveview.length > 250
+                                    height: oveview.length > 250
                                         ? state
                                             ? 150
                                             : 110
@@ -280,19 +267,19 @@ class _DetailPageState extends State<DetailPage> {
                                     child: SingleChildScrollView(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
-                                      child: widget.tagline.isNotEmpty
+                                      child: tagline.isNotEmpty
                                           ? Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 MyText(
-                                                  text: widget.tagline,
+                                                  text: tagline,
                                                   clors: Colors.grey.shade400,
                                                   fnweight: FontWeight.bold,
                                                   fnSize: 11,
                                                 ),
                                                 Text(
-                                                  widget.oveview,
+                                                  oveview,
                                                   overflow: TextOverflow.fade,
                                                   style: GoogleFonts.inter(
                                                       color:
@@ -308,7 +295,7 @@ class _DetailPageState extends State<DetailPage> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  widget.oveview,
+                                                  oveview,
                                                   overflow: TextOverflow.fade,
                                                   style: GoogleFonts.inter(
                                                       color:
@@ -331,7 +318,7 @@ class _DetailPageState extends State<DetailPage> {
                                           gradient: LinearGradient(
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
-                                              colors: widget.oveview.length >
+                                              colors: oveview.length >
                                                       250
                                                   ? state
                                                       ? [

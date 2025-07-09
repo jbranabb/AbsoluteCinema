@@ -34,29 +34,22 @@ class SectionWidget extends StatelessWidget {
             var movies = list[index];
             return GestureDetector(
               onTap: () async {
-                //  context.read<CastBloc>().add(FetchCast(id:int.parse(movies.id),mediaType: movies.mediatype.toString() ));
-                print('List : ${list.length}');
-                print('title : ${movies.title}');
-                print('voteavg : ${movies.voteAvg}');
-                print('backdropPath : ${movies.backdropPath}');
-                print('id : ${movies.id}');
-                print('relaseDate : ${movies.relaseDate}');
-                print('genreIDs : ${movies.genreIds}');
-                print('posterPath : ${movies.posterPath}');
-                print('mediatype : ${movies.mediatype}');
-                print('overview : ${movies.overview}');
                 showDialog(
                   context: context,
                   builder: (context) =>
                        const Center(child:LoadingWidget()),
                 );
                 try {
-               
+                context
+        .read<CastBloc>()
+        .add(FetchCast(id: int.parse(movies.id), mediaType: movies.mediatype.toString()));
+
                   var idata = int.parse(movies.id);
                   var extra = await extraData(idata, movies.mediatype.toString());
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => DetailPage(
+                      key: UniqueKey(),
                       oveview: movies.overview,
                       titile: movies.title,
                       backdropImage: movies.backdropPath,
@@ -139,11 +132,16 @@ class SectionWidget extends StatelessWidget {
   }
 }
 
-class LoadingWidget extends StatelessWidget {
+class LoadingWidget extends StatefulWidget {
   const LoadingWidget({
     super.key,
   });
 
+  @override
+  State<LoadingWidget> createState() => _LoadingWidgetState();
+}
+
+class _LoadingWidgetState extends State<LoadingWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(

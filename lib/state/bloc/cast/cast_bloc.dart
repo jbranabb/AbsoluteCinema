@@ -42,7 +42,7 @@ class CastBloc extends Bloc<CastEvent, CastState> {
               )
               .take(5)
               .toList();
-              print('datacast: $datacast');
+              // print('datacast: $datacast');
 
             List<dynamic> dataRec = responsRec.data['results'];
         
