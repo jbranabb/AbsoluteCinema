@@ -6,9 +6,14 @@ sealed class AuthState {}
 final class AuthInitial extends AuthState {}
 final class AuthLoaded extends AuthState {
   String url;
-  AuthLoaded(this.url);
+  String token;
+  AuthLoaded({required this.url, required this.token});
 }
-final class AuthError extends AuthState {
+final class AuthSucces extends AuthState{
+  String sessionId;
+   AuthSucces({required this.sessionId});
+}
+final class AuthFailed extends AuthState {
   String e;
-  AuthError({required this.e});
+  AuthFailed({required this.e});
 }
