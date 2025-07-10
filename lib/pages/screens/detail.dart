@@ -15,7 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   DetailPage({
     super.key,
     required this.voteAvg,
@@ -48,11 +48,19 @@ class DetailPage extends StatelessWidget {
   final int id;
   final String ytkey;
 
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+
+}
+
+class _DetailPageState extends State<DetailPage> {
 
 Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=$ytkey');
+    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${widget.ytkey}');
     print('$_url');
     try{
+    await Future.delayed(const Duration(milliseconds: 300));
+  
   if (!await launchUrl(_url, mode: LaunchMode.externalApplication,
   webViewConfiguration: const WebViewConfiguration(
     enableJavaScript: true,
@@ -63,22 +71,22 @@ Future<void> _launchUrl() async {
   }
     }catch(e){
        print('Error launching URL: $e');
-    // Fallback ke browser default
     if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch the URL with fallback');
     }
 
     }
-}
- 
+} @override
+  void initState() {
+    super.initState();
+            context
+        .read<CastBloc>()
+        .add(FetchCast(id: widget.id, mediaType:  widget.mediatype.toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
-
-                context
-        .read<CastBloc>()
-        .add(FetchCast(id: id, mediaType:  mediatype.toString()));
-    print(ytkey);
+     print(widget.ytkey);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return WillPopScope(
@@ -107,7 +115,7 @@ Future<void> _launchUrl() async {
                       child: CachedNetworkImage(
                           fit: BoxFit.cover,
                           imageUrl:
-                              'https://image.tmdb.org/t/p/w780${backdropImage}'),
+                              'https://image.tmdb.org/t/p/w780${widget.backdropImage}'),
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
@@ -136,7 +144,7 @@ Future<void> _launchUrl() async {
                       borderRadius: BorderRadius.circular(15),
                       child: CachedNetworkImage(
                         imageUrl:
-                            'https://image.tmdb.org/t/p/w300${posterImage}',
+                            'https://image.tmdb.org/t/p/w300${widget.posterImage}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -152,8 +160,8 @@ Future<void> _launchUrl() async {
                         height: 25,
                         width: 200,
                         child: MyText(
-                          text: titile,
-                          fnSize: titile.length > 16 ? 16 : 20,
+                          text: widget.titile,
+                          fnSize: widget.titile.length > 16 ? 16 : 20,
                           fnweight: FontWeight.w800,
                         ),
                       ),
@@ -162,10 +170,10 @@ Future<void> _launchUrl() async {
                         width: 180,
                         alignment: Alignment.centerLeft,
                         child: MyText(
-                          text: genreNames,
+                          text: widget.genreNames,
                           fnweight: FontWeight.bold,
                           clors: Colors.grey.shade400,
-                          fnSize: genreNames.length > 25 ? 12 : 14,
+                          fnSize: widget.genreNames.length > 25 ? 12 : 14,
                         ),
                       ),
                       Padding(
@@ -174,7 +182,7 @@ Future<void> _launchUrl() async {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             MyText(
-                              text: date.substring(0, 4),
+                              text: widget.date.substring(0, 4),
                               clors: Colors.grey.shade500,
                               fnSize: 14,
                               fnweight: FontWeight.bold,
@@ -194,7 +202,7 @@ Future<void> _launchUrl() async {
                         ),
                       ),
                       MyText(
-                        text: ' ${director}',
+                        text: ' ${widget.director}',
                         clors: Colors.grey.shade400,
                         fnSize: 15,
                         fnweight: FontWeight.bold,
@@ -206,7 +214,7 @@ Future<void> _launchUrl() async {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: MyText(
-                              text: runtime,
+                              text: widget.runtime,
                               clors: Colors.grey.shade600,
                               fnweight: FontWeight.w600,
                               fnSize: 12,
@@ -219,14 +227,14 @@ Future<void> _launchUrl() async {
                             fnSize: 12,
                           ),
                           buildRatings(
-                              int.parse(voteAvg.substring(0, 1))),
+                              int.parse(widget.voteAvg.substring(0, 1))),
                           MyText(
                             text: '| ',
                             clors: Colors.grey.shade600,
                             fnweight: FontWeight.w600,
                             fnSize: 12,
                           ),
-                          countrys(country)
+                          countrys(widget.country)
                         ],
                       ),
                       Padding(
@@ -277,7 +285,7 @@ Future<void> _launchUrl() async {
                                 children: [
                                   AnimatedContainer(
                                     duration: Durations.medium4,
-                                    height: oveview.length > 250
+                                    height: widget.oveview.length > 250
                                         ? state
                                             ? 150
                                             : 110
@@ -286,19 +294,19 @@ Future<void> _launchUrl() async {
                                     child: SingleChildScrollView(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
-                                      child: tagline.isNotEmpty
+                                      child: widget.tagline.isNotEmpty
                                           ? Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 MyText(
-                                                  text: tagline,
+                                                  text: widget.tagline,
                                                   clors: Colors.grey.shade400,
                                                   fnweight: FontWeight.bold,
                                                   fnSize: 11,
                                                 ),
                                                 Text(
-                                                  oveview,
+                                                  widget.oveview,
                                                   overflow: TextOverflow.fade,
                                                   style: GoogleFonts.inter(
                                                       color:
@@ -314,7 +322,7 @@ Future<void> _launchUrl() async {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  oveview,
+                                                  widget.oveview,
                                                   overflow: TextOverflow.fade,
                                                   style: GoogleFonts.inter(
                                                       color:
@@ -337,7 +345,7 @@ Future<void> _launchUrl() async {
                                           gradient: LinearGradient(
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
-                                              colors: oveview.length >
+                                              colors: widget.oveview.length >
                                                       250
                                                   ? state
                                                       ? [
@@ -420,7 +428,11 @@ Future<void> _launchUrl() async {
                                                     imageUrl:
                                                         'https://image.tmdb.org/t/p/w780${cast.profilePath}',
                                                     fit: BoxFit.cover,
-                                                  ),
+                                                    errorWidget: (context, url, error) => Container(
+                                                      color: Colors.grey.shade300,
+                                                      child: Icon(Icons.person, size: 50,),
+                                                    ),
+                                                    ),
                                                 ),
                                               ),
                                               Container(
