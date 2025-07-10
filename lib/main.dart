@@ -1,4 +1,5 @@
 import 'package:absolutecinema/myobserver.dart';
+import 'package:absolutecinema/pages/screens/auth_page.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,  
-      home:HomePage() ,
+      home:AuthPage() ,
     );
   }
 }

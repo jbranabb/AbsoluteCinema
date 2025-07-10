@@ -11,6 +11,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<Authentication>((event, emit)async {
       var responseToken = await dio.get(requestTokenUrl);
       if(responseToken.statusCode == 200 && responseToken.data['success'] == true){
+        try{
         final token = responseToken.data['request_token'];
         final String authGenerateUrl = 'https://www.themoviedb.org/authenticate/$token';
        emit(AuthLoaded(authGenerateUrl)); 
@@ -22,6 +23,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final String sesionId = responseSesion.data['session_id'];
         print(sesionId);
       }
+        }catch(e){
+          emit(AuthError(e: e.toString()));
+        }
       }
     });
 
