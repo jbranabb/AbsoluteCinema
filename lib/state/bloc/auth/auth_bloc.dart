@@ -14,6 +14,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final token = responseToken.data['request_token'];
         final String authGenerateUrl = 'https://www.themoviedb.org/authenticate/$token';
        emit(AuthLoaded(authGenerateUrl)); 
+      final String sesionUrl = 'https://api.themoviedb.org/3/authentication/session/new?api_key=$imdbKey';
+      var responseSesion = await dio.post(sesionUrl, data: {
+        'request_token': '$token' 
+      });
+      if(responseSesion.statusCode == 200 && responseSesion.data['success'] == true){
+        final String sesionId = responseSesion.data['session_id'];
+        print(sesionId);
+      }
       }
     });
 
