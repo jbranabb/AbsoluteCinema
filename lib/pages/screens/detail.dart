@@ -466,19 +466,6 @@ Future<void> _launchUrl() async {
                                           padEnds: false)),
                                           
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.all(10.0),
-                                //   child: MyText(
-                                //     text: 'You May Also Like',
-                                //     fnSize: 12,
-                                //     fnweight: FontWeight.bold,
-                                //   ),
-                                // ),
-                                // Container(
-                                //     width: width,
-                                //     child: SectionCaraouselSliderWidget(
-                                //       list: state.recomendations,
-                                //     ))
                               ],
                             ),
                           );
@@ -497,7 +484,10 @@ Future<void> _launchUrl() async {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              MyText(text: 'You May Also Like', fnSize: 12,fnweight: FontWeight.bold,),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MyText(text: 'You May Also Like', fnSize: 12,fnweight: FontWeight.bold,),
+                              ),
                               Container(
                                 width: width,
                                 child: SectionCaraouselSliderWidget(list: recomendations),

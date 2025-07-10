@@ -48,23 +48,19 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
     };
 }
 
-// void test()async{
-//  final respoinse = await dio.get(url);
-//  List<dynamic> data = respoinse.data['results'];
-// var rawdata = data.firstWhere((x) => x['type'] == 'Trailer',);
-// var finaldata = rawdata['key'];
-// print(finaldata);
+void test()async{
+   String url = 'https://api.themoviedb.org/3/authentication/session/new$imdbKey';
+ final respoinse = await dio.post(url, data: {
+  "request_token": "3bfdebf07db6d4c7ba85001d935bdc6cc700b871"
+ });
+ print(respoinse.statusCode);
+ print(respoinse.data);
 
-// }
+}
 
 
 void main() async {
-// test();
-var data  = await extraData(60625, 'tv',);
-print(data['ytkey']);
-// print(data['rtns']);
-// print(data['country']);
-// print(data['cast']);
+test();
 
  
 
