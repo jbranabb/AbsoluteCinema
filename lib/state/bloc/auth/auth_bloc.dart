@@ -1,5 +1,6 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';
@@ -19,16 +20,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     on<AuthExchangeToken>((event, emit)async {
-     final String sessionURl = 'https://api.themoviedb.org/3/authentication/session/new/${event.token}';
+      try{
+     final String sessionURl = 'https://api.themoviedb.org/3/authentication/session/new?api_key=$imdbKey';
      var responseSesion = await dio.post(sessionURl, data: {
       'request_token': event.token
-     });
-     if(responseSesion.statusCode == 200 && responseSesion.data['success'] == true){
+     }, options: Options(
+      headers: {
+           'Content-Type': 'application/json',
+          //  'Authorization': 'Bearer $imdbKey'
+      }
+     ));
+     if(responseSesion.statusCode == 200){
+      print('berhasil'); 
       var sessionId = responseSesion.data['session_id'];
+      print(sessionId);
       emit(AuthSucces(sessionId: sessionId));
      }else{
       emit(AuthFailed(e: 'User belum klik alloww'));
      }
+      }catch(e){
+print('Bermasalah : $e');
+      }
     });
 
   }
