@@ -7,3 +7,4 @@ class AuthExchangeToken extends AuthEvent{
   String token;
   AuthExchangeToken({required this.token});
 }
+class AuthDenied extends AuthEvent{}

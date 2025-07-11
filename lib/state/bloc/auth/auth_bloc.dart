@@ -48,6 +48,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 print('Bermasalah : $e');
       }
     });
+    on<AuthDenied>((event, emit){
+      emit(AuthInitial());
+    });
 
   }
   

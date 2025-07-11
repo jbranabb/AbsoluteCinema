@@ -28,10 +28,11 @@ class _AuthPageState extends State<AuthPage> {
         if(url.contains('allow') ||  url.contains('success')){
           print('approve');
           context.read<AuthBloc>().add(AuthExchangeToken(token: reqtoken!));
-        }else if(url.contains('deny')){
+      }else if(url.contains('deny')){
          print('deny');
          if(mounted){
-          handleDeny();
+          // handleDeny();
+          context.read<AuthBloc>().add(AuthDenied());
          }
         }
       },));
@@ -91,7 +92,7 @@ class _AuthPageState extends State<AuthPage> {
             }
             return Center(
               child: ElevatedButton(
-                  onPressed:chance > maxRetyr ? null :  () {
+                  onPressed: () {
                     context.read<AuthBloc>().add(AuthRequestToken());
                   },
                   child: Text('auth tmdb')),
