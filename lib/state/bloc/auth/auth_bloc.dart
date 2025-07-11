@@ -10,6 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     String requestTokenUrl = 'https://api.themoviedb.org/3/authentication/token/new?api_key=$imdbKey';
     on<AuthRequestToken>((event, emit)async {
+      emit(AuthLoading());
       var responseToken = await dio.get(requestTokenUrl);
       if(responseToken.statusCode == 200 && responseToken.data['success'] == true){
       var token =  responseToken.data['request_token'];
@@ -20,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
     on<AuthExchangeToken>((event, emit)async {
+      emit(AuthLoading());
       try{
      final String sessionURl = 'https://api.themoviedb.org/3/authentication/session/new?api_key=$imdbKey';
      var responseSesion = await dio.post(sessionURl, data: {
@@ -32,9 +34,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
      ));
      if(responseSesion.statusCode == 200){
       print('berhasil'); 
+      if(responseSesion.data['success'] == true){
       var sessionId = responseSesion.data['session_id'];
       print(sessionId);
       emit(AuthSucces(sessionId: sessionId));
+      }else{
+        emit(AuthFailed(e: 'GAGAL NULL'));
+      }
      }else{
       emit(AuthFailed(e: 'User belum klik alloww'));
      }
