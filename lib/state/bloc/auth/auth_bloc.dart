@@ -50,6 +50,8 @@ print('Bermasalah : $e');
     });
     on<AuthDenied>((event, emit){
       emit(AuthInitial());
+      emit(AuthFailed(e: 'Access denied. Please click the "Approve" button to authorize the app. This is Youre Last Chance'));
+      // emit(AuthInitial());
     });
 
   }

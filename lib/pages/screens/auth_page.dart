@@ -42,22 +42,10 @@ class _AuthPageState extends State<AuthPage> {
       ));
   }
 
-  void handleDeny() {
-    retryCount++;
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: Durations.medium3,
-        content: Text('Please click "Approve" to continue using the app')));
-    Future.delayed(Durations.medium2);
-    if (mounted) {
-      context.read<AuthBloc>().add(AuthDenied());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     print(chance);
-    print(retryCount);
+    print('retryCount : $retryCount');
     print('build');
     return Scaffold(
       backgroundColor: Colors.white,
@@ -66,6 +54,14 @@ class _AuthPageState extends State<AuthPage> {
           if (state is AuthLoaded) {
             controller.loadRequest(Uri.parse(state.url));
             reqtoken = state.token;
+          } else if (state is AuthFailed && retryCount == 2) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Something Went Wrong', style: TextStyle(color: Colors.white)),
+                content: Text(state.e.toString(), style: const TextStyle(color: Colors.white)),
+              ),
+            );
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -97,66 +93,14 @@ class _AuthPageState extends State<AuthPage> {
               child: BlocBuilder<DeniedCubit, int>(
                 builder: (context, state) {
                   return ElevatedButton(
-                      onPressed: state <= 3
-                          ? () {
-                              print(state);
-                              showDialog(
-                                context: context,
-                                builder: (context) => AlertDialog(
-                                  backgroundColor: Colors.white,
-                                  title: const Text(
-                                      'To continue, please select "Approve"',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                      )),
-                                  content: Container(
-                                    height: 180,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: BoxBorder.all(
-                                            color: Colors.blueGrey,
-                                            width: 1.0)),
-                                    child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadiusGeometry.circular(20),
-                                        child: Image.asset(
-                                          'assets/images/Approve.jpeg',
-                                          fit: BoxFit.fill,
-                                        )),
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.all(0)),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: MyText(
-                                          fnweight: FontWeight.w600,
-                                          text: 'Nope',
-                                          clors: Colors.grey,
-                                        )),
-                                    ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.all(0)),
-                                        onPressed: () {
-                                          context
-                                              .read<AuthBloc>()
-                                              .add(AuthRequestToken());
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: MyText(
-                                          fnweight: FontWeight.w600,
-                                          text: 'Get In',
-                                        ))
-                                  ],
-                                ),
-                              );
-                            }
-                          : null,
+                      onPressed: () {
+                        retryCount = state;
+                        print('state $state');
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogWidget(),
+                        );
+                      },
                       child: Text('auth tmdb'));
                 },
               ),
@@ -164,6 +108,60 @@ class _AuthPageState extends State<AuthPage> {
           },
         ),
       ),
+    );
+  }
+}
+
+class AlertDialogWidget extends StatelessWidget {
+  const AlertDialogWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: const Text('To continue, please select "Approve"',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.black,
+          )),
+      content: Container(
+        height: 180,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: BoxBorder.all(color: Colors.blueGrey, width: 1.0)),
+        child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(20),
+            child: Image.asset(
+              'assets/images/Approve.jpeg',
+              fit: BoxFit.fill,
+            )),
+      ),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(padding: EdgeInsets.all(0)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: MyText(
+              fnweight: FontWeight.w600,
+              text: 'Nope',
+              clors: Colors.grey,
+            )),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(padding: EdgeInsets.all(0)),
+            onPressed: () {
+              context.read<AuthBloc>().add(AuthRequestToken());
+              Navigator.of(context).pop();
+            },
+            child: MyText(
+              fnweight: FontWeight.w600,
+              text: 'Get In',
+            ))
+      ],
     );
   }
 }

@@ -7,11 +7,14 @@ class DeniedCubit extends Cubit<int>{
 void denied(BuildContext ctx, bool mntd){
   var newstate = state + 1;
   emit(newstate);
+  print('newstate : $newstate');
+  if(newstate < 3 ){
  ScaffoldMessenger.of(ctx).showSnackBar( const SnackBar(
         behavior: SnackBarBehavior.floating,
           content: Text(
               'Please click "Approve" to continue using the app')));
     Future.delayed(Durations.medium2);
+  }
     if (mntd) {
           ctx.read<AuthBloc>().add(AuthDenied());
     }
