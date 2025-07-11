@@ -1,6 +1,7 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
+import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class _AuthPageState extends State<AuthPage> {
           } else if (url.contains('deny')) {
             print('deny');
             if (mounted) {
-              context.read<AuthBloc>().add(AuthDenied());
+              context.read<DeniedCubit>().denied(context, mounted);
             }
           }
         },
@@ -43,19 +44,13 @@ class _AuthPageState extends State<AuthPage> {
 
   void handleDeny() {
     retryCount++;
-    if (retryCount >= maxRetyr) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Kamu Sudah Mencoba Lagi Lebih dari $maxRetyr Kali, Silahkan Coba Lagi Nanti')));
-      Navigator.pop(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              'Login Gagal Kamu Punya Kesempatan ${chance - decerase} Kali Lagi.')));
-    }
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Durations.medium3,
+        content: Text('Please click "Approve" to continue using the app')));
     Future.delayed(Durations.medium2);
     if (mounted) {
-      context.read<AuthBloc>().add(AuthRequestToken());
+      context.read<AuthBloc>().add(AuthDenied());
     }
   }
 
@@ -99,63 +94,72 @@ class _AuthPageState extends State<AuthPage> {
               );
             }
             return Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        backgroundColor: Colors.white,
-                        title:
-                            const Text('To continue, please select "Approve"',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                )),
-                        content: Container(
-                          height: 180,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: BoxBorder.all(
-                                  color: Colors.blueGrey, width: 1.0)),
-                          child: ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(20),
-                              child: Image.asset(
-                                'assets/images/Approve.jpeg',
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.all(0)),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: MyText(
-                                fnweight: FontWeight.w600,
-                                text: 'Nope',
-                                clors: Colors.grey,
-                              )),
-                          ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.all(0)),
-                              onPressed: () {
-                                context
-                                    .read<AuthBloc>()
-                                    .add(AuthRequestToken());
-                                Navigator.of(context).pop();
-                              },
-                              child: MyText(
-                                fnweight: FontWeight.w600,
-                                text: 'Get In',
-                              ))
-                        ],
-                      ),
-                    );
-                  },
-                  child: Text('auth tmdb')),
+              child: BlocBuilder<DeniedCubit, int>(
+                builder: (context, state) {
+                  return ElevatedButton(
+                      onPressed: state <= 3
+                          ? () {
+                              print(state);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.white,
+                                  title: const Text(
+                                      'To continue, please select "Approve"',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      )),
+                                  content: Container(
+                                    height: 180,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: BoxBorder.all(
+                                            color: Colors.blueGrey,
+                                            width: 1.0)),
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadiusGeometry.circular(20),
+                                        child: Image.asset(
+                                          'assets/images/Approve.jpeg',
+                                          fit: BoxFit.fill,
+                                        )),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            padding: EdgeInsets.all(0)),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: MyText(
+                                          fnweight: FontWeight.w600,
+                                          text: 'Nope',
+                                          clors: Colors.grey,
+                                        )),
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            padding: EdgeInsets.all(0)),
+                                        onPressed: () {
+                                          context
+                                              .read<AuthBloc>()
+                                              .add(AuthRequestToken());
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: MyText(
+                                          fnweight: FontWeight.w600,
+                                          text: 'Get In',
+                                        ))
+                                  ],
+                                ),
+                              );
+                            }
+                          : null,
+                      child: Text('auth tmdb'));
+                },
+              ),
             );
           },
         ),

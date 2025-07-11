@@ -6,6 +6,7 @@ import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
+import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
 import 'package:absolutecinema/theme.dart';
@@ -21,6 +22,7 @@ void main() {
       BlocProvider(create: (context) => AnimatedExpands()),
       BlocProvider(create: (context) => CastBloc()),
       BlocProvider(create: (context) => AuthBloc()),
+      BlocProvider(create: (context) => DeniedCubit()),
     ],
     child: const MyApp()));
 }
