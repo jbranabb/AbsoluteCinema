@@ -112,12 +112,15 @@ class _AuthPageState extends State<AuthPage> {
                               color: Colors.black,
                             )),
                         content: Container(
-                          height: 150,
+                          height: 180,
                           decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               border: BoxBorder.all(
                                   color: Colors.blueGrey, width: 1.0)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadiusGeometry.circular(20),
+                                    child: Image.asset('assets/images/Approve.jpeg', fit: BoxFit.fill,)),
                         ),
                         actions: [
                           ElevatedButton(
