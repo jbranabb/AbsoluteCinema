@@ -105,12 +105,13 @@ class _AuthPageState extends State<AuthPage> {
                       context: context,
                       builder: (context) => AlertDialog(
                         backgroundColor: Colors.white,
-                        title: const Text('To continue, please select "Approve"',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: Colors.black,
-                            )),
+                        title:
+                            const Text('To continue, please select "Approve"',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                )),
                         content: Container(
                           height: 180,
                           decoration: BoxDecoration(
@@ -118,17 +119,41 @@ class _AuthPageState extends State<AuthPage> {
                               borderRadius: BorderRadius.circular(20),
                               border: BoxBorder.all(
                                   color: Colors.blueGrey, width: 1.0)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadiusGeometry.circular(20),
-                                    child: Image.asset('assets/images/Approve.jpeg', fit: BoxFit.fill,)),
+                          child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(20),
+                              child: Image.asset(
+                                'assets/images/Approve.jpeg',
+                                fit: BoxFit.fill,
+                              )),
                         ),
                         actions: [
                           ElevatedButton(
-                              onPressed: () {}, child: Text('Ya,Masuk'))
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.all(0)),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: MyText(
+                                fnweight: FontWeight.w600,
+                                text: 'Nope',
+                                clors: Colors.grey,
+                              )),
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.all(0)),
+                              onPressed: () {
+                                context
+                                    .read<AuthBloc>()
+                                    .add(AuthRequestToken());
+                                Navigator.of(context).pop();
+                              },
+                              child: MyText(
+                                fnweight: FontWeight.w600,
+                                text: 'Get In',
+                              ))
                         ],
                       ),
                     );
-                    // context.read<AuthBloc>().add(AuthRequestToken());
                   },
                   child: Text('auth tmdb')),
             );
