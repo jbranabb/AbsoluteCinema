@@ -7,6 +7,7 @@ import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,6 +54,7 @@ class _AuthPageState extends State<AuthPage> {
     print('build');
     var height = MediaQuery.of(context).size.height;
     var doubleHeight = double.parse(height.toString());
+    var paddingtop = MediaQuery.of(context).padding.top;
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocListener<AuthBloc, AuthState>(
@@ -106,7 +108,43 @@ class _AuthPageState extends State<AuthPage> {
                               fit: BoxFit.cover,
                             )),
                             Container(height: 100,
-                            color: Colors.red,
+                            width: 270,
+                            // color: Colors.red,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    children: [
+                                      MyText(fnweight: FontWeight.bold, text: 'Absolute'),
+                                      MyText(fnweight: FontWeight.bold, text: 'Cinema', clors: Colors.blue.shade800,)
+                                    ],
+                                  ),
+                                  MyText(text: 'x'), 
+                                  Container(
+                                    height: 95,
+                                    width: 95,
+                                    // color: Colors.red,
+                                    child: SingleChildScrollView(
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          // SizedBox(height: /,),
+                                          Image.asset(
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.center,
+                                            'assets/images/1.png',
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            
                             ),
                             Container(
                               height: height,
