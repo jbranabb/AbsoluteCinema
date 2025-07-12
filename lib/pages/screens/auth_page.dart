@@ -6,6 +6,7 @@ import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
+import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +52,7 @@ class _AuthPageState extends State<AuthPage> {
     print('retryCount : $retryCount');
     print('build');
     var height = MediaQuery.of(context).size.height;
+    var doubleHeight = double.parse(height.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocListener<AuthBloc, AuthState>(
@@ -96,13 +98,16 @@ class _AuthPageState extends State<AuthPage> {
                   return Stack(
                       children: [
                         Container(height:height,),
-                        Container(
+                        SizedBox(
                             height: 600,
                             width: double.infinity,
                             child: Image.asset(
                               'assets/images/placeholder1.jpeg',
                               fit: BoxFit.cover,
                             )),
+                            Container(height: 100,
+                            color: Colors.red,
+                            ),
                             Container(
                               height: height,
                               alignment: Alignment.bottomCenter,
@@ -117,6 +122,25 @@ class _AuthPageState extends State<AuthPage> {
                                    Colors.black
                                   ])
                                 ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: doubleHeight * 0.57,),
+                              child: Container(
+                                //  color: Colors.white24,
+                                 height: 200,
+                                 width: double.infinity,
+                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    MyText(text: 'Every Movie Has a Story.\n What`s Yours?',
+                                     fnweight: FontWeight.bold, fnSize: 17,
+                                     maxlines: 2,
+                                     ),
+                                     MyText(text: 'Rate And Track the films you love.')
+                                  ],
+                                 ),
                               ),
                             )
                          
