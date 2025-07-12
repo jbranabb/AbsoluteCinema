@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
@@ -44,7 +46,6 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(chance);
     print('retryCount : $retryCount');
     print('build');
     return Scaffold(
@@ -92,7 +93,18 @@ class _AuthPageState extends State<AuthPage> {
             return Center(
               child: BlocBuilder<DeniedCubit, int>(
                 builder: (context, state) {
-                  return ElevatedButton(
+                  return  state > 3 ? ElevatedButton(onPressed: (){
+                     Timer.periodic(Duration(seconds: 5), (timer) {
+                     print(timer.tick);
+                      if(timer.tick >= 5 ){
+                        timer.cancel();
+                      }
+                     } 
+                     
+                    );
+                    //  null;
+                      },
+                     child: Text('Silahkan Coba Lagi Nanti')) : ElevatedButton(
                       onPressed: () {
                         retryCount = state;
                         print('state $state');
