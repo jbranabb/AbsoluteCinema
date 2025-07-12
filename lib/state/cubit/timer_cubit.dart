@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimerCubit extends Cubit<int>{
-  TimerCubit() : super(0);
+  TimerCubit() : super(10);
 
   void handleDeniedWithTimer(){
     int startTimer = 10;
@@ -14,8 +14,8 @@ class TimerCubit extends Cubit<int>{
       }else{
         startTimer--;
         print(startTimer);
-      }
       emit(startTimer);
+      }
     },);
   }
 } 

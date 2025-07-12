@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
@@ -80,51 +81,21 @@ class _AuthPageState extends State<AuthPage> {
                 ],
               );
             } else if (state is AuthSucces) {
-              if (state.sessionId == 'null') {
-                return Center(
-                  child: Text('Gagal'),
-                );
-              }
               return Center(
                 child: Text(state.sessionId),
               );
             } else if (state is AuthLoading) {
-              return Center(
-                child: CircularProgressIndicator(),
+              return const Center(
+                child: LoadingWidget(),
               );
             }
             return Center(
               child: BlocBuilder<DeniedCubit, int>(
                 builder: (context, state) {
-                  return state > 3
-                      ? BlocBuilder<TimerCubit, int>(
-                          builder: (context, tmr) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(tmr == 0 ? 'Selesai' :tmr.toString()),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      context
-                                          .read<TimerCubit>()
-                                          .handleDeniedWithTimer();
-                                    },
-                                    child: Text('Silahkan Coba Lagi Nanti')),
-                              ],
-                            );
-                          },
-                        )
-                      : ElevatedButton(
-                          onPressed: () {
-                            retryCount = state;
-                            print('state $state');
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialogWidget(),
-                            );
-                          },
-                          child: Text('auth tmdb'));
+                    retryCount = state;
+                  return Container(
+color: Colors.red,
+                  );
                 },
               ),
             );
