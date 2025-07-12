@@ -50,8 +50,9 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     print('retryCount : $retryCount');
     print('build');
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthLoaded) {
@@ -89,16 +90,40 @@ class _AuthPageState extends State<AuthPage> {
                 child: LoadingWidget(),
               );
             }
-            return Center(
-              child: BlocBuilder<DeniedCubit, int>(
+            return BlocBuilder<DeniedCubit, int>(
                 builder: (context, state) {
-                    retryCount = state;
-                  return Container(
-color: Colors.red,
-                  );
+                  retryCount = state;
+                  return Stack(
+                      children: [
+                        Container(height:height,),
+                        Container(
+                            height: 600,
+                            width: double.infinity,
+                            child: Image.asset(
+                              'assets/images/placeholder1.jpeg',
+                              fit: BoxFit.cover,
+                            )),
+                            Container(
+                              height: height,
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 390,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                    Colors.transparent,
+                                   Colors.black
+                                  ])
+                                ),
+                              ),
+                            )
+                         
+                      ],
+                    );
                 },
-              ),
-            );
+              );
           },
         ),
       ),
