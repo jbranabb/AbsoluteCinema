@@ -9,6 +9,7 @@ import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
+import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ void main() {
       BlocProvider(create: (context) => CastBloc()),
       BlocProvider(create: (context) => AuthBloc()),
       BlocProvider(create: (context) => DeniedCubit()),
+      BlocProvider(create: (context) => TimerCubit()),
     ],
     child: const MyApp()));
 }

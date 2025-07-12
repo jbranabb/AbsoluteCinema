@@ -4,6 +4,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
+import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,8 +60,10 @@ class _AuthPageState extends State<AuthPage> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Something Went Wrong', style: TextStyle(color: Colors.white)),
-                content: Text(state.e.toString(), style: const TextStyle(color: Colors.white)),
+                title: const Text('Something Went Wrong',
+                    style: TextStyle(color: Colors.white)),
+                content: Text(state.e.toString(),
+                    style: const TextStyle(color: Colors.white)),
               ),
             );
           }
@@ -93,27 +96,35 @@ class _AuthPageState extends State<AuthPage> {
             return Center(
               child: BlocBuilder<DeniedCubit, int>(
                 builder: (context, state) {
-                  return  state > 3 ? ElevatedButton(onPressed: (){
-                     Timer.periodic(Duration(seconds: 5), (timer) {
-                     print(timer.tick);
-                      if(timer.tick >= 5 ){
-                        timer.cancel();
-                      }
-                     } 
-                     
-                    );
-                    //  null;
-                      },
-                     child: Text('Silahkan Coba Lagi Nanti')) : ElevatedButton(
-                      onPressed: () {
-                        retryCount = state;
-                        print('state $state');
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialogWidget(),
-                        );
-                      },
-                      child: Text('auth tmdb'));
+                  return state > 3
+                      ? BlocBuilder<TimerCubit, int>(
+                          builder: (context, tmr) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(tmr == 0 ? 'Selesai' :tmr.toString()),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      context
+                                          .read<TimerCubit>()
+                                          .handleDeniedWithTimer();
+                                    },
+                                    child: Text('Silahkan Coba Lagi Nanti')),
+                              ],
+                            );
+                          },
+                        )
+                      : ElevatedButton(
+                          onPressed: () {
+                            retryCount = state;
+                            print('state $state');
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialogWidget(),
+                            );
+                          },
+                          child: Text('auth tmdb'));
                 },
               ),
             );
