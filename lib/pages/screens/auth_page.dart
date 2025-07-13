@@ -34,6 +34,9 @@ class _AuthPageState extends State<AuthPage> {
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) {
+          Center(child: LoadingWidget());
+        },
         onPageFinished: (url) {
           if (url.contains('allow') || url.contains('success')) {
             print('approve');
@@ -66,10 +69,13 @@ class _AuthPageState extends State<AuthPage> {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
+                backgroundColor: Colors.white,
                 title: const Text('Something Went Wrong',
-                    style: TextStyle(color: Colors.white)),
+                    style: TextStyle(color: Colors.black)),
                 content: Text(state.e.toString(),
-                    style: const TextStyle(color: Colors.white)),
+                    style: const TextStyle(color: Colors.black)),
+                    actions: [ElevatedButton(onPressed: (){Navigator.of(context).pop();},
+                     child: const Text('Okay'))],
               ),
             );
           }
@@ -90,102 +96,141 @@ class _AuthPageState extends State<AuthPage> {
                 child: Text(state.sessionId),
               );
             } else if (state is AuthLoading) {
-              return const Center(
-                child: LoadingWidget(),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MyText(text: 'Directing You To Authentication Request'),
+                    SizedBox(height: 20,),
+                    LoadingWidget(),
+                  ],
+                ),
               );
             }
             return BlocBuilder<DeniedCubit, int>(
-                builder: (context, state) {
-                  retryCount = state;
-                  return Stack(
-                      children: [
-                        Container(height:height,),
-                        SizedBox(
-                            height: 600,
-                            width: double.infinity,
-                            child: Image.asset(
-                              'assets/images/placeholder1.jpeg',
-                              fit: BoxFit.cover,
-                            )),
-                            Container(height: 100,
-                            width: 270,
-                            // color: Colors.red,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Row(
-                                    children: [
-                                      MyText(fnweight: FontWeight.bold, text: 'Absolute'),
-                                      MyText(fnweight: FontWeight.bold, text: 'Cinema', clors: Colors.blue.shade800,)
-                                    ],
-                                  ),
-                                  MyText(text: 'x'), 
-                                  Container(
-                                    height: 95,
-                                    width: 95,
-                                    // color: Colors.red,
-                                    child: SingleChildScrollView(
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          // SizedBox(height: /,),
-                                          Image.asset(
-                                            fit: BoxFit.cover,
-                                            alignment: Alignment.center,
-                                            'assets/images/1.png',
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
+              builder: (context, state) {
+                retryCount = state;
+                return Stack(
+                  children: [
+                    Container(
+                      height: height,
+                    ),
+                    SizedBox(
+                        height: 600,
+                        width: double.infinity,
+                        child: Image.asset(
+                          'assets/images/placeholder1.jpeg',
+                          fit: BoxFit.cover,
+                        )),
+                    Container(
+                      height: 100,
+                      width: 270,
+                      // color: Colors.red,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                MyText(
+                                    fnweight: FontWeight.bold,
+                                    text: 'Absolute'),
+                                MyText(
+                                  fnweight: FontWeight.bold,
+                                  text: 'Cinema',
+                                  clors: Colors.blue.shade800,
+                                )
+                              ],
                             ),
-                            
-                            ),
+                            MyText(text: 'x'),
                             Container(
-                              height: height,
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 390,
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                    Colors.transparent,
-                                   Colors.black
-                                  ])
+                              height: 95,
+                              width: 95,
+                              // color: Colors.red,
+                              child: SingleChildScrollView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // SizedBox(height: /,),
+                                    Image.asset(
+                                      fit: BoxFit.cover,
+                                      alignment: Alignment.center,
+                                      'assets/images/1.png',
+                                    ),
+                                  ],
                                 ),
                               ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: height,
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 390,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Colors.transparent, Colors.black])),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: doubleHeight * 0.57,
+                      ),
+                      child: Container(
+                        // color: Colors.white24,
+                        height: 200,
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 30,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: doubleHeight * 0.57,),
-                              child: Container(
-                                //  color: Colors.white24,
-                                 height: 200,
-                                 width: double.infinity,
-                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    MyText(text: 'Every Movie Has a Story.\n What`s Yours?',
-                                     fnweight: FontWeight.bold, fnSize: 17,
-                                     maxlines: 2,
-                                     ),
-                                     MyText(text: 'Rate And Track the films you love.')
-                                  ],
-                                 ),
+                            MyText(
+                              text: 'Every Movie Has a Story.\n What\'s Yours?',
+                              fnweight: FontWeight.bold,
+                              fnSize: 17,
+                              maxlines: 2,
+                            ),
+                            MyText(
+                              text: 'Rate And Track the films you love.',
+                              fnweight: FontWeight.w600,
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialogWidget(),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white),
+                              child: MyText(
+                                text: 'Let\'s Begin',
+                                clors: Colors.black,
+                                fnweight: FontWeight.w600,
                               ),
                             )
-                         
-                      ],
-                    );
-                },
-              );
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            );
           },
         ),
       ),
