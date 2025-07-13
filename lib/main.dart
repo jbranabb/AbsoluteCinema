@@ -31,7 +31,7 @@ void main() async{
       BlocProvider(create: (context) => AuthBloc()),
       BlocProvider(create: (context) => DeniedCubit()),
       BlocProvider(create: (context) => TimerCubit()),
-      BlocProvider(create: (context) => UserBloc()),
+      BlocProvider(create: (context) => UserBloc()..add(UserData())),
     ],
     child: const MyApp()));
 }

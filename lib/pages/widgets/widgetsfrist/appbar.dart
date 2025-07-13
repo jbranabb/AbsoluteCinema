@@ -51,20 +51,20 @@ class MyAppBar extends StatelessWidget {
                         builder: (context, state) {
                           if (state is UserLoaded) {
                             return Text(
-                              'Hi, ${state.username}',
-                              style: TextStyle(
+                              state.username,
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             );
                           }
-                          return Text(
+                          return const Text(
                              '!Hi User',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
-                            );;
+                            );
                         },
                       ),
                     ],
