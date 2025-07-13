@@ -108,18 +108,8 @@ class _AuthPageState extends State<AuthPage> {
                 child: Text(state.sessionId),
               );
             } else if (state is AuthLoading) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MyText(text: 'Directing You To Authentication Request'),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const LoadingWidget(),
-                  ],
-                ),
+              return const Center(
+                child:  LoadingWidget(),
               );
             }
             return BlocBuilder<DeniedCubit, int>(
@@ -200,7 +190,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       child: Container(
                         // color: Colors.white24,
-                        height: 200,
+                        height: 310,
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -246,7 +236,9 @@ class _AuthPageState extends State<AuthPage> {
                                 clors: state >= 3 ? Colors.grey : Colors.black,
                                 fnweight: FontWeight.w600,
                               ),
-                            )
+                            ),
+                            const SizedBox(height: 50,),
+                            MyText(text: 'This product uses the TMDB API but \nis not endorsed or certified by TMDB.',maxlines: 2, clors: Colors.grey.withOpacity(0.2),)
                           ],
                         ),
                       ),
