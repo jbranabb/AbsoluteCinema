@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:absolutecinema/main.dart';
+import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
@@ -95,8 +96,7 @@ class _AuthPageState extends State<AuthPage> {
           }else if(state is AuthSucces){
             print('get session id');
             context.read<UserBloc>().add(GetSessionUser(sesionId: state.sessionId));
-            pref!.setString('sessionId', state.sessionId);
-
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(),));
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
@@ -109,10 +109,6 @@ class _AuthPageState extends State<AuthPage> {
                     controller: controller,
                   ))
                 ],
-              );
-            } else if (state is AuthSucces) {
-              return Center(
-                child: Text(state.sessionId),
               );
             } else if (state is AuthLoading) {
               return const Center(

@@ -35,5 +35,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       // handle save event dari bloc ke shared prefrences
       // _prefs.
     });
+
+    //we handle the sharedprefrence here ////
   }
 }
