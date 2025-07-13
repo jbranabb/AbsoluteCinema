@@ -31,7 +31,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           emit(UserFailed(e: e.toString()));
         }
     });
-
-    //we handle the sharedprefrence here ////
+    on<UserData>((event, emit)async {
+      emit(UserLoading());
+    SharedPreferences _prefs = await SharedPreferences.getInstance();      
+    var id = _prefs.getString('id');
+    var username = _prefs.getString('username');
+    emit(UserLoaded(username: username!));
+    });
   }
 }

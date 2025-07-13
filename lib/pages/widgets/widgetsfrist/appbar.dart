@@ -1,5 +1,7 @@
-
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({
@@ -25,22 +27,46 @@ class MyAppBar extends StatelessWidget {
                       height: 50,
                       width: 50,
                       decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30),
                         border: Border.all(color: Colors.white60),
-                      color: Colors.grey.shade600.withOpacity(0.6),
+                        color: Colors.grey.shade600.withOpacity(0.6),
                       ),
                       child: Icon(Icons.person),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left:  11.0, top: 55),
-                  child:
-                   Column(
+                  padding: const EdgeInsets.only(left: 11.0, top: 55),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Good Morning', style: TextStyle(color: Colors.white,fontSize: 10, fontWeight: FontWeight.normal),),
-                      Text('Jibran Ab', style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.bold),),
+                      const Text(
+                        'Good Morning',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          if (state is UserLoaded) {
+                            return Text(
+                              'Hi, ${state.username}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          }
+                          return Text(
+                             '!Hi User',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            );;
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -49,22 +75,21 @@ class MyAppBar extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20.0, right: 20),
               child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white60),
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.grey.shade600.withOpacity(0.6)
-                      ),
+                          border: Border.all(color: Colors.white60),
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.grey.shade600.withOpacity(0.6)),
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Icon(Icons.notifications)))
-                  ],
-                ),
+                          alignment: Alignment.center,
+                          child: Icon(Icons.notifications)))
+                ],
+              ),
             )
           ],
         ),
