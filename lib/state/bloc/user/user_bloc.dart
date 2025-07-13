@@ -11,6 +11,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
     Dio dio = Dio();
     on<GetSessionUser>((event, emit)async {
+      emit(UserLoading());
     SharedPreferences _prefs = await SharedPreferences.getInstance();
       // handle terima event dari authbloc
         String accountUrl  =  'https://api.themoviedb.org/3/account?session_id=${event.sesionId}&api_key=$imdbKey';
@@ -19,21 +20,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if(response.statusCode == 200){
           print('Succes : True'); 
           print("response : ${response.data}");
-          final id = response.data['id'];
-          final String username = response.data['username']; 
-          _prefs.setString('username', username);
-          // _prefs.setString('sessionId', event.sesionId);
+          // save the reponse data to the sharedprefrences
+        _prefs.setString('sessionId', event.sesionId);
+        _prefs.setString('username', response.data['username'] ?? 'invalid username');
+        _prefs.setString('id', response.data['id'] ?? 'invalid id');
         }else{
           emit(UserFailed(e: response.statusCode.toString()));
         }
         }catch(e){
           emit(UserFailed(e: e.toString()));
         }
-      // handle get data dri shared prefrerences
-      // handle emit state data like use name, etc
-
-      // handle save event dari bloc ke shared prefrences
-      // _prefs.
     });
 
     //we handle the sharedprefrence here ////

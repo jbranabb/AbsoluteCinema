@@ -11,7 +11,6 @@ import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
-import 'package:absolutecinema/test.dart';
 import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,  
-      home: pref!.getString('sessionId') != null ? SuccesPage() : AuthPage() ,
+      home: pref!.getString('sessionId') != null ? HomePage() : AuthPage() ,
     );
   }
 }

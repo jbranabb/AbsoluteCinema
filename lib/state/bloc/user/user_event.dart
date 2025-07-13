@@ -7,3 +7,4 @@ class GetSessionUser extends UserEvent {
   String sesionId;
   GetSessionUser({required this.sesionId});
 }
+class UserData extends UserEvent {}
