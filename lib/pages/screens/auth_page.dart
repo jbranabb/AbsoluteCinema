@@ -65,17 +65,29 @@ class _AuthPageState extends State<AuthPage> {
           if (state is AuthLoaded) {
             controller.loadRequest(Uri.parse(state.url));
             reqtoken = state.token;
-          } else if (state is AuthFailed && retryCount == 2) {
+          } else if (state is AuthFailed && retryCount >= 2) {
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                backgroundColor: Colors.white,
                 title: const Text('Something Went Wrong',
-                    style: TextStyle(color: Colors.black)),
-                content: Text(state.e.toString(),
-                    style: const TextStyle(color: Colors.black)),
-                    actions: [ElevatedButton(onPressed: (){Navigator.of(context).pop();},
-                     child: const Text('Okay'))],
+                    style: TextStyle(color: Colors.white)),
+                content: MyText(
+                  text: state.e.toString(),
+                  fnweight: FontWeight.w500,
+                ),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white),
+                      child: MyText(
+                        text: 'Okay',
+                        clors: Colors.black,
+                        fnweight: FontWeight.w600,
+                      ))
+                ],
               ),
             );
           }
@@ -102,8 +114,10 @@ class _AuthPageState extends State<AuthPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     MyText(text: 'Directing You To Authentication Request'),
-                    SizedBox(height: 20,),
-                    LoadingWidget(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const LoadingWidget(),
                   ],
                 ),
               );
@@ -210,16 +224,26 @@ class _AuthPageState extends State<AuthPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialogWidget(),
-                                );
+                                state >= 3
+                                    ? ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                          behavior: SnackBarBehavior.floating,
+                                          duration: Duration(milliseconds: 1000),
+                                            content: Text(
+                                                'Too many tries! Give it a rest and try again later')))
+                                    : showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            AlertDialogWidget(),
+                                      );
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white),
                               child: MyText(
-                                text: 'Let\'s Begin',
-                                clors: Colors.black,
+                                text: state >= 3
+                                    ? 'Limit Reached'
+                                    : 'Let\'s Begin',
+                                clors: state >= 3 ? Colors.grey : Colors.black,
                                 fnweight: FontWeight.w600,
                               ),
                             )
