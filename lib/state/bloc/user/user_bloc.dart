@@ -9,9 +9,9 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
-    SharedPreferences? _prefs;
     Dio dio = Dio();
     on<GetSessionUser>((event, emit)async {
+    SharedPreferences _prefs = await SharedPreferences.getInstance();
       // handle terima event dari authbloc
         String accountUrl  =  'https://api.themoviedb.org/3/account?session_id=${event.sesionId}&api_key=$imdbKey';
         final response = await dio.get(accountUrl);
@@ -19,11 +19,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if(response.statusCode == 200){
           print('Succes : True'); 
           print("response : ${response.data}");
+          final id = response.data['id'];
+          final String username = response.data['username']; 
+          _prefs.setString('username', username);
+          // _prefs.setString('sessionId', event.sesionId);
         }else{
           emit(UserFailed(e: response.statusCode.toString()));
         }
         }catch(e){
-
+          emit(UserFailed(e: e.toString()));
         }
       // handle get data dri shared prefrerences
       // handle emit state data like use name, etc

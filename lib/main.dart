@@ -11,12 +11,18 @@ import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
+import 'package:absolutecinema/test.dart';
 import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+SharedPreferences? pref;
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = Myobserver();
+  SharedPreferences initialpref = await SharedPreferences.getInstance();
+  pref = initialpref;
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (context) => HomeBloc()),
@@ -30,7 +36,6 @@ void main() {
     ],
     child: const MyApp()));
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -39,7 +44,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,  
-      home:AuthPage() ,
+      home: pref!.getString('sessionId') != null ? SuccesPage() : AuthPage() ,
     );
   }
 }

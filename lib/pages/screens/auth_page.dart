@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:flutter/gestures.dart';
@@ -90,6 +92,11 @@ class _AuthPageState extends State<AuthPage> {
                 ],
               ),
             );
+          }else if(state is AuthSucces){
+            print('get session id');
+            context.read<UserBloc>().add(GetSessionUser(sesionId: state.sessionId));
+            pref!.setString('sessionId', state.sessionId);
+
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(
