@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
@@ -64,10 +65,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       var responseGenreTv = await dio.get(genreUrlTv);
       var responseGenreMov = await dio.get(genreUrlMov);
     
-      if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
-        final datafav = responseFAv.data['results'];
-        final dataWatchlist = responseWatchUrl.data['results'];
-      }
     List dataGenreMov = responseGenreMov.data['genres'];
     List dataGenreTv = responseGenreTv.data['genres'];
     Map<String, dynamic> genreMapCombaine = {};
@@ -76,6 +73,27 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       for(var g in dataGenreTv) g['id'].toString() : g['name'],
       for (var x in dataGenreMov) x['id'].toString() : x['name']
     };
+        
+        if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
+        List<dynamic> datafav = responseFAv.data['results'];
+        final dataWatchlist = responseWatchUrl.data['results'];
+
+        List<CombaineModels> finalDataFav =  datafav.map((e) =>  
+        CombaineModels.fromJson(e)).toList();
+        List<ConvertedModels> finaldata = finalDataFav.map((e) {
+        List<String> genrelist = e.genreIds.map((id) => genreMapCombaine[id].toString(),).toList().cast<String>();
+        var voteavg = double.parse(e.voteAvg);
+        var finalratings = (voteavg / 10 * 5); 
+        return ConvertedModels(id: e.id, genreIds: genrelist, title: e.title,
+         voteAvg: finalratings.toString() , backdropPath: e.backdropPath, posterPath: e.posterPath,
+          overview: e.overview, mediatype: e.mediaType, relaseDate: e.relaseDate);
+        }).toList();
+
+      }
+      
+
+
+
     });
   }
 }
