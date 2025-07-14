@@ -49,7 +49,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     String favUrl = 'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers';
     //get watchlist
     String watchlistUrl = 'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers';
-    
+
+    var responseFAv = await  dio.get(favUrl);
+    var  responseWatchUrl  = await dio.get(watchlistUrl);
+    if(responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200){
+      final datafav = responseFAv.data['results'];
+      final dataWatchlist = responseWatchUrl.data['results'];
+      }
     });
   }
 }
