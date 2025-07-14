@@ -39,7 +39,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(UserLoaded(username: username!));
     });
     on<UserCredentials>((event, emit) async{
-    SharedPreferences _prefs = await SharedPreferences.getInstance();      
+    var id = pref?.getString('id');
+    var sesionId = pref?.getString('sessionId');
+    var headers = '?session_id=$sesionId&api_key=$imdbKey';
+    if(pref == null ||  id == null || sesionId == null){
+      emit(UserFailed(e: 'Failed null'));
+    }
+    String favUrl = 'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers';
+    
       
     });
   }

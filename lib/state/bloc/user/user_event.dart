@@ -9,4 +9,7 @@ class GetSessionUser extends UserEvent {
 }
 class UserData extends UserEvent {}
 
-class UserCredentials extends UserEvent{}
+class UserCredentials extends UserEvent{
+  String mediaType;
+  UserCredentials({required this.mediaType});
+}
