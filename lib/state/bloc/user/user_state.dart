@@ -9,6 +9,11 @@ final class UserLoaded extends UserState {
 String username;
 UserLoaded({required this.username});
 }
+final class UserDataLoaded extends UserState{
+List<ConvertedModels> dataWatchlist;
+List<ConvertedModels> dataFav;
+UserDataLoaded({required this.dataWatchlist, required this.dataFav});
+}
 final class UserFailed extends UserState {
   String e;
   UserFailed({required this.e});

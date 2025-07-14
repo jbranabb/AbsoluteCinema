@@ -76,11 +76,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         
         if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
         List<dynamic> datafav = responseFAv.data['results'];
-        final dataWatchlist = responseWatchUrl.data['results'];
+        List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
 
-        List<CombaineModels> finalDataFav =  datafav.map((e) =>  
+      final List<CombaineModels> rawDataFav =  datafav.map((e) =>  
         CombaineModels.fromJson(e)).toList();
-        List<ConvertedModels> finaldata = finalDataFav.map((e) {
+        List<ConvertedModels> finaldataFav = rawDataFav.map((e) {
         List<String> genrelist = e.genreIds.map((id) => genreMapCombaine[id].toString(),).toList().cast<String>();
         var voteavg = double.parse(e.voteAvg);
         var finalratings = (voteavg / 10 * 5); 
@@ -88,12 +88,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
          voteAvg: finalratings.toString() , backdropPath: e.backdropPath, posterPath: e.posterPath,
           overview: e.overview, mediatype: e.mediaType, relaseDate: e.relaseDate);
         }).toList();
-
+        final List<CombaineModels> rawDataWatchlist = dataWatchlist.map((e) =>  CombaineModels.fromJson(e),).toList();
+        List<ConvertedModels> finalDataWatchlist = rawDataWatchlist. map((e) {
+          List<String> genreList = e.genreIds.map((e) => genreMapCombaine[id].toString(),).toList().cast<String>();
+          final voteavg = double.parse(e.voteAvg);
+          var finalratings = (voteavg / 10 * 5);
+          return  ConvertedModels(id: e.id, genreIds: genreList, title: e.title, voteAvg: finalratings.toString(),
+           backdropPath: e.backdropPath, posterPath: e.posterPath, overview: e.overview,
+            mediatype: e.mediaType, relaseDate: e.relaseDate);
+        }).toList();
+        emit(UserDataLoaded(dataWatchlist: finalDataWatchlist, dataFav:finaldataFav));
       }
-      
-
-
-
     });
   }
 }
