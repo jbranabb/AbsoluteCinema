@@ -1,4 +1,5 @@
 import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -32,11 +33,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
     });
     on<UserData>((event, emit)async {
-      emit(UserLoading());
-    SharedPreferences _prefs = await SharedPreferences.getInstance();      
-    var id = _prefs.getString('id');
-    var username = _prefs.getString('username');
+      emit(UserLoading());      
+    var id = pref?.getString('id');
+    var username = pref?.getString('username');
     emit(UserLoaded(username: username!));
+    });
+    on<UserCredentials>((event, emit) async{
+    SharedPreferences _prefs = await SharedPreferences.getInstance();      
+      
     });
   }
 }

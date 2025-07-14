@@ -8,3 +8,5 @@ class GetSessionUser extends UserEvent {
   GetSessionUser({required this.sesionId});
 }
 class UserData extends UserEvent {}
+
+class UserCredentials extends UserEvent{}
