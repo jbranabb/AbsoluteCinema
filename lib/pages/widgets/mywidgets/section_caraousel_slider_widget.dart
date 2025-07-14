@@ -86,12 +86,16 @@ class SectionCaraouselSliderWidget extends StatelessWidget {
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadiusGeometry.circular(8),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://image.tmdb.org/t/p/w780${movies.backdropPath}',
-                          placeholder: (context, url) =>
-                              Center(child: MyText(text: movies.title)),
-                          fit: BoxFit.cover,
+                        child: Container(
+                          height: 140,
+                          width: double.infinity,
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://image.tmdb.org/t/p/w780${movies.backdropPath}',
+                            placeholder: (context, url) =>
+                                Center(child: MyText(text: movies.title)),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
