@@ -45,9 +45,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if(pref == null ||  id == null || sesionId == null){
       emit(UserFailed(e: 'Failed null'));
     }
+    //get fav
     String favUrl = 'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers';
+    //get watchlist
+    String watchlistUrl = 'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers';
     
-      
     });
   }
 }
