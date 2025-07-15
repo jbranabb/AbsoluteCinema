@@ -270,7 +270,7 @@ Future<void> _launchUrl() async {
                             ElevatedButtonDetail(
                               icon: Icons.bookmark,
                               presed: (){
-                                context.read<SetToogle>().toogleStatus(widget.mediatype!, widget.id);
+                                context.read<SetToogle>().toogleStatus(widget.mediatype!, widget.id, context, mounted);
                               },
                             ),
                             ElevatedButtonDetail(
