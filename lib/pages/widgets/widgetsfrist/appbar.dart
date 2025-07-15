@@ -2,11 +2,21 @@ import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyAppBar extends StatelessWidget {
+class MyAppBar extends StatefulWidget {
   const MyAppBar({
     super.key,
   });
 
+  @override
+  State<MyAppBar> createState() => _MyAppBarState();
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  @override
+  void initState() {
+    super.initState();
+   context.read<UserBloc>().add(UserData());
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
