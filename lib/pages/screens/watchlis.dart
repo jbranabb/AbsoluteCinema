@@ -1,4 +1,5 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,6 +38,14 @@ class _WatchlistPageState extends State<WatchlistPage> {
               width: 20,
              );
            });
+        }else  if(state is UserLoading){
+          return Center(
+            child: LoadingWidget(),
+          );
+        }else if(state is UserFailed){
+          return Center(
+            child: MyText(text: state.e),
+          );
         }
         return Container(
           color: Colors.red,

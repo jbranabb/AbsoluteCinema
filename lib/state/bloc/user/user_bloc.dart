@@ -27,7 +27,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           _prefs.setString('sessionId', event.sesionId);
           _prefs.setString(
               'username', response.data['username'] ?? 'invalid username');
-          _prefs.setString('id', response.data['id'] ?? 'invalid id');
+             int id = response.data['id'];
+          _prefs.setInt('id', id);
         } else {
           emit(UserFailed(e: response.statusCode.toString()));
         }
@@ -37,16 +38,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
     on<UserData>((event, emit) async {
       emit(UserLoading());
-      var id = pref?.getString('id');
+      var id = pref?.getInt('id');
       var username = pref?.getString('username');
       emit(UserLoaded(username: username!));
     });
     on<UserCredentials>((event, emit) async {
-      var id = pref?.getString('id');
+      emit(UserLoading());
+      var id = pref?.getInt('id');
       var sesionId = pref?.getString('sessionId');
+      var usrname = pref?.getString('username');
       var headers = '?session_id=$sesionId&api_key=$imdbKey';
-      if (pref == null || id == null || sesionId == null) {
-        emit(UserFailed(e: 'Failed null'));
+      if (
+      // pref == null 
+      // ||
+       id == null 
+      || sesionId == null
+      ) {
+        emit(UserFailed(e: 'Failed $id, failed $usrname'));
       }
       //get fav
       String favUrl =
