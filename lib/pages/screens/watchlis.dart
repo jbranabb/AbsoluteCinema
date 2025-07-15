@@ -22,7 +22,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        title: MyText(text: 'Watchlist'),
+        title: MyText(text: 'Watchlist', fnweight: FontWeight.bold, fnSize: 18,),
         centerTitle: true,
       ) ,
       body: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
@@ -36,10 +36,25 @@ class _WatchlistPageState extends State<WatchlistPage> {
            itemBuilder:(context, index) {
             var movies = state.dataWatchlist[index];
              return Padding(
-               padding: const EdgeInsets.all(2.0),
+               padding: const EdgeInsets.all(3.0),
                child: Container(
-                color: Colors.amber,
-                child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${movies.posterPath}'),
+                decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(5),
+                border: BoxBorder.all(
+                  color: Colors.blueGrey,
+                  style: BorderStyle.solid,
+                  width: 1.0
+                )
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(5),
+                  child: CachedNetworkImage(imageUrl: 'https://image.tmdb.org/t/p/w780${movies.posterPath}', fit: BoxFit.cover,
+                  placeholder: (context, url) => Center(child: MyText(text: movies.title, fnweight: FontWeight.bold,
+                  fnSize: 11,
+                  ),),
+                  errorWidget: (context, url, error) => const Center(child: Icon(Icons.help),),
+                  )),
                ),
              );
            });
