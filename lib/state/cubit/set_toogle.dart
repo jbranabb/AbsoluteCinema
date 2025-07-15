@@ -16,6 +16,11 @@ class SetToogle extends Cubit<bool> {
       'media_id': mediaId,
       'watchlist': state
     });
+    if(responsePost.statusCode == 200){
+      print(responsePost.data);
+    print('Berhasil hore');
+    }
+    print(responsePost.statusCode);
     print('Berhasil');
     }catch(e){
     print(e);

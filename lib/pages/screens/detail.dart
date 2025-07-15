@@ -8,6 +8,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_widget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
+import 'package:absolutecinema/state/cubit/set_toogle.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -268,9 +269,13 @@ Future<void> _launchUrl() async {
                             const SizedBox(width: 5),
                             ElevatedButtonDetail(
                               icon: Icons.bookmark,
+                              presed: (){
+                                context.read<SetToogle>().toogleStatus(widget.mediatype!, widget.id);
+                              },
                             ),
                             ElevatedButtonDetail(
                               icon: Icons.share,
+                              presed: (){},
                             ),
                           ],
                         ),

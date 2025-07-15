@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
+import 'package:absolutecinema/pages/screens/watchlis.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
@@ -121,7 +122,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   IconButton(onPressed: () {}, icon: Icon(Icons.home)),
                   IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.save)),
+                  IconButton(onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => WatchlistPage() ,));
+                  }, icon: Icon(Icons.bookmark)),
                   IconButton(onPressed: () {}, icon: Icon(Icons.person)),
                 ],
               )
