@@ -19,15 +19,17 @@ class SetToogle extends Cubit<bool> {
       'media_id': mediaId,
       'watchlist': state
     });
+      print(state);
     if(responsePost.statusCode == 201 && mntd && state != false){
       print(responsePost.data);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Berhasil Menambahkan Ke Wacthlist')));
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     print('Berhasil hore');
     }else if(responsePost.statusCode == 200 && mntd && state !=true){
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Menghapus Dari Wacthlist')));
-    }
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
+      print(responsePost.data);
     print(responsePost.statusCode);
     print('Berhasil');
+    }
     }catch(e){
     print(e);
     throw Exception(e);
