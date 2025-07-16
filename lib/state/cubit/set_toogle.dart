@@ -6,25 +6,31 @@ import 'package:flutter/material.dart';
 class SetToogle extends Cubit<bool> {
   SetToogle() : super(false);
   void toogleStatus(String mediaType, int mediaId, BuildContext ctx, bool mntd) async{
-    emit(!state);
     var id = pref?.getInt('id');
     var sesionId = pref?.getString('sessionId');
     var headers = '?session_id=$sesionId&api_key=$imdbKey';
     String url = 'https://api.themoviedb.org/3/account/$id/watchlist$headers';
+    String responseByIdUrl = 'https://api.themoviedb.org/3/$mediaType/$mediaId/account_states$headers';
     // print(url);
 
     try{
+      var responsebyId = await  dio.get(responseByIdUrl);
+      print(responsebyId.data['watchlist']);
     var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
       'watchlist': state
     });
-      print(state);
+    print(mediaId);
+
+      // print(state);
     if(responsePost.statusCode == 201 && mntd && state != false){
+    emit(!state);
       print(responsePost.data);
       ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     print('Berhasil hore');
     }else if(responsePost.statusCode == 200 && mntd && state !=true){
+    emit(!state);
       ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
       print(responsePost.data);
     print(responsePost.statusCode);

@@ -81,6 +81,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                     crossAxisCount: 4, childAspectRatio: 3 / 4),
                 itemCount: state.dataWatchlist.length,
                 itemBuilder: (context, index) {
+                  // state.dataWatchlist.co
                   var movies = state.dataWatchlist[index];
                   return GestureDetector(
                     onTap: () async {
@@ -92,7 +93,6 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             const Center(child: LoadingWidget()),
                       );
                       var extra = await extraData(int.parse(movies.id), mediatypeValue);
-
 
                       try {
                         if (!mounted) return;
