@@ -85,16 +85,14 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   return GestureDetector(
                     onTap: () async {
                       var mediatypeValue = values == 2 ? 'tv' : 'movie';
-                      var extra = await extraData(int.parse(movies.id), mediatypeValue);
                        final currentContext = context;
-
-                      if (!mounted) return;
-
                       showDialog(
                         context: currentContext,
                         builder: (context) =>
                             const Center(child: LoadingWidget()),
                       );
+                      var extra = await extraData(int.parse(movies.id), mediatypeValue);
+
 
                       try {
                         if (!mounted) return;
@@ -118,7 +116,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             tagline: extra['tagline'],
                             ytkey: extra['ytkey'],
                             id: int.parse(movies.id),
-                            mediatype: movies.mediatype,
+                            mediatype: mediatypeValue,
                           ),
                         ));
                       } catch (e) {
