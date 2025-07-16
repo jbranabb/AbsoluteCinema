@@ -15,7 +15,9 @@ class WatchlistPage extends StatefulWidget {
   @override
   State<WatchlistPage> createState() => _WatchlistPageState();
 }
+
 var moviesMediatype = 'movies';
+
 class _WatchlistPageState extends State<WatchlistPage> {
   @override
   void initState() {
@@ -26,7 +28,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
   @override
   Widget build(BuildContext context) {
     var tvMediatype = 'tv';
-    int? values ;
+    int? values;
     return Scaffold(
       appBar: AppBar(
         title: MyText(
@@ -39,14 +41,19 @@ class _WatchlistPageState extends State<WatchlistPage> {
           PopupMenuButton(
             onSelected: (value) {
               if (value == 2) {
-                values != value ?  context.read<UserBloc>().add(UserCredentials(mediaType: tvMediatype)) : null ;
+                values != value
+                    ? context
+                        .read<UserBloc>()
+                        .add(UserCredentials(mediaType: tvMediatype))
+                    : null;
               } else {
-               values != value ? context
-                    .read<UserBloc>()
-                    .add(UserCredentials(mediaType: moviesMediatype)) : null;
+                values != value
+                    ? context
+                        .read<UserBloc>()
+                        .add(UserCredentials(mediaType: moviesMediatype))
+                    : null;
               }
               values = value;
-
             },
             itemBuilder: (context) => [
               const PopupMenuItem(
@@ -76,33 +83,10 @@ class _WatchlistPageState extends State<WatchlistPage> {
                 itemBuilder: (context, index) {
                   var movies = state.dataWatchlist[index];
                   return GestureDetector(
-                    onTap: ()async{ 
-                      var mediatypeValue = values ==  2 ? 'tv' : 'movie';
-                      // var extra = await extraData(
-
-                      //     int.parse(movies.id), mediatypeValue);
-                      print('object');
-                      print('id : ${movies.id}');
-                      print('title : ${movies.title}');
-                      print('backdroppath : ${movies.backdropPath}');
-                      print('posterpath : ${movies.posterPath}');
-                      print('genreids : ${movies.genreIds.join(', ')}'); // null
-                      print('mediatype : ${mediatypeValue}'); // unknow penyebab code 401 
-                      // print('overviwew : ${movies.overview}');
-                      print('voteavg : ${movies.voteAvg}');
-                      // print('extraData');
-                      // print('director : ${extra['director']}');
-                      // print('rtns : ${extra['rtns']}');
-                      // print('tagline : ${extra['tagline']}');
-                      // print('country : ${extra['country']}');
-                      // print('ytkey : ${extra['ytkey']}');
-
-                    },
-                    onLongPress: () async {
-                      var extra = await extraData(
-                          int.parse(movies.id), movies.mediatype);
-                      final currentContext = context;
-                     
+                    onTap: () async {
+                      var mediatypeValue = values == 2 ? 'tv' : 'movie';
+                      var extra = await extraData(int.parse(movies.id), mediatypeValue);
+                       final currentContext = context;
 
                       if (!mounted) return;
 
