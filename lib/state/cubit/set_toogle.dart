@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
@@ -17,22 +19,25 @@ class SetToogle extends Cubit<bool> {
       var responsebyId = await  dio.get(responseByIdUrl);
     bool statusbyId =  responsebyId.data['watchlist']as bool;
     if(!mntd) return;
-    if(statusbyId != true){
+    if(statusbyId != true){ 
+      emit(statusbyId);
     var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
       'watchlist': true
     }); 
     print(responsePost.data);
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     }else{
+      emit(statusbyId);
       var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
       'watchlist': false
     }); 
     print(responsePost.data);
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
     }
-      // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     }catch(e){
     print(e);
     throw Exception(e);

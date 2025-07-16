@@ -51,48 +51,46 @@ class DetailPage extends StatefulWidget {
 
   @override
   State<DetailPage> createState() => _DetailPageState();
-
 }
 
 class _DetailPageState extends State<DetailPage> {
-
-Future<void> _launchUrl() async {
-    final Uri _url = Uri.parse('https://www.youtube.com/watch?v=${widget.ytkey}');
+  Future<void> _launchUrl() async {
+    final Uri _url =
+        Uri.parse('https://www.youtube.com/watch?v=${widget.ytkey}');
     print('$_url');
-    try{
-    await Future.delayed(const Duration(milliseconds: 300));
-  
-  if (!await launchUrl(_url, mode: LaunchMode.externalApplication,
-  webViewConfiguration: const WebViewConfiguration(
-    enableJavaScript: true,
-    enableDomStorage: true,
-  )
-  )) {
-    throw Exception('Could not launch the Url');
-  }
-    }catch(e){
-       print('Error launching URL: $e');
-    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch the URL with fallback');
-    }
+    try {
+      await Future.delayed(const Duration(milliseconds: 300));
 
+      if (!await launchUrl(_url,
+          mode: LaunchMode.externalApplication,
+          webViewConfiguration: const WebViewConfiguration(
+            enableJavaScript: true,
+            enableDomStorage: true,
+          ))) {
+        throw Exception('Could not launch the Url');
+      }
+    } catch (e) {
+      print('Error launching URL: $e');
+      if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+        throw Exception('Could not launch the URL with fallback');
+      }
     }
-} 
-@override
+  }
+
+  @override
   void initState() {
     super.initState();
-            context
+    context
         .read<CastBloc>()
-        .add(FetchCast(id: widget.id, mediaType:  widget.mediatype.toString()));
+        .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
   }
 
   @override
   Widget build(BuildContext context) {
-     print(widget.ytkey);
+    print(widget.ytkey);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return WillPopScope(
-      
       onWillPop: () async {
         context.read<CastBloc>().add(RestoreCast());
         CircularProgressIndicator();
@@ -267,15 +265,24 @@ Future<void> _launchUrl() async {
                               ),
                             ),
                             const SizedBox(width: 5),
-                            ElevatedButtonDetail(
-                              icon: Icons.bookmark,
-                              presed: (){
-                                context.read<SetToogle>().toogleStatus(widget.mediatype!, widget.id, context, mounted);
+                            BlocBuilder<SetToogle, bool>(
+                              builder: (context, state) {
+                                return ElevatedButtonDetail(
+                                  icon: Icons.bookmark,
+                                  colors: state ? Colors.black : Colors.yellow,
+                                  presed: () {
+                                    context.read<SetToogle>().toogleStatus(
+                                        widget.mediatype!,
+                                        widget.id,
+                                        context,
+                                        mounted);
+                                  },
+                                );
                               },
                             ),
                             ElevatedButtonDetail(
                               icon: Icons.share,
-                              presed: (){},
+                              presed: () {},
                             ),
                           ],
                         ),
@@ -416,9 +423,7 @@ Future<void> _launchUrl() async {
                                       itemCount: state.cast.length,
                                       itemBuilder: (context, index, realIndex) {
                                         var cast = state.cast[index];
-                                         if(state.recomendations.isNotEmpty){
-                                  
-                                }
+                                        if (state.recomendations.isNotEmpty) {}
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Column(
@@ -434,11 +439,17 @@ Future<void> _launchUrl() async {
                                                     imageUrl:
                                                         'https://image.tmdb.org/t/p/w780${cast.profilePath}',
                                                     fit: BoxFit.cover,
-                                                    errorWidget: (context, url, error) => Container(
-                                                      color: Colors.grey.shade300,
-                                                      child: Icon(Icons.person, size: 50,),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Container(
+                                                      color:
+                                                          Colors.grey.shade300,
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        size: 50,
+                                                      ),
                                                     ),
-                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                               Container(
@@ -470,7 +481,6 @@ Future<void> _launchUrl() async {
                                           aspectRatio: 16 / 9,
                                           enableInfiniteScroll: false,
                                           padEnds: false)),
-                                          
                                 ),
                               ],
                             ),
@@ -483,27 +493,34 @@ Future<void> _launchUrl() async {
                           // child: ,
                         );
                       }),
-                      BlocBuilder<CastBloc, CastState>(builder: (context, state) {
-                        if(state is StateLoaded && state.recomendations.isNotEmpty){
-                          var recomendations =  state.recomendations;
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: MyText(text: 'You May Also Like', fnSize: 12,fnweight: FontWeight.bold,),
-                              ),
-                              Container(
-                                width: width,
-                                child: SectionCaraouselSliderWidget(list: recomendations),
-                              )
-                            ],
-                          );
-                        }
-                        return Container();
-                      },)
-
+                      BlocBuilder<CastBloc, CastState>(
+                        builder: (context, state) {
+                          if (state is StateLoaded &&
+                              state.recomendations.isNotEmpty) {
+                            var recomendations = state.recomendations;
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: MyText(
+                                    text: 'You May Also Like',
+                                    fnSize: 12,
+                                    fnweight: FontWeight.bold,
+                                  ),
+                                ),
+                                Container(
+                                  width: width,
+                                  child: SectionCaraouselSliderWidget(
+                                      list: recomendations),
+                                )
+                              ],
+                            );
+                          }
+                          return Container();
+                        },
+                      )
                     ],
                   )),
             ],

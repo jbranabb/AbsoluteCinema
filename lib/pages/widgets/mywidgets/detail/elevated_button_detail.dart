@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class ElevatedButtonDetail extends StatelessWidget {
   ElevatedButtonDetail({super.key, required this.icon,
-  required this.presed
+  required this.presed,
+  this.colors
   });
   IconData? icon;
   void Function()? presed;
+  Color? colors;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -17,7 +19,7 @@ class ElevatedButtonDetail extends StatelessWidget {
           backgroundColor: Colors.white),
       child: Icon(
         icon,
-        color: Colors.black,
+        color: colors,
       ),
     );
   }
