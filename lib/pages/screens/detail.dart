@@ -83,7 +83,8 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<CastBloc>()
         .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
-  }
+        context.read<SetToogle>().checkStatus(widget.mediatype.toString(), widget.id);
+       }
 
   @override
   Widget build(BuildContext context) {
@@ -269,7 +270,7 @@ class _DetailPageState extends State<DetailPage> {
                               builder: (context, state) {
                                 return ElevatedButtonDetail(
                                   icon: Icons.bookmark,
-                                  colors: state ? Colors.black : Colors.yellow,
+                                  colors: state ? Colors.blue.shade800 : Colors.black,
                                   presed: () {
                                     context.read<SetToogle>().toogleStatus(
                                         widget.mediatype!,

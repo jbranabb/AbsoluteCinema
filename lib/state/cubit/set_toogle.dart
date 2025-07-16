@@ -3,6 +3,7 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class SetToogle extends Cubit<bool> {
@@ -17,10 +18,9 @@ class SetToogle extends Cubit<bool> {
 
     try{
       var responsebyId = await  dio.get(responseByIdUrl);
-    bool statusbyId =  responsebyId.data['watchlist']as bool;
+    bool statusbyId =  responsebyId.data['watchlist'] as bool;
     if(!mntd) return;
     if(statusbyId != true){ 
-      emit(statusbyId);
     var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
@@ -29,7 +29,6 @@ class SetToogle extends Cubit<bool> {
     print(responsePost.data);
       ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     }else{
-      emit(statusbyId);
       var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
@@ -40,7 +39,16 @@ class SetToogle extends Cubit<bool> {
     }
     }catch(e){
     print(e);
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Something Went Wrong')));
     throw Exception(e);
     }
   }
+  void checkStatus(String mediaType, int mediaId)async{
+    var sesionId = pref?.getString('sessionId');
+    var headers = '?session_id=$sesionId&api_key=$imdbKey';
+     String responseByIdUrl = 'https://api.themoviedb.org/3/$mediaType/$mediaId/account_states$headers';
+     var status = await dio.get(responseByIdUrl);
+    var newstatus = status.data['watchlist'];
+    emit(newstatus);
+}
 }
