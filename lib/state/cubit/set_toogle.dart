@@ -15,27 +15,24 @@ class SetToogle extends Cubit<bool> {
 
     try{
       var responsebyId = await  dio.get(responseByIdUrl);
-      print(responsebyId.data['watchlist']);
+    bool statusbyId =  responsebyId.data['watchlist']as bool;
+    if(!mntd) return;
+    if(statusbyId != true){
     var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
-      'watchlist': state
-    });
-    print(mediaId);
-
-      // print(state);
-    if(responsePost.statusCode == 201 && mntd && state != false){
-    emit(!state);
-      print(responsePost.data);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
-    print('Berhasil hore');
-    }else if(responsePost.statusCode == 200 && mntd && state !=true){
-    emit(!state);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
-      print(responsePost.data);
-    print(responsePost.statusCode);
-    print('Berhasil');
+      'watchlist': true
+    }); 
+    print(responsePost.data);
+    }else{
+      var responsePost =  await dio.post(url, data: {
+      'media_type': mediaType,
+      'media_id': mediaId,
+      'watchlist': false
+    }); 
+    print(responsePost.data);
     }
+      // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     }catch(e){
     print(e);
     throw Exception(e);
