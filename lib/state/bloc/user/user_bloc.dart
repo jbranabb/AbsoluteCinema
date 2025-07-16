@@ -102,12 +102,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               .toList()
               .cast<String>();
 
-
-              print('genreList : $genrelist');
-          
-          
-          
-          
           var voteavg = double.parse(mov.voteAvg);
           var finalratings = (voteavg / 10 * 5);
           return ConvertedModels(

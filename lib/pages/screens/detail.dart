@@ -277,12 +277,14 @@ class _DetailPageState extends State<DetailPage> {
                                         widget.id,
                                         context,
                                         mounted);
+                                        context.read<SetToogle>().checkStatus(widget.mediatype!, widget.id);
                                   },
                                 );
                               },
                             ),
                             ElevatedButtonDetail(
                               icon: Icons.share,
+                              colors: Colors.black,
                               presed: () {},
                             ),
                           ],
