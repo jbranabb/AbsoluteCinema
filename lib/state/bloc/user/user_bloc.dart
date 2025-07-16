@@ -27,7 +27,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           _prefs.setString('sessionId', event.sesionId);
           _prefs.setString(
               'username', response.data['username'] ?? 'invalid username');
-             int id = response.data['id'];
+          int id = response.data['id'];
           _prefs.setInt('id', id);
         } else {
           emit(UserFailed(e: response.statusCode.toString()));
@@ -49,11 +49,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       var usrname = pref?.getString('username');
       var headers = '?session_id=$sesionId&api_key=$imdbKey';
       if (
-      // pref == null 
-      // ||
-       id == null 
-      || sesionId == null
-      ) {
+          // pref == null
+          // ||
+          id == null || sesionId == null) {
         emit(UserFailed(e: 'Failed $id, failed $usrname'));
       }
       //get fav
@@ -70,42 +68,91 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
       var responseFAv = await dio.get(favUrl);
       var responseWatchUrl = await dio.get(watchlistUrl);
+
+
+
+      Map<String, dynamic> genreMapCombaine = {};
       var responseGenreTv = await dio.get(genreUrlTv);
       var responseGenreMov = await dio.get(genreUrlMov);
-    
-    List dataGenreMov = responseGenreMov.data['genres'];
-    List dataGenreTv = responseGenreTv.data['genres'];
-    Map<String, dynamic> genreMapCombaine = {};
+      List dataGenreMov = responseGenreMov.data['genres'];
+      List dataGenreTv = responseGenreTv.data['genres'];
+      genreMapCombaine = {
+        for (var g in dataGenreTv) g['id'].toString(): g['name'],
+        for (var g in dataGenreMov) g['id'].toString(): g['name']
+      };
+      // print('genremap combaine : $genreMapCombaine');
 
-    genreMapCombaine = {
-      for(var g in dataGenreTv) g['id'].toString() : g['name'],
-      for (var x in dataGenreMov) x['id'].toString() : x['name']
-    };
-        
-        if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
+
+
+      
+      if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
         List<dynamic> datafav = responseFAv.data['results'];
         List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
 
-      final List<CombaineModels> rawDataFav =  datafav.map((e) =>  
-        CombaineModels.fromJson(e)).toList();
-        List<ConvertedModels> finaldataFav = rawDataFav.map((e) {
-        List<String> genrelist = e.genreIds.map((id) => genreMapCombaine[id].toString(),).toList().cast<String>();
-        var voteavg = double.parse(e.voteAvg);
-        var finalratings = (voteavg / 10 * 5); 
-        return ConvertedModels(id: e.id, genreIds: genrelist, title: e.title,
-         voteAvg: finalratings.toString() , backdropPath: e.backdropPath, posterPath: e.posterPath,
-          overview: e.overview, mediatype: e.mediaType, relaseDate: e.relaseDate);
-        }).toList();
-        final List<CombaineModels> rawDataWatchlist = dataWatchlist.map((e) =>  CombaineModels.fromJson(e),).toList();
-        List<ConvertedModels> finalDataWatchlist = rawDataWatchlist. map((e) {
-          List<String> genreList = e.genreIds.map((e) => genreMapCombaine[id].toString(),).toList().cast<String>();
-          final voteavg = double.parse(e.voteAvg);
+        final List<CombaineModels> rawDataFav =
+            datafav.map((e) => CombaineModels.fromJson(e)).toList();
+        List<ConvertedModels> finaldataFav = rawDataFav.map((mov) {
+
+
+
+          List<String> genrelist = mov.genreIds
+              .map(
+                (id) => genreMapCombaine[id.toString()] ?? 'unkwn',
+              )
+              .toList()
+              .cast<String>();
+
+
+              print('genreList : $genrelist');
+          
+          
+          
+          
+          var voteavg = double.parse(mov.voteAvg);
           var finalratings = (voteavg / 10 * 5);
-          return  ConvertedModels(id: e.id, genreIds: genreList, title: e.title, voteAvg: finalratings.toString(),
-           backdropPath: e.backdropPath, posterPath: e.posterPath, overview: e.overview,
-            mediatype: e.mediaType, relaseDate: e.relaseDate);
+          return ConvertedModels(
+              id: mov.id,
+              genreIds: genrelist,
+              title: mov.title,
+              voteAvg: finalratings.toString(),
+              backdropPath: mov.backdropPath,
+              posterPath: mov.posterPath,
+              overview: mov.overview,
+              mediatype: mov.mediaType,
+              relaseDate: mov.relaseDate);
         }).toList();
-        emit(UserDataLoaded(dataWatchlist: finalDataWatchlist, dataFav:finaldataFav));
+
+
+
+
+        final List<CombaineModels> rawDataWatchlist = dataWatchlist
+            .map(
+              (e) => CombaineModels.fromJson(e),
+            )
+            .toList();
+        List<ConvertedModels> finalDataWatchlist = rawDataWatchlist.map((mov) {
+          List<String> genreList = mov.genreIds
+              .map(
+                (id) => genreMapCombaine[id.toString()] ?? 'unklnw',
+              )
+              .toList()
+              .cast<String>();
+              print(genreList.length);
+          final voteavg = double.parse(mov.voteAvg);
+          var finalratings = (voteavg / 10 * 5);
+          return ConvertedModels(
+              id: mov.id,
+              genreIds: genreList,
+              title: mov.title,
+              voteAvg: finalratings.toString(),
+              backdropPath: mov.backdropPath,
+              posterPath: mov.posterPath,
+              overview: mov.overview,
+              mediatype: mov.mediaType,
+              relaseDate: mov.relaseDate);
+        }).toList();
+        emit(UserDataLoaded(
+            dataWatchlist: finalDataWatchlist, dataFav: finaldataFav));
       }
     });
   }

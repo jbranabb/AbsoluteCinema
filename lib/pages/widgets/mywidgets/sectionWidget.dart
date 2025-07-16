@@ -36,13 +36,12 @@ class SectionWidget extends StatelessWidget {
               onTap: () async {
                 showDialog(
                   context: context,
-                  builder: (context) =>
-                       const Center(child:LoadingWidget()),
+                  builder: (context) => const Center(child: LoadingWidget()),
                 );
                 try {
-          
                   var idata = int.parse(movies.id);
-                  var extra = await extraData(idata, movies.mediatype.toString());
+                  var extra =
+                      await extraData(idata, movies.mediatype.toString());
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => DetailPage(
@@ -63,12 +62,15 @@ class SectionWidget extends StatelessWidget {
                       mediatype: movies.mediatype,
                     ),
                   ));
-                 } catch (e) {
+                } catch (e) {
                   showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: const Text('Sorry Something Went Wrong',style: TextStyle(color: Colors.white, fontSize: 13),
-                          ),
+                            title: const Text(
+                              'Sorry Something Went Wrong',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 13),
+                            ),
                             content: Text(
                               e.toString(),
                               style: const TextStyle(color: Colors.white),
@@ -81,7 +83,7 @@ class SectionWidget extends StatelessWidget {
                                   child: const Text('Close'))
                             ],
                           ));
-                                    Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 }
               },
               child: Card(
@@ -142,16 +144,20 @@ class _LoadingWidgetState extends State<LoadingWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-     mainAxisAlignment: MainAxisAlignment.center,
-     crossAxisAlignment: CrossAxisAlignment.center,
-     children: [
-     const SizedBox(
-         height: 10,
-         width: 45,
-         child: CircularProgressIndicator()),
-         const SizedBox(height: 5,),
-         MyText(text: 'Loading Please Wait...',fnSize: 10, fnweight: FontWeight.bold,)
-     ],
-                          );
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(
+            height: 10, width: 45, child: CircularProgressIndicator()),
+        const SizedBox(
+          height: 5,
+        ),
+        MyText(
+          text: 'Loading Please Wait...',
+          fnSize: 10,
+          fnweight: FontWeight.bold,
+        )
+      ],
+    );
   }
 }

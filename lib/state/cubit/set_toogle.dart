@@ -25,9 +25,9 @@ class SetToogle extends Cubit<bool> {
     print(responsePost.statusCode);
     print('Berhasil');
     if(mntd && state != false){
-      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text('Berhasil Menambahkan Ke Wacthlist')));
-    }else if(mntd){
-      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text('Menghapus Dari Wacthlist')));
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Berhasil Menambahkan Ke Wacthlist')));
+    }else if(mntd && state !=true){
+      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(content: Text('Menghapus Dari Wacthlist')));
     }
     }catch(e){
     print(e);
