@@ -15,17 +15,16 @@ class WatchlistPage extends StatefulWidget {
   @override
   State<WatchlistPage> createState() => _WatchlistPageState();
 }
-
+var moviesMediatype = 'movies';
 class _WatchlistPageState extends State<WatchlistPage> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
+    context.read<UserBloc>().add(UserCredentials(mediaType: moviesMediatype));
   }
 
   @override
   Widget build(BuildContext context) {
-    var moviesMediatype = 'movies';
     var tvMediatype = 'tv';
     int? values ;
     return Scaffold(
@@ -40,11 +39,11 @@ class _WatchlistPageState extends State<WatchlistPage> {
           PopupMenuButton(
             onSelected: (value) {
               if (value == 2) {
-                context.read<UserBloc>().add(UserCredentials(mediaType: tvMediatype));
+                values != value ?  context.read<UserBloc>().add(UserCredentials(mediaType: tvMediatype)) : null ;
               } else {
-                context
+               values != value ? context
                     .read<UserBloc>()
-                    .add(UserCredentials(mediaType: moviesMediatype));
+                    .add(UserCredentials(mediaType: moviesMediatype)) : null;
               }
               values = value;
 
@@ -78,8 +77,9 @@ class _WatchlistPageState extends State<WatchlistPage> {
                   var movies = state.dataWatchlist[index];
                   return GestureDetector(
                     onTap: ()async{ 
-                      var mediatypeValue = values ==  1 ? 'movie' : 'tv';
+                      var mediatypeValue = values ==  2 ? 'tv' : 'movie';
                       // var extra = await extraData(
+
                       //     int.parse(movies.id), mediatypeValue);
                       print('object');
                       print('id : ${movies.id}');
