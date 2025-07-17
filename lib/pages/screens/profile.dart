@@ -41,19 +41,54 @@ class ProfilePage extends StatelessWidget {
                   ),
                   
                  child: const Icon(Icons.person,size: 50,), ),
+           const  SizedBox(height: 5,),
                  MyText(text: 'Username', fnweight: FontWeight.bold, clors: Colors.grey.shade500, fnSize: 12,)
               ],
             ),
            ),
+           const  SizedBox(height: 10,),
+           // wacthlist | favorite | Ratings
           Container(
-            color: Colors.red,
         width:  width * 0.85,
-        height: 50,
+        height: 100,
+        decoration: BoxDecoration(
+            // color: Colors.red,
+borderRadius: BorderRadius.circular(20),
+border: BoxBorder.all(
+  width: 0.7,
+  color: Colors.grey.shade900
+)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            UserCrendialsContainer(),
+            UserCrendialsContainer(),
+            UserCrendialsContainer(),
+          ],
+        ),
           )
           
           ],
         ),
       ),
+    );
+  }
+}
+
+class UserCrendialsContainer extends StatelessWidget {
+  const UserCrendialsContainer({
+    super.key,
+  });
+
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    return Container(
+      height: 80,
+      width: width * 0.23,
+      color: Colors.red,
     );
   }
 }
