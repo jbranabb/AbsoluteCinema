@@ -75,13 +75,10 @@ class _WatchlistPageState extends State<WatchlistPage> {
             context
                 .read<UserBloc>()
                 .add(UserCredentials(mediaType: tvMediatype));
-          print('ha');
           }else{
-
           context
               .read<UserBloc>()
               .add(UserCredentials(mediaType: moviesMediatype));
-          print('hi');
           }
         },
         child: BlocBuilder<UserBloc, UserState>(
