@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
@@ -7,37 +8,30 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class WatchlistPage extends StatefulWidget {
-  const WatchlistPage({
+class WatchlistPage extends StatelessWidget {
+  WatchlistPage({
     super.key,
+    required this.title,
+    required this.list
   });
-
-  @override
-  State<WatchlistPage> createState() => _WatchlistPageState();
-}
-
-var moviesMediatype = 'movies';
-
-class _WatchlistPageState extends State<WatchlistPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<UserBloc>().add(UserCredentials(mediaType: moviesMediatype));
-  }
+  String title;
+  List<ConvertedModels> list;
 
   @override
   Widget build(BuildContext context) {
+    print('object');
     var tvMediatype = 'tv';
     int? values;
     return Scaffold(
       appBar: AppBar(
         title: MyText(
-          text: 'Watchlist',
+          text: title,
           fnweight: FontWeight.bold,
           fnSize: 18,
         ),
-        centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: [
+          title == 'Watchlist' ?
           PopupMenuButton(
             onSelected: (value) {
               if (value == 2) {
@@ -66,7 +60,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
               ),
             ],
           )
-        ],
+        : Container()]  ,  
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -84,18 +78,18 @@ class _WatchlistPageState extends State<WatchlistPage> {
         child: BlocBuilder<UserBloc, UserState>(
           builder: (context, state) {
             if (state is UserDataLoaded) {
-              if (state.dataWatchlist.isEmpty) {
-                return const Center(
-                  child: Text('Empty Bucket bro..\nadding something here'),
+              if (list.isEmpty) {
+                return Center(
+                  child: Text('$title is  Empty bro..\nTry adding something here', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
                 );
               }
               return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4, childAspectRatio: 3 / 4),
-                  itemCount: state.dataWatchlist.length,
+                  itemCount: list.length,
                   itemBuilder: (context, index) {
                     // state.dataWatchlist.co
-                    var movies = state.dataWatchlist[index];
+                    var movies = list[index];
                     return GestureDetector(
                       onTap: () async {
                         var mediatypeValue = values == 2 ? 'tv' : 'movie';
@@ -109,11 +103,11 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             int.parse(movies.id), mediatypeValue);
 
                         try {
-                          if (!mounted) return;
+                          // if (!mounted) return;
                           Navigator.of(currentContext)
                               .pop(); // tutup loading dialog
 
-                          if (!mounted) return;
+                          // if (!mounted) return;
                           Navigator.of(currentContext).push(MaterialPageRoute(
                             builder: (context) => DetailPage(
                               key: UniqueKey(),
@@ -134,11 +128,11 @@ class _WatchlistPageState extends State<WatchlistPage> {
                             ),
                           ));
                         } catch (e) {
-                          if (!mounted) return;
+                          // if (!mounted) return;
                           Navigator.of(currentContext)
                               .pop(); // tutup loading dialog
 
-                          if (!mounted) return;
+                          // if (!mounted) return;
                           showDialog(
                             context: currentContext,
                             builder: (context) => AlertDialog(
@@ -197,15 +191,7 @@ class _WatchlistPageState extends State<WatchlistPage> {
                       ),
                     );
                   });
-            } else if (state is UserLoading) {
-              return const Center(
-                child: LoadingWidget(),
-              );
-            } else if (state is UserFailed) {
-              return Center(
-                child: MyText(text: state.e),
-              );
-            }
+            } 
             return Container(
               color: Colors.red,
             );
@@ -215,3 +201,5 @@ class _WatchlistPageState extends State<WatchlistPage> {
     );
   }
 }
+
+var moviesMediatype = 'movies';

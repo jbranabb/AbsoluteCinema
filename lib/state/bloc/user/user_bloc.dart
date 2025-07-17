@@ -80,10 +80,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         for (var g in dataGenreTv) g['id'].toString(): g['name'],
         for (var g in dataGenreMov) g['id'].toString(): g['name']
       };
-      // print('genremap combaine : $genreMapCombaine');
-
-
-
       
       if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
         List<dynamic> datafav = responseFAv.data['results'];
@@ -131,7 +127,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               )
               .toList()
               .cast<String>();
-              print(genreList.length);
           final voteavg = double.parse(mov.voteAvg);
           var finalratings = (voteavg / 10 * 5);
           return ConvertedModels(
