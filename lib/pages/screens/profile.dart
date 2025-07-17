@@ -90,8 +90,10 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+            
             UserMenuTap(title: 'Edit Profile', icons: Icons.edit_square,),
             UserMenuTap(title: 'Log Out', colors: Colors.red.shade800, icons: Icons.logout,),
+          
           ],
         ),
       ),
