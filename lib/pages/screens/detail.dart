@@ -10,6 +10,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/sectionTitleWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_widget.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
+import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/set_toogle.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -89,6 +90,9 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<SetToogle>()
         .checkStatus(widget.mediatype.toString(), widget.id);
+    context
+        .read<CredentialsBloc>()
+        .add(CheckStatus(mediaId: widget.id, mediaType: widget.mediatype!));
     print('init');
   }
 
@@ -412,11 +416,24 @@ class _DetailPageState extends State<DetailPage> {
                                                                           CrossAxisAlignment
                                                                               .center,
                                                                       children: [
-                                                                        Icon(
-                                                                          Icons
-                                                                              .watch_later_outlined,
-                                                                          size:
-                                                                              40,
+                                                                        BlocBuilder<
+                                                                            CredentialsBloc,
+                                                                            CredentialsState>(
+                                                                          builder:
+                                                                              (context, state) {
+                                                                            if (state
+                                                                                is StateChecking) {
+                                                                              return Icon(
+                                                                                state.watchlist == false ? Icons.watch_later_outlined : Icons.watch_later,
+                                                                                size: 40,
+                                                                              );
+                                                                            }
+                                                                            return Container(
+                                                                              height: 50,
+                                                                              width: 50,
+                                                                              color: Colors.amber,
+                                                                            );
+                                                                          },
                                                                         ),
                                                                         Material(
                                                                             color:
@@ -455,11 +472,24 @@ class _DetailPageState extends State<DetailPage> {
                                                                           CrossAxisAlignment
                                                                               .center,
                                                                       children: [
-                                                                        Icon(
-                                                                          Icons
-                                                                              .favorite_border_outlined,
-                                                                          size:
-                                                                              40,
+                                                                        BlocBuilder<
+                                                                            CredentialsBloc,
+                                                                            CredentialsState>(
+                                                                          builder:
+                                                                              (context, state) {
+                                                                            if (state
+                                                                                is StateChecking) {
+                                                                              return Icon(
+                                                                              state.fav != true ? Icons.favorite_border_outlined : Icons.favorite,
+                                                                                size: 40,
+                                                                              );
+                                                                            }
+                                                                            return Container(
+                                                                              height: 50,
+                                                                              width: 50,
+                                                                              color: Colors.red,
+                                                                            );
+                                                                          },
                                                                         ),
                                                                         Material(
                                                                             color:
@@ -542,12 +572,15 @@ class _DetailPageState extends State<DetailPage> {
                                                                         Navigator.of(context)
                                                                             .pop();
                                                                       },
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .symmetric(
+                                                                            horizontal:
+                                                                                10.0),
                                                                         child: const Text(
-                                                                            style: TextStyle(
-                                                                                color: Colors.grey,
-                                                                                fontWeight: FontWeight.w600),
+                                                                            style:
+                                                                                TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
                                                                             'Cancel'),
                                                                       )),
                                                                   ElevatedButton(
@@ -556,12 +589,13 @@ class _DetailPageState extends State<DetailPage> {
                                                                         Navigator.of(context)
                                                                             .pop();
                                                                       },
-                                                                      child: Padding(
-                                                                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(horizontal: 20.0),
                                                                         child: Text(
-                                                                            style: TextStyle(
-                                                                                color: Colors.white,
-                                                                                fontWeight: FontWeight.w600),
+                                                                            style:
+                                                                                TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                                                                             'Done'),
                                                                       )),
                                                                 ],

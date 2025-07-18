@@ -22,7 +22,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         var dataCheck = responseCheck.data;
         var watchlist = dataCheck['watchlist'] as bool;
         var favorite = dataCheck['favorite'] as bool;
-        var rating = dataCheck['rating'] as bool;
+        var rating = dataCheck['rated'] as bool;
         emit(StateChecking(watchlist: watchlist, rated: rating, fav: favorite));
       }
     });
