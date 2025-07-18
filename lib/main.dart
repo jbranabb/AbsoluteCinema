@@ -4,6 +4,7 @@ import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
+import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
@@ -33,6 +34,7 @@ void main() async {
     BlocProvider(create: (context) => TimerCubit()),
     BlocProvider(create: (context) => UserBloc()..add(UserData())),
     BlocProvider(create: (context) => SetToogle()),
+    BlocProvider(create: (context) => CredentialsBloc()),
   ], child: const MyApp()));
 }
 
