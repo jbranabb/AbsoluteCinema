@@ -31,7 +31,7 @@ class WatchlistPage extends StatelessWidget {
         ),
         automaticallyImplyLeading: false,
         actions: [
-          title == 'Watchlist' ?
+        
           PopupMenuButton(
             onSelected: (value) {
               if (value == 2) {
@@ -60,7 +60,7 @@ class WatchlistPage extends StatelessWidget {
               ),
             ],
           )
-        : Container()]  ,  
+        ]  ,  
       ),
       body: RefreshIndicator(
         onRefresh: () async {
