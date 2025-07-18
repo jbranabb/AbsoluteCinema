@@ -2,6 +2,7 @@
 import 'dart:ui';
 
 import 'package:absolutecinema/apiService/model.dart';
+import 'package:absolutecinema/pages/screens/profile.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/build_ratings.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/elevated_button_detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
@@ -88,6 +89,7 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<SetToogle>()
         .checkStatus(widget.mediatype.toString(), widget.id);
+    print('init');
   }
 
   @override
@@ -278,22 +280,281 @@ class _DetailPageState extends State<DetailPage> {
                                       ? Colors.blue.shade800
                                       : Colors.black,
                                   presed: () {
-                                  showGeneralDialog(context: context, pageBuilder: (context, animation, secondaryAnimation) {
-                                    return Stack(
-                                      children: [
-                                        ClipRRect(
-                                          child:BackdropFilter(filter: ImageFilter.blur(
-                                            sigmaX: 20,
-                                            sigmaY: 20
-                                          ),
-                                          child: Container(                                          
-                                            color: Colors.black.withOpacity(0.6),
-                                          ),
-                                          ) ,
-                                        )
-                                      ],
+                                    showGeneralDialog(
+                                      context: context,
+                                      barrierDismissible: true,
+                                      barrierLabel: 'hallos',
+                                      pageBuilder: (context, animation,
+                                          secondaryAnimation) {
+                                        return Stack(
+                                          children: [
+                                            ClipRRect(
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(
+                                                    sigmaX: 10, sigmaY: 10),
+                                                child: Container(
+                                                  color: const Color.fromARGB(
+                                                          255, 60, 61, 61)
+                                                      .withOpacity(0.6),
+                                                  child: SizedBox.expand(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Material(
+                                                          color: Colors
+                                                              .transparent,
+                                                          child: MyText(
+                                                            text: widget.titile,
+                                                            fnweight:
+                                                                FontWeight.bold,
+                                                            fnSize: 18,
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: MyText(
+                                                                    fnweight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    text: widget
+                                                                        .date
+                                                                        .substring(
+                                                                            0,
+                                                                            4)),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: MyText(
+                                                                    fnweight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    text: '•'),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Material(
+                                                                color: Colors
+                                                                    .transparent,
+                                                                child: MyText(
+                                                                    fnweight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    text: widget
+                                                                        .runtime),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Container(
+                                                          height: height * 0.45,
+                                                          width: width * 0.90,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors
+                                                                  .black54,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Container(
+                                                                    height: 90,
+                                                                    width: 90,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .shade900,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .watch_later_outlined,
+                                                                          size:
+                                                                              40,
+                                                                        ),
+                                                                        Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            child: MyText(
+                                                                              text: 'Watchlist',
+                                                                              fnweight: FontWeight.bold,
+                                                                            ))
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    height: 70,
+                                                                    width: 2,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                  ),
+                                                                  Container(
+                                                                    height: 90,
+                                                                    width: 90,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .shade900,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Icon(
+                                                                          Icons
+                                                                              .favorite_border_outlined,
+                                                                          size:
+                                                                              40,
+                                                                        ),
+                                                                        Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            child: MyText(
+                                                                              text: 'Favorite',
+                                                                              fnweight: FontWeight.bold,
+                                                                            ))
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 20,
+                                                              ),
+                                                              Container(
+                                                                height: 110,
+                                                                width: width *
+                                                                    0.75,
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors
+                                                                        .grey
+                                                                        .shade900,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            20)),
+                                                                            child: Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                  Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            child: MyText(
+                                                                              text: 'Rateings',
+                                                                              fnweight: FontWeight.bold,
+                                                                            )),
+                                                                              Row(
+                                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  Icon(Icons.star_rate_sharp),
+                                                                                  Icon(Icons.star_rate_sharp),
+                                                                                  Icon(Icons.star_rate_sharp),
+                                                                                  Icon(Icons.star_rate_sharp),
+                                                                                  Icon(Icons.star_rate_sharp),
+                                                                                ],
+                                                                              )
+                                                                              ],
+                                                                              
+                                                                            ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
+                                                                      child: Text(
+                                                                          'Cancel')),
+                                                                  ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                      },
+                                                                      child: Text(
+                                                                          'Done')),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 20,
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
                                     );
-                                  },);
                                   },
                                 );
                               },
