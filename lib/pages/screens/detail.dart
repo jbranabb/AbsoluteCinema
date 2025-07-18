@@ -1,4 +1,6 @@
 // ignore_for_file: deprecated_member_use
+import 'dart:ui';
+
 import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/build_ratings.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/detail/elevated_button_detail.dart';
@@ -83,8 +85,10 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<CastBloc>()
         .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
-        context.read<SetToogle>().checkStatus(widget.mediatype.toString(), widget.id);
-       }
+    context
+        .read<SetToogle>()
+        .checkStatus(widget.mediatype.toString(), widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -269,15 +273,27 @@ class _DetailPageState extends State<DetailPage> {
                             BlocBuilder<SetToogle, bool>(
                               builder: (context, state) {
                                 return ElevatedButtonDetail(
-                                  icon: Icons.bookmark,
-                                  colors: state ? Colors.blue.shade800 : Colors.black,
+                                  icon: Icons.playlist_add,
+                                  colors: state
+                                      ? Colors.blue.shade800
+                                      : Colors.black,
                                   presed: () {
-                                    context.read<SetToogle>().toogleStatus(
-                                        widget.mediatype!,
-                                        widget.id,
-                                        context,
-                                        mounted);
-                                        context.read<SetToogle>().checkStatus(widget.mediatype!, widget.id);
+                                  showGeneralDialog(context: context, pageBuilder: (context, animation, secondaryAnimation) {
+                                    return Stack(
+                                      children: [
+                                        ClipRRect(
+                                          child:BackdropFilter(filter: ImageFilter.blur(
+                                            sigmaX: 20,
+                                            sigmaY: 20
+                                          ),
+                                          child: Container(                                          
+                                            color: Colors.black.withOpacity(0.6),
+                                          ),
+                                          ) ,
+                                        )
+                                      ],
+                                    );
+                                  },);
                                   },
                                 );
                               },

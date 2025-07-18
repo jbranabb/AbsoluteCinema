@@ -70,13 +70,11 @@ class _CredentialsPageState extends State<CredentialsPage> {
                   title: 'Watchlist',
                   list: state.dataWatchlist,
                 ),
-                WatchlistPage(title: 'Favorit', list: state.dataFav),
-                WatchlistPage(title: 'Favorit', list: state.dataFav),
+                WatchlistPage(title: 'Favorite', list: state.dataFav),
+                WatchlistPage(title: 'Rated', list: state.dataRated),
               ]);
-            }else if (state is UserLoading) {
-              return const Center(
-                child: LoadingWidget()
-              );
+            } else if (state is UserLoading) {
+              return const Center(child: LoadingWidget());
             } else if (state is UserFailed) {
               return Center(
                 child: MyText(text: state.e),

@@ -60,8 +60,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       //get watchlist
       String watchlistUrl =
           'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers';
-
-      String ratedUrl =
+   String ratedUrl =
           'https://api.themoviedb.org/3/account/$id/rated/${event.mediaType}$headers';
 
       String genreUrlMov =
@@ -72,7 +71,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       var responseFAv = await dio.get(favUrl);
       var responseWatchUrl = await dio.get(watchlistUrl);
       var responseRatedUrl = await dio.get(ratedUrl);
-
+    
       Map<String, dynamic> genreMapCombaine = {};
       var responseGenreTv = await dio.get(genreUrlTv);
       var responseGenreMov = await dio.get(genreUrlMov);
@@ -87,8 +86,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         List<dynamic> datafav = responseFAv.data['results'];
         List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
         List<dynamic> dataRated = responseRatedUrl.data['results'];
-
-
+        
         final List<CombaineModels> rawDataFav =
             datafav.map((e) => CombaineModels.fromJson(e)).toList();
         List<ConvertedModels> finaldataFav = rawDataFav.map((mov) {
@@ -139,19 +137,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               relaseDate: mov.relaseDate);
         }).toList();
 
-        List<CombaineModels> dataCombaineRated = dataRated.map((e) => CombaineModels.fromJson(e)).toList();
-        List<ConvertedModels> finaldataRated =  dataCombaineRated.map((mov) {
-          List<String> genreList = mov.genreIds.map((e) => genreMapCombaine[id.toString()],).toList().cast<String>();
-        double v = double.parse(mov.voteAvg);
-        var votedAvg = (v / 10 * 5);
-        return ConvertedModels(id: mov.id, genreIds: genreList, title: mov.title,
-         voteAvg: votedAvg.toString(), backdropPath: mov.backdropPath,
-          posterPath: mov.posterPath, overview: mov.overview, 
-          mediatype: mov.mediaType, relaseDate: mov.relaseDate);
+        List<CombaineModels> dataCombaineRated =
+            dataRated.map((e) => CombaineModels.fromJson(e)).toList();
+        List<ConvertedModels> finaldataRated = dataCombaineRated.map((mov) {
+          List<String> genreList = mov.genreIds
+              .map(
+                (e) => genreMapCombaine[id.toString()],
+              )
+              .toList()
+              .cast<String>();
+          double v = double.parse(mov.voteAvg);
+          var votedAvg = (v / 10 * 5);
+          return ConvertedModels(
+              id: mov.id,
+              genreIds: genreList,
+              title: mov.title,
+              voteAvg: votedAvg.toString(),
+              backdropPath: mov.backdropPath,
+              posterPath: mov.posterPath,
+              overview: mov.overview,
+              mediatype: mov.mediaType,
+              relaseDate: mov.relaseDate);
         }).toList();
-        return
+
         emit(UserDataLoaded(
-            dataWatchlist: finalDataWatchlist, dataFav: finaldataFav, dataRated: finaldataRated));
+            dataWatchlist: finalDataWatchlist,
+            dataFav: finaldataFav,
+            dataRated: finaldataRated,
+            ));
       }
     });
   }

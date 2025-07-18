@@ -13,7 +13,8 @@ final class UserDataLoaded extends UserState{
 List<ConvertedModels> dataWatchlist;
 List<ConvertedModels> dataFav;
 List<ConvertedModels> dataRated;
-UserDataLoaded({required this.dataWatchlist, required this.dataFav, required this.dataRated});
+
+UserDataLoaded({required this.dataWatchlist, required this.dataFav, required this.dataRated,});
 }
 final class UserFailed extends UserState {
   String e;
