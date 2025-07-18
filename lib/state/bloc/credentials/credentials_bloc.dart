@@ -26,5 +26,13 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         emit(StateChecking(watchlist: watchlist, rated: rating, fav: favorite));
       }
     });
+    on<ToggleStatusFav>((event, emit) {
+      var fav = event.fav;
+      emit(CredentialsStateLoaded(statusFav: !fav,));
+    });
+    on<ToggleStatusWatchlist>((event, emit) {
+      var watch= event.watch;
+      emit(CredentialsStateLoaded(statusWatch:!watch ));
+    });
   }
 }

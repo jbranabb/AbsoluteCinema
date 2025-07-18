@@ -11,5 +11,9 @@ final class StateChecking extends CredentialsState {
   bool rated;
   StateChecking({ required this.watchlist, required this.rated, required this.fav});
 }
-final class CredentialsStateLoaded extends CredentialsState {}
+final class CredentialsStateLoaded extends CredentialsState {
+  bool? statusFav;
+  bool? statusWatch;
+  CredentialsStateLoaded({this.statusWatch, this.statusFav});
+}
 final class CredentialsStatefailed extends CredentialsState {}

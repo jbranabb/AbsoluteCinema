@@ -393,115 +393,122 @@ class _DetailPageState extends State<DetailPage> {
                                                               SizedBox(
                                                                 height: 20,
                                                               ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  Container(
-                                                                    height: 90,
-                                                                    width: 90,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .shade900,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10)),
-                                                                    child:
-                                                                        Column(
+                                                              BlocBuilder<
+                                                                  CredentialsBloc,
+                                                                  CredentialsState>(
+                                                                builder:
+                                                                    (context,
+                                                                        state) {
+                                                                  if (state
+                                                                      is StateChecking) {
+                                                                    return Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
+                                                                              .spaceAround,
                                                                       children: [
-                                                                        BlocBuilder<
-                                                                            CredentialsBloc,
-                                                                            CredentialsState>(
-                                                                          builder:
-                                                                              (context, state) {
-                                                                            if (state
-                                                                                is StateChecking) {
-                                                                              return Icon(
-                                                                                state.watchlist == false ? Icons.watch_later_outlined : Icons.watch_later,
-                                                                                size: 40,
-                                                                              );
-                                                                            }
-                                                                            return Container(
-                                                                              height: 50,
-                                                                              width: 50,
-                                                                              color: Colors.amber,
-                                                                            );
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatchlist(watch: state.watchlist));
                                                                           },
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                90,
+                                                                            width:
+                                                                                90,
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                BlocBuilder<CredentialsBloc, CredentialsState>(
+                                                                                  builder: (context, state) {
+                                                                                    if (state is StateChecking) {
+                                                                                      return BlocBuilder<CredentialsBloc, CredentialsState>(
+                                                                                        builder: (context, cr) {
+                                                                                          if (cr is CredentialsStateLoaded) {
+                                                                                            return Icon(
+                                                                                              state.watchlist == false ? cr.statusWatch == true ? Icons.watch_later_outlined : Icons.watch_later : Icons.watch_later,
+                                                                                              size: 40,
+                                                                                            );
+                                                                                          }
+                                                                                          return Container();
+                                                                                        },
+                                                                                      );
+                                                                                    }
+                                                                                    return Container(
+                                                                                      height: 50,
+                                                                                      width: 50,
+                                                                                      color: Colors.amber,
+                                                                                    );
+                                                                                  },
+                                                                                ),
+                                                                                Material(
+                                                                                    color: Colors.transparent,
+                                                                                    child: MyText(
+                                                                                      text: 'Watchlist',
+                                                                                      fnweight: FontWeight.bold,
+                                                                                    ))
+                                                                              ],
+                                                                            ),
+                                                                          ),
                                                                         ),
-                                                                        Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child: MyText(
-                                                                              text: 'Watchlist',
-                                                                              fnweight: FontWeight.bold,
-                                                                            ))
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Container(
-                                                                    height: 70,
-                                                                    width: 2,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(5)),
-                                                                  ),
-                                                                  Container(
-                                                                    height: 90,
-                                                                    width: 90,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .shade900,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10)),
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        BlocBuilder<
-                                                                            CredentialsBloc,
-                                                                            CredentialsState>(
-                                                                          builder:
-                                                                              (context, state) {
-                                                                            if (state
-                                                                                is StateChecking) {
-                                                                              return Icon(
-                                                                              state.fav != true ? Icons.favorite_border_outlined : Icons.favorite,
-                                                                                size: 40,
-                                                                              );
-                                                                            }
-                                                                            return Container(
-                                                                              height: 50,
-                                                                              width: 50,
-                                                                              color: Colors.red,
-                                                                            );
-                                                                          },
+                                                                        Container(
+                                                                          height:
+                                                                              70,
+                                                                          width:
+                                                                              2,
+                                                                          decoration: BoxDecoration(
+                                                                              color: Colors.grey,
+                                                                              borderRadius: BorderRadius.circular(5)),
                                                                         ),
-                                                                        Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child: MyText(
-                                                                              text: 'Favorite',
-                                                                              fnweight: FontWeight.bold,
-                                                                            ))
+                                                                        Container(
+                                                                          height:
+                                                                              90,
+                                                                          width:
+                                                                              90,
+                                                                          decoration: BoxDecoration(
+                                                                              color: Colors.grey.shade900,
+                                                                              borderRadius: BorderRadius.circular(10)),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            children: [
+                                                                              BlocBuilder<CredentialsBloc, CredentialsState>(
+                                                                                builder: (context, state) {
+                                                                                  if (state is StateChecking) {
+                                                                                    return Icon(
+                                                                                      state.fav != true ? Icons.favorite_border_outlined : Icons.favorite,
+                                                                                      size: 40,
+                                                                                    );
+                                                                                  }
+                                                                                  return Container(
+                                                                                    height: 50,
+                                                                                    width: 50,
+                                                                                    color: Colors.red,
+                                                                                  );
+                                                                                },
+                                                                              ),
+                                                                              Material(
+                                                                                  color: Colors.transparent,
+                                                                                  child: MyText(
+                                                                                    text: 'Favorite',
+                                                                                    fnweight: FontWeight.bold,
+                                                                                  ))
+                                                                            ],
+                                                                          ),
+                                                                        ),
                                                                       ],
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                    );
+                                                                  }
+                                                                  return Container();
+                                                                },
                                                               ),
                                                               SizedBox(
                                                                 height: 20,
