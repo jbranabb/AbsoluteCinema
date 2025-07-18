@@ -487,31 +487,46 @@ class _DetailPageState extends State<DetailPage> {
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             20)),
-                                                                            child: Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                              children: [
-                                                                                  Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child: MyText(
-                                                                              text: 'Rateings',
-                                                                              fnweight: FontWeight.bold,
-                                                                            )),
-                                                                              Row(
-                                                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Icon(Icons.star_rate_sharp),
-                                                                                  Icon(Icons.star_rate_sharp),
-                                                                                  Icon(Icons.star_rate_sharp),
-                                                                                  Icon(Icons.star_rate_sharp),
-                                                                                  Icon(Icons.star_rate_sharp),
-                                                                                ],
-                                                                              )
-                                                                              ],
-                                                                              
-                                                                            ),
+                                                                child: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Material(
+                                                                        color: Colors
+                                                                            .transparent,
+                                                                        child:
+                                                                            MyText(
+                                                                          text:
+                                                                              'Rateings',
+                                                                          fnweight:
+                                                                              FontWeight.bold,
+                                                                        )),
+                                                                    Row(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Icon(Icons
+                                                                            .star_rate_sharp),
+                                                                        Icon(Icons
+                                                                            .star_rate_sharp),
+                                                                        Icon(Icons
+                                                                            .star_rate_sharp),
+                                                                        Icon(Icons
+                                                                            .star_rate_sharp),
+                                                                        Icon(Icons
+                                                                            .star_rate_sharp),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
                                                               SizedBox(
                                                                 height: 10,
@@ -527,16 +542,28 @@ class _DetailPageState extends State<DetailPage> {
                                                                         Navigator.of(context)
                                                                             .pop();
                                                                       },
-                                                                      child: Text(
-                                                                          'Cancel')),
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                                                        child: const Text(
+                                                                            style: TextStyle(
+                                                                                color: Colors.grey,
+                                                                                fontWeight: FontWeight.w600),
+                                                                            'Cancel'),
+                                                                      )),
                                                                   ElevatedButton(
                                                                       onPressed:
                                                                           () {
                                                                         Navigator.of(context)
                                                                             .pop();
                                                                       },
-                                                                      child: Text(
-                                                                          'Done')),
+                                                                      child: Padding(
+                                                                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                                                        child: Text(
+                                                                            style: TextStyle(
+                                                                                color: Colors.white,
+                                                                                fontWeight: FontWeight.w600),
+                                                                            'Done'),
+                                                                      )),
                                                                 ],
                                                               ),
                                                             ],
