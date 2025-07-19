@@ -392,16 +392,7 @@ class _DetailPageState extends State<DetailPage> {
                                                             children: [
                                                               SizedBox(
                                                                 height: 20,
-                                                              ),
-                                                              BlocBuilder<
-                                                                  CredentialsBloc,
-                                                                  CredentialsState>(
-                                                                builder:
-                                                                    (context,
-                                                                        state) {
-                                                                  if (state
-                                                                      is StateChecking) {
-                                                                    return Row(
+                                                              ), Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
                                                                               .spaceAround,
@@ -409,7 +400,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatchlist(watch: state.watchlist));
                                                                           },
                                                                           child:
                                                                               Container(
@@ -424,28 +414,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                               mainAxisAlignment: MainAxisAlignment.center,
                                                                               crossAxisAlignment: CrossAxisAlignment.center,
                                                                               children: [
-                                                                                BlocBuilder<CredentialsBloc, CredentialsState>(
-                                                                                  builder: (context, state) {
-                                                                                    if (state is StateChecking) {
-                                                                                      return BlocBuilder<CredentialsBloc, CredentialsState>(
-                                                                                        builder: (context, cr) {
-                                                                                          if (cr is CredentialsStateLoaded) {
-                                                                                            return Icon(
-                                                                                              state.watchlist == false ? cr.statusWatch == true ? Icons.watch_later_outlined : Icons.watch_later : Icons.watch_later,
-                                                                                              size: 40,
-                                                                                            );
-                                                                                          }
-                                                                                          return Container();
-                                                                                        },
-                                                                                      );
-                                                                                    }
-                                                                                    return Container(
-                                                                                      height: 50,
-                                                                                      width: 50,
-                                                                                      color: Colors.amber,
-                                                                                    );
-                                                                                  },
-                                                                                ),
+                                                                             
                                                                                 Material(
                                                                                     color: Colors.transparent,
                                                                                     child: MyText(
@@ -480,21 +449,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.center,
                                                                             children: [
-                                                                              BlocBuilder<CredentialsBloc, CredentialsState>(
-                                                                                builder: (context, state) {
-                                                                                  if (state is StateChecking) {
-                                                                                    return Icon(
-                                                                                      state.fav != true ? Icons.favorite_border_outlined : Icons.favorite,
-                                                                                      size: 40,
-                                                                                    );
-                                                                                  }
-                                                                                  return Container(
-                                                                                    height: 50,
-                                                                                    width: 50,
-                                                                                    color: Colors.red,
-                                                                                  );
-                                                                                },
-                                                                              ),
                                                                               Material(
                                                                                   color: Colors.transparent,
                                                                                   child: MyText(
@@ -505,11 +459,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           ),
                                                                         ),
                                                                       ],
-                                                                    );
-                                                                  }
-                                                                  return Container();
-                                                                },
-                                                              ),
+                                                                    ),
                                                               SizedBox(
                                                                 height: 20,
                                                               ),
