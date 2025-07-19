@@ -92,7 +92,7 @@ class _DetailPageState extends State<DetailPage> {
         .checkStatus(widget.mediatype.toString(), widget.id);
     context
         .read<CredentialsBloc>()
-        .add(CheckStatus(mediaId: widget.id, mediaType: widget.mediatype!));
+        .add(CheckStatus(mediaId: widget.id, mediaType: widget.mediatype!, ctx: context));
     print('init');
   }
 

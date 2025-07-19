@@ -24,7 +24,7 @@ class SetToogle extends Cubit<bool> {
     var responsePost =  await dio.post(url, data: {
       'media_type': mediaType,
       'media_id': mediaId,
-      'watchlist': true
+      'watchlist': true 
     }); 
     print(responsePost.data);
       ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));

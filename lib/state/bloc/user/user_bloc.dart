@@ -86,7 +86,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         List<dynamic> datafav = responseFAv.data['results'];
         List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
         List<dynamic> dataRated = responseRatedUrl.data['results'];
-        
         final List<CombaineModels> rawDataFav =
             datafav.map((e) => CombaineModels.fromJson(e)).toList();
         List<ConvertedModels> finaldataFav = rawDataFav.map((mov) {

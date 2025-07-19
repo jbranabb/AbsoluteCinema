@@ -6,9 +6,11 @@ sealed class CredentialsEvent {}
 class CheckStatus extends CredentialsEvent {
   String mediaType;
   int mediaId;
+  BuildContext ctx;
   CheckStatus({
     required this.mediaId,
     required this.mediaType,
+    required this.ctx,
   });
 }
 
