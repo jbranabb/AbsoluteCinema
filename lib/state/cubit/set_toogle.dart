@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class SetToogle extends Cubit<bool> {
   SetToogle() : super(false);
-  void toogleStatus(String mediaType, int mediaId, BuildContext ctx, bool mntd) async{
+  void sendStatus(String mediaType, int mediaId, BuildContext ctx, bool mntd) async{
     var id = pref?.getInt('id');
     var sesionId = pref?.getString('sessionId');
     var headers = '?session_id=$sesionId&api_key=$imdbKey';
@@ -43,6 +43,10 @@ class SetToogle extends Cubit<bool> {
     throw Exception(e);
     }
   }
+  void toggleStatus(){
+    emit(!
+    state);
+  } 
   void checkStatus(String mediaType, int mediaId)async{
     var sesionId = pref?.getString('sessionId');
     var headers = '?session_id=$sesionId&api_key=$imdbKey';

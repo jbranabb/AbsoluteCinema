@@ -90,9 +90,8 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<SetToogle>()
         .checkStatus(widget.mediatype.toString(), widget.id);
-    context
-        .read<CredentialsBloc>()
-        .add(CheckStatus(mediaId: widget.id, mediaType: widget.mediatype!, ctx: context));
+    context.read<CredentialsBloc>().add(CheckStatus(
+        mediaId: widget.id, mediaType: widget.mediatype!, ctx: context));
     print('init');
   }
 
@@ -392,49 +391,24 @@ class _DetailPageState extends State<DetailPage> {
                                                             children: [
                                                               SizedBox(
                                                                 height: 20,
-                                                              ), Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                90,
-                                                                            width:
-                                                                                90,
-                                                                            decoration:
-                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                              children: [
-                                                                             
-                                                                                Material(
-                                                                                    color: Colors.transparent,
-                                                                                    child: MyText(
-                                                                                      text: 'Watchlist',
-                                                                                      fnweight: FontWeight.bold,
-                                                                                    ))
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              70,
-                                                                          width:
-                                                                              2,
-                                                                          decoration: BoxDecoration(
-                                                                              color: Colors.grey,
-                                                                              borderRadius: BorderRadius.circular(5)),
-                                                                        ),
-                                                                        Container(
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  BlocBuilder<
+                                                                      CredentialsBloc,
+                                                                      CredentialsState>(
+                                                                    builder:
+                                                                        (context,
+                                                                            state) {
+                                                                              if(state is CredentialsStateLoaded){
+return GestureDetector(
+                                                                        onTap:
+                                                                            () {},
+                                                                        child:
+                                                                            Container(
                                                                           height:
                                                                               90,
                                                                           width:
@@ -452,14 +426,56 @@ class _DetailPageState extends State<DetailPage> {
                                                                               Material(
                                                                                   color: Colors.transparent,
                                                                                   child: MyText(
-                                                                                    text: 'Favorite',
+                                                                                    text: 'Watchlist',
                                                                                     fnweight: FontWeight.bold,
                                                                                   ))
                                                                             ],
                                                                           ),
                                                                         ),
+                                                                      );
+                                                                              }
+                                                                      return Container();
+                                                                    },
+                                                                  ),
+                                                                  Container(
+                                                                    height: 70,
+                                                                    width: 2,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5)),
+                                                                  ),
+                                                                  Container(
+                                                                    height: 90,
+                                                                    width: 90,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .grey
+                                                                            .shade900,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            child: MyText(
+                                                                              text: 'Favorite',
+                                                                              fnweight: FontWeight.bold,
+                                                                            ))
                                                                       ],
                                                                     ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                               SizedBox(
                                                                 height: 20,
                                                               ),
