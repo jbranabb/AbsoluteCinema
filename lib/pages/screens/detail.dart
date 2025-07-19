@@ -398,15 +398,18 @@ class _DetailPageState extends State<DetailPage> {
                                                                         .spaceAround,
                                                                 children: [
                                                                   BlocBuilder<
-                                                                      CredentialsBloc,
-                                                                      CredentialsState>(
+                                                                      SetToogle,
+                                                                      bool>(
                                                                     builder:
                                                                         (context,
                                                                             state) {
-                                                                              if(state is CredentialsStateLoaded){
-return GestureDetector(
+                                                                      return GestureDetector(
                                                                         onTap:
-                                                                            () {},
+                                                                            () {
+                                                                          context
+                                                                              .read<SetToogle>()
+                                                                              .toggleStatus();
+                                                                        },
                                                                         child:
                                                                             Container(
                                                                           height:
@@ -423,6 +426,7 @@ return GestureDetector(
                                                                             crossAxisAlignment:
                                                                                 CrossAxisAlignment.center,
                                                                             children: [
+                                                                              Icon(state != false ?  Icons.watch_later : Icons.watch_later_outlined, size: 30,),
                                                                               Material(
                                                                                   color: Colors.transparent,
                                                                                   child: MyText(
@@ -433,8 +437,6 @@ return GestureDetector(
                                                                           ),
                                                                         ),
                                                                       );
-                                                                              }
-                                                                      return Container();
                                                                     },
                                                                   ),
                                                                   Container(
@@ -464,6 +466,7 @@ return GestureDetector(
                                                                           CrossAxisAlignment
                                                                               .center,
                                                                       children: [
+                                                                              Icon(state != false ?  Icons.favorite : Icons.favorite_border_outlined, size: 30,),
                                                                         Material(
                                                                             color:
                                                                                 Colors.transparent,

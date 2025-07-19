@@ -16,7 +16,7 @@ class CheckStatus extends CredentialsEvent {
 
 class ToggleStatusFav extends CredentialsEvent {
   bool fav;
-  ToggleStatusFav({required this.fav});
+  ToggleStatusFav( this.fav);
 }
 class ToggleStatusWatchlist extends CredentialsEvent {
   bool watch;

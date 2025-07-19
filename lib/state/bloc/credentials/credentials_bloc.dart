@@ -33,7 +33,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         var rating = dataCheck['rated'] as bool;
         emit(StateChecking(watchlist: watchlist, fav: favorite));
 print('fav chek : $favorite');
-     event.ctx.read<CredentialsBloc>().add(ToggleStatusFav(fav: favorite));
+     event.ctx.read<CredentialsBloc>().add(ToggleStatusFav(favorite));
         
       }
     });
