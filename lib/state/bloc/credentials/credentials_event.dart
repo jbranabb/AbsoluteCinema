@@ -14,11 +14,9 @@ class CheckStatus extends CredentialsEvent {
   });
 }
 
-class ToggleStatusFav extends CredentialsEvent {
-  bool fav;
-  ToggleStatusFav( this.fav);
+class ToggleStatus extends CredentialsEvent {
+  bool? fav;
+  bool? watch;
+  ToggleStatus(this.watch, this.fav);
 }
-class ToggleStatusWatchlist extends CredentialsEvent {
-  bool watch;
-  ToggleStatusWatchlist({required this.watch});
-}
+

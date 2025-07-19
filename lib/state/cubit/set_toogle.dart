@@ -21,25 +21,25 @@ class SetToogle extends Cubit<bool> {
     bool statusbyId =  responsebyId.data['watchlist'] as bool;
     if(!mntd) return;
     if(statusbyId != true){ 
-    var responsePost =  await dio.post(url, data: {
-      'media_type': mediaType,
-      'media_id': mediaId,
-      'watchlist': true 
-    }); 
-    print(responsePost.data);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
+    // var responsePost =  await dio.post(url, data: {
+    //   'media_type': mediaType,
+    //   'media_id': mediaId,
+    //   'watchlist': true 
+    // }); 
+    // print(responsePost.data);
+      // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Berhasil Menambahkan Ke Wacthlist')));
     }else{
-      var responsePost =  await dio.post(url, data: {
-      'media_type': mediaType,
-      'media_id': mediaId,
-      'watchlist': false
-    }); 
-    print(responsePost.data);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
+    //   var responsePost =  await dio.post(url, data: {
+    //   'media_type': mediaType,
+    //   'media_id': mediaId,
+    //   'watchlist': false
+    // }); 
+    // print(responsePost.data);
+      // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Menghapus Dari Wacthlist')));
     }
     }catch(e){
     print(e);
-      ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Something Went Wrong')));
+      // ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(behavior: SnackBarBehavior.floating, duration: Durations.extralong3,content: Text('Something Went Wrong')));
     throw Exception(e);
     }
   }

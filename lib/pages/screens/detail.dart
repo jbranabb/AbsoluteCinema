@@ -409,6 +409,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           context
                                                                               .read<SetToogle>()
                                                                               .toggleStatus();
+
                                                                         },
                                                                         child:
                                                                             Container(

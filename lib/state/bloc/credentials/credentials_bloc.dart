@@ -10,12 +10,7 @@ part 'credentials_state.dart';
 
 class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
   CredentialsBloc() : super(CredentialsInitial()) {
-      on<ToggleStatusFav>((event, emit) {
-        var emiter = event.fav;
-        print('emiter : $emiter');
-        emit(CredentialsStateLoaded(statusFav: !emiter));
-      },);
-
+    
     on<CheckStatus>((event, emit) async {
       var id = pref?.getInt('id');
       var sesionId = pref?.getString('sessionId');
@@ -32,9 +27,9 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         var favorite = dataCheck['favorite'] as bool;
         var rating = dataCheck['rated'] as bool;
         emit(StateChecking(watchlist: watchlist, fav: favorite));
-print('fav chek : $favorite');
-     event.ctx.read<CredentialsBloc>().add(ToggleStatusFav(favorite));
-        
+        on<ToggleStatus>((event, emit) {
+          emit(StateChecking(watchlist: !watchlist, fav: !favorite));
+        });
       }
     });
   }
