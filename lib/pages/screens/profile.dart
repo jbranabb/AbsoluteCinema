@@ -1,14 +1,28 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
+  }
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
@@ -67,7 +81,7 @@ class ProfilePage extends StatelessWidget {
             ),
             // wacthlist | favorite | Ratings
             Container(
-              width: width * 0.85,
+              width: width * 0.90,
               height: 100,
               decoration: BoxDecoration(
                   // color: Colors.red,
@@ -94,15 +108,78 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ],
                     );
+                  } else if(state is UserLoading){
+                    return const Center(child: LoadingWidget(),);
                   }
                   return Container();
                 },
               ),
             ),
-            const SizedBox(
-              height: 20,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MyText(
+                    text: "Favorite",
+                    fnweight: FontWeight.bold,
+                  ),
+                  PopupMenuButton(itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('data'))
+                  ])
+                ],
+              ),
             ),
-
+            Container(
+              height: height * 0.18,
+              width: width * 0.95,
+              child: BlocBuilder<UserBloc, UserState>(
+                builder: (context, state) {
+                  if (state is UserDataLoaded) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4, childAspectRatio: 9 / 13),
+                      shrinkWrap: true,
+                      itemCount: state.dataFav.take(4).length,
+                      itemBuilder: (context, index) {
+                        var mov = state.dataFav[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.grey.shade800,
+                                    strokeAlign: 1)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://image.tmdb.org/t/p/w780${mov.posterPath}',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }else if(state is UserLoading){
+                    return const Center(
+                      child: LoadingWidget(),
+                    );
+                  }else if(state is UserFailed){
+                    Center(
+                      child: MyText(text: 'Something Went Wrong \n ${state.e}'),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+            ),
             UserMenuTap(
               title: 'Edit Profile',
               icons: Icons.edit_square,
@@ -184,7 +261,7 @@ class UserCrendialsContainer extends StatelessWidget {
             text: '$length',
             fnSize: 25,
             fnweight: FontWeight.bold,
-            clors: Colors.grey.shade700,
+            clors: Colors.grey.shade400,
           ),
           MyText(
             text: title,

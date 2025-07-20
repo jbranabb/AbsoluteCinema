@@ -44,19 +44,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
     on<UserCredentials>((event, emit) async {
       emit(UserLoading());
+      try{
+
       var id = pref?.getInt('id');
       var sesionId = pref?.getString('sessionId');
       var usrname = pref?.getString('username');
       var headers = '?session_id=$sesionId&api_key=$imdbKey';
       if (
-          // pref == null
-          // ||
           id == null || sesionId == null) {
         emit(UserFailed(e: 'Failed $id, failed $usrname'));
       }
-
-      //get fav
-      //get watchlist
 
       String genreUrlMov =
           'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
@@ -193,6 +190,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           dataFav: allfav,
           dataRated: allrated,
         ));
+      }catch(e){
+        emit(UserFailed(e: e.toString()));
+      }
       
     });
   }
