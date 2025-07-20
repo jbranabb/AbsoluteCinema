@@ -392,93 +392,98 @@ class _DetailPageState extends State<DetailPage> {
                                                               SizedBox(
                                                                 height: 20,
                                                               ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  BlocBuilder<
-                                                                      SetToogle,
-                                                                      bool>(
-                                                                    builder:
-                                                                        (context,
-                                                                            state) {
-                                                                      return GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          context
-                                                                              .read<SetToogle>()
-                                                                              .toggleStatus();
-
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              90,
-                                                                          width:
-                                                                              90,
-                                                                          decoration: BoxDecoration(
-                                                                              color: Colors.grey.shade900,
-                                                                              borderRadius: BorderRadius.circular(10)),
-                                                                          child:
-                                                                              Column(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.center,
-                                                                            children: [
-                                                                              Icon(state != false ?  Icons.watch_later : Icons.watch_later_outlined, size: 30,),
-                                                                              Material(
-                                                                                  color: Colors.transparent,
-                                                                                  child: MyText(
-                                                                                    text: 'Watchlist',
-                                                                                    fnweight: FontWeight.bold,
-                                                                                  ))
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  ),
-                                                                  Container(
-                                                                    height: 70,
-                                                                    width: 2,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(5)),
-                                                                  ),
-                                                                  Container(
-                                                                    height: 90,
-                                                                    width: 90,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .shade900,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10)),
-                                                                    child:
-                                                                        Column(
+                                                              BlocBuilder<
+                                                                  CredentialsBloc,
+                                                                  CredentialsState>(
+                                                                builder:
+                                                                    (context,
+                                                                        state) {
+                                                                  if (state
+                                                                      is StateChecking) {
+                                                                    return Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
+                                                                              .spaceAround,
                                                                       children: [
-                                                                              Icon(state != false ?  Icons.favorite : Icons.favorite_border_outlined, size: 30,),
-                                                                        Material(
-                                                                            color:
-                                                                                Colors.transparent,
-                                                                            child: MyText(
-                                                                              text: 'Favorite',
-                                                                              fnweight: FontWeight.bold,
-                                                                            ))
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            print('hallo');
+                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatch(!state.watchlist!));
+                                                                            print(state.watchlist);
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                90,
+                                                                            width:
+                                                                                90,
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Icon(
+                                                                                  state.watchlist != false ? Icons.watch_later : Icons.watch_later_outlined,
+                                                                                  size: 30,
+                                                                                ),
+                                                                                Material(
+                                                                                    color: Colors.transparent,
+                                                                                    child: MyText(
+                                                                                      text: 'Watchlist',
+                                                                                      fnweight: FontWeight.bold,
+                                                                                    ))
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Container(
+                                                                          height:
+                                                                              70,
+                                                                          width:
+                                                                              2,
+                                                                          decoration: BoxDecoration(
+                                                                              color: Colors.grey,
+                                                                              borderRadius: BorderRadius.circular(5)),
+                                                                        ),
+                                                                        GestureDetector(
+                                                                          onTap: (){
+                                                                            context.read<CredentialsBloc>().add(ToggleStatusFav(!state.fav!));
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            height:
+                                                                                90,
+                                                                            width:
+                                                                                90,
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                                              children: [
+                                                                                Icon(
+                                                                                  state.fav != false ? Icons.favorite : Icons.favorite_border_outlined,
+                                                                                  size: 30,
+                                                                                ),
+                                                                                Material(
+                                                                                    color: Colors.transparent,
+                                                                                    child: MyText(
+                                                                                      text: 'Favorite',
+                                                                                      fnweight: FontWeight.bold,
+                                                                                    ))
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
                                                                       ],
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                    );
+                                                                  }
+                                                                  return Container();
+                                                                },
                                                               ),
                                                               SizedBox(
                                                                 height: 20,

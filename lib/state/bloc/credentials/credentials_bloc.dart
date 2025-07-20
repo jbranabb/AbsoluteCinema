@@ -26,11 +26,24 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         var watchlist = dataCheck['watchlist'] as bool;
         var favorite = dataCheck['favorite'] as bool;
         var rating = dataCheck['rated'] as bool;
-        emit(StateChecking(watchlist: watchlist, fav: favorite));
-        on<ToggleStatus>((event, emit) {
-          emit(StateChecking(watchlist: !watchlist, fav: !favorite));
-        });
+          print('before click $watchlist');
+        emit(StateChecking(watchlist, favorite));
       }
     });
+        on<ToggleStatusWatch>((event, emit) {
+          var currentState = state;
+          if(currentState is StateChecking){
+          emit(StateChecking(event.watch!, currentState.fav));
+          }
+          print('event ${event.watch}');
+        });
+        on<ToggleStatusFav>((event, emit) {
+          var currentState = state;
+          if(currentState is StateChecking){
+          emit(StateChecking(currentState.watchlist, event.fav!));
+          }
+          print('event fav ${event.fav}');
+        });
+      
   }
 }

@@ -35,7 +35,7 @@ class CastBloc extends Bloc<CastEvent, CastState> {
       if (response.statusCode == 200) {
         try {
           List<dynamic> data = response.data['cast'];
-          print('data : $data');
+          // print('data : $data');
           List<Cast> datacast = data
               .map(
                 (e) => Cast.fromJson(e),
