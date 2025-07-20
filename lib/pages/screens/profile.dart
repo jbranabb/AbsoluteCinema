@@ -32,6 +32,20 @@ class _ProfilePageState extends State<ProfilePage> {
           fnweight: FontWeight.bold,
         ),
         centerTitle: true,
+        actions: [
+          PopupMenuButton(itemBuilder: (context) => [
+            const PopupMenuItem(value: 1,child: Text('Movies'),),
+            const PopupMenuItem(value: 2,child: Text('Tv Shows'),),
+          ],
+          onSelected: (value) {
+            if(value == 1){
+            value != value ? context.read<UserBloc>().add(UserCredentials(mediaType: 'movies')) : null;
+            }else{
+            value !=  value ? context.read<UserBloc>().add(UserCredentials(mediaType: 'tv')) : null;
+            }
+          },
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -118,15 +132,13 @@ class _ProfilePageState extends State<ProfilePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   MyText(
                     text: "Favorite",
                     fnweight: FontWeight.bold,
                   ),
-                  PopupMenuButton(itemBuilder: (context) => [
-                    PopupMenuItem(child: Text('data'))
-                  ])
+                 
                 ],
               ),
             ),
