@@ -56,26 +56,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }
 
       //get fav
-      String favUrl =
-          'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers';
       //get watchlist
-      String watchlistUrl =
-          'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers';
-      String watchlistUrlpage2 =
-          'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers&page=2';
-      print(watchlistUrl);
-      String ratedUrl =
-          'https://api.themoviedb.org/3/account/$id/rated/${event.mediaType}$headers';
 
       String genreUrlMov =
           'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
       String genreUrlTv =
           'https://api.themoviedb.org/3/genre/tv/list?api_key=$imdbKey';
-
-      var responseFAv = await dio.get(favUrl);
-      var responseWatchUrl = await dio.get(watchlistUrl);
-      var responseRatedUrl = await dio.get(ratedUrl);
-      var responsewatchlistUrlpage2 = await dio.get(watchlistUrlpage2);
 
       Map<String, dynamic> genreMapCombaine = {};
       var responseGenreTv = await dio.get(genreUrlTv);
@@ -86,17 +72,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         for (var g in dataGenreTv) g['id'].toString(): g['name'],
         for (var g in dataGenreMov) g['id'].toString(): g['name']
       };
+        List<ConvertedModels> allwatchlist = [];
+        List<ConvertedModels> allfav = [];
+        List<ConvertedModels> allrated = [];
 
-      if (responseFAv.statusCode == 200 && responseWatchUrl.statusCode == 200) {
-        List<dynamic> datafav = responseFAv.data['results'];
-        List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
-        List<dynamic> dataRated = responseRatedUrl.data['results'];
 
-        List<dynamic> dataWatchListPage2 =
-            responsewatchlistUrlpage2.data['results'];
+        bool hasMoreData = true;
+          do{
+        int currentPageFav = 1;
+      String favUrl =
+          'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers&pages=$currentPageFav';
+      var responseFAv = await dio.get(favUrl);
+        var datafav  =  responseFAv.data;
+        int totalPagesfav =datafav['total_pages'];
+        List<dynamic> listdatafav = datafav['results'];
 
         final List<CombaineModels> rawDataFav =
-            datafav.map((e) => CombaineModels.fromJson(e)).toList();
+            listdatafav.map((e) => CombaineModels.fromJson(e)).toList();
         List<ConvertedModels> finaldataFav = rawDataFav.map((mov) {
           List<String> genrelist = mov.genreIds
               .map(
@@ -118,8 +110,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               mediatype: mov.mediaType,
               relaseDate: mov.relaseDate);
         }).toList();
+        allfav.addAll(finaldataFav);
+        currentPageFav++;
+        hasMoreData = currentPageFav <= totalPagesfav;
+          }while(hasMoreData);
 
-        final List<CombaineModels> rawDataWatchlist = dataWatchlist
+          do{
+
+        int currentPagewatch = 1;
+      String watchlistUrl = 'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers&page=$currentPagewatch';
+      var responseWatchUrl = await dio.get(watchlistUrl);
+        var dataWatch = responseWatchUrl.data;
+        int totalPagesWatch = dataWatch['total_pages'];
+        List<dynamic> listdatawatch = dataWatch['results'];
+
+        final List<CombaineModels> rawDataWatchlist = listdatawatch
             .map(
               (e) => CombaineModels.fromJson(e),
             )
@@ -144,9 +149,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               mediatype: mov.mediaType,
               relaseDate: mov.relaseDate);
         }).toList();
+        allwatchlist.addAll(finalDataWatchlist);
+        currentPagewatch++;
+        hasMoreData = currentPagewatch <= totalPagesWatch;
+        }while(hasMoreData);
 
+       // <rated>
+       do{
+        int currentPageRated = 1;
+          String ratedUrl =  'https://api.themoviedb.org/3/account/$id/rated/${event.mediaType}$headers&page=$currentPageRated';
+      var responseRatedUrl = await dio.get(ratedUrl);
+        var datarated = responseRatedUrl.data;
+        int totalPagesRated =  datarated['total_pages'];
+        List<dynamic> listdataRated = datarated['results'];
         List<CombaineModels> dataCombaineRated =
-            dataRated.map((e) => CombaineModels.fromJson(e)).toList();
+            listdataRated.map((e) => CombaineModels.fromJson(e)).toList();
         List<ConvertedModels> finaldataRated = dataCombaineRated.map((mov) {
           List<String> genreList = mov.genreIds
               .map(
@@ -167,58 +184,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               mediatype: mov.mediaType,
               relaseDate: mov.relaseDate);
         }).toList();
+        allrated.addAll(finaldataRated);
+        currentPageRated++;
+        hasMoreData = currentPageRated <= totalPagesRated;
+       }while(hasMoreData);
 
-        // <-- zone page 2 -->
-        List<ConvertedModels> allwatchlist = [];
-
-        int currentPage = 1;
-        bool hasmorePage =  true;
-        do{
-        
-        var rawdata = await dio.get(watchlistUrl);
-
-        int jumlahPage =  rawdata.data['total_pages'];
-        String mantap = '$watchlistUrl&page=$currentPage';
-        var getresponse = await dio.get(mantap);
-        List<dynamic> kaiCenat = getresponse.data['results'];
-        List<CombaineModels> rawDataWatchlistPage2 = kaiCenat
-            .map(
-              (e) => CombaineModels.fromJson(e),
-            )
-            .toList();
-        List<ConvertedModels> finalDataWatchlistPage2 =
-            rawDataWatchlistPage2.map((mov) {
-          List<String> genreList = mov.genreIds
-              .map(
-                (id) => genreMapCombaine[id.toString()],
-              )
-              .toList()
-              .cast<String>();
-              var rate = double.parse(mov.voteAvg);
-              var finalRatings = rate / 10 * 5;
-          return ConvertedModels(
-              id: mov.id,
-              genreIds: genreList,
-              title: mov.title,
-              voteAvg: finalRatings.toString(),
-              backdropPath: mov.backdropPath,
-              posterPath: mov.posterPath,
-              overview: mov.overview,
-              mediatype: mov.mediaType,
-              relaseDate: mov.relaseDate);
-        }).toList();
-        allwatchlist.addAll(finalDataWatchlistPage2);
-        currentPage++;
-        hasmorePage = currentPage <= jumlahPage;
-        }while (hasmorePage);
-
-          print(allwatchlist.length);
          emit(UserDataLoaded(
           dataWatchlist: allwatchlist,
-          dataFav: finaldataFav,
-          dataRated: finaldataRated,
+          dataFav: allfav,
+          dataRated: allrated,
         ));
-      }
+      
     });
   }
 }
