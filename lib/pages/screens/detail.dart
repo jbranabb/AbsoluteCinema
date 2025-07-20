@@ -409,7 +409,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           onTap:
                                                                               () {
                                                                             print('hallo');
-                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatch(!state.watchlist!));
+                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatch(widget.id, widget.mediatype!,!state.watchlist!));
                                                                             print(state.watchlist);
                                                                           },
                                                                           child:
@@ -450,7 +450,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                         ),
                                                                         GestureDetector(
                                                                           onTap: (){
-                                                                            context.read<CredentialsBloc>().add(ToggleStatusFav(!state.fav!));
+                                                                            context.read<CredentialsBloc>().add(ToggleStatusFav(widget.id, widget.mediatype!, !state.fav!));
                                                                           },
                                                                           child:
                                                                               Container(

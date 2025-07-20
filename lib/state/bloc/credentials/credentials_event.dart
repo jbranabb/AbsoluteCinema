@@ -15,11 +15,15 @@ class CheckStatus extends CredentialsEvent {
 }
 
 class ToggleStatusWatch extends CredentialsEvent {
+  int mediaId;
+  String mediaType;
   bool? watch;
-  ToggleStatusWatch( this.watch);
+  ToggleStatusWatch(this.mediaId, this.mediaType, this.watch);
 }
 class ToggleStatusFav extends CredentialsEvent {
+  int mediaId;
+  String mediaType;
   bool? fav;
-  ToggleStatusFav( this.fav);
+  ToggleStatusFav( this.mediaId, this.mediaType, this.fav);
 }
 
