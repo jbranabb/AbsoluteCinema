@@ -1,5 +1,7 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -72,28 +74,44 @@ class ProfilePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border:
                       BoxBorder.all(width: 0.7, color: Colors.grey.shade900)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  UserCrendialsContainer(
-                    title: 'Watchlist',
-                  ),
-                  UserCrendialsContainer(
-                    title: 'Favorite',
-                  ),
-                  UserCrendialsContainer(
-                    title: 'Ratings',
-                  ),
-                ],
+              child: BlocBuilder<UserBloc, UserState>(
+                builder: (context, state) {
+                  if (state is UserDataLoaded) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        UserCrendialsContainer(
+                          length: state.dataWatchlist.length,
+                          title: 'Watchlist',
+                        ),
+                        UserCrendialsContainer(
+                          length: state.dataFav.length,
+                          title: 'Favorite',
+                        ),
+                        UserCrendialsContainer(
+                          length: state.dataRated.length,
+                          title: 'Ratings',
+                        ),
+                      ],
+                    );
+                  }
+                  return Container();
+                },
               ),
             ),
             const SizedBox(
               height: 20,
             ),
-            
-            UserMenuTap(title: 'Edit Profile', icons: Icons.edit_square,),
-            UserMenuTap(title: 'Log Out', colors: Colors.red.shade800, icons: Icons.logout,),
-          
+
+            UserMenuTap(
+              title: 'Edit Profile',
+              icons: Icons.edit_square,
+            ),
+            UserMenuTap(
+              title: 'Log Out',
+              colors: Colors.red.shade800,
+              icons: Icons.logout,
+            ),
           ],
         ),
       ),
@@ -106,16 +124,15 @@ class UserMenuTap extends StatelessWidget {
     super.key,
     required this.title,
     this.colors,
-    required  this.icons,
+    required this.icons,
   });
   String title;
   IconData? icons;
   Color? colors;
 
- 
   @override
   Widget build(BuildContext context) {
-    var width =  MediaQuery.of(context).size.width;
+    var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -129,8 +146,15 @@ class UserMenuTap extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              MyText(text: title,fnweight: FontWeight.bold,clors: colors != null ? colors : Colors.grey.shade200, ),
-              Icon(icons, color: colors != null ? colors : Colors.grey.shade200,)
+              MyText(
+                text: title,
+                fnweight: FontWeight.bold,
+                clors: colors != null ? colors : Colors.grey.shade200,
+              ),
+              Icon(
+                icons,
+                color: colors != null ? colors : Colors.grey.shade200,
+              )
             ],
           ),
         ),
@@ -140,9 +164,10 @@ class UserMenuTap extends StatelessWidget {
 }
 
 class UserCrendialsContainer extends StatelessWidget {
-  UserCrendialsContainer({super.key, required this.title});
+  UserCrendialsContainer(
+      {super.key, required this.title, required this.length});
   String title;
-
+  int length;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -156,7 +181,7 @@ class UserCrendialsContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           MyText(
-            text: '0',
+            text: '$length',
             fnSize: 25,
             fnweight: FontWeight.bold,
             clors: Colors.grey.shade700,

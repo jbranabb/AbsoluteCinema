@@ -78,8 +78,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
 
         bool hasMoreData = true;
-          do{
         int currentPageFav = 1;
+          do{
       String favUrl =
           'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers&pages=$currentPageFav';
       var responseFAv = await dio.get(favUrl);
@@ -115,9 +115,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         hasMoreData = currentPageFav <= totalPagesfav;
           }while(hasMoreData);
 
-          do{
-
         int currentPagewatch = 1;
+          do{
       String watchlistUrl = 'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers&page=$currentPagewatch';
       var responseWatchUrl = await dio.get(watchlistUrl);
         var dataWatch = responseWatchUrl.data;
@@ -155,8 +154,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }while(hasMoreData);
 
        // <rated>
-       do{
         int currentPageRated = 1;
+       do{
           String ratedUrl =  'https://api.themoviedb.org/3/account/$id/rated/${event.mediaType}$headers&page=$currentPageRated';
       var responseRatedUrl = await dio.get(ratedUrl);
         var datarated = responseRatedUrl.data;
