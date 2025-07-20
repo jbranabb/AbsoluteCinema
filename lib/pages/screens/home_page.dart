@@ -3,6 +3,7 @@
 import 'dart:ui';
 import 'package:absolutecinema/pages/screens/credentials_page.dart';
 import 'package:absolutecinema/pages/screens/profile.dart';
+import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:absolutecinema/pages/screens/watchlis.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
@@ -40,8 +41,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             if (state is StateError) {
               return Center(
-                child: MyText(text: 'Something Went Wrong\n ${state.e}')
-              ); 
+                  child: MyText(text: 'Something Went Wrong\n ${state.e}'));
             }
             if (state is StateLoaded) {
               return NestedScrollView(
@@ -53,8 +53,7 @@ class _HomePageState extends State<HomePage> {
                           height: 300,
                           width: double.infinity,
                           child: Image.asset(
-                           fit: BoxFit.cover,  
-                            'assets/images/bg.png'),
+                              fit: BoxFit.cover, 'assets/images/bg.png'),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +61,9 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(height: 10),
                             const MyAppBar(),
                             SliderWidget(),
-                             SizedBox(
-                              height: 30, //space between dot indicator and tabartitile
+                            SizedBox(
+                              height:
+                                  30, //space between dot indicator and tabartitile
                             ),
                             Transform.translate(
                               offset: Offset(-40, 0),
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       AllWidgetSection(),
                       MoviesWidgetsSection(),
-                      TvshowWidgetsSection(), 
+                      TvshowWidgetsSection(),
                     ]),
               );
             }
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
-        height: 40,
+          height: 40,
           width: 200,
           child: Stack(
             children: [
@@ -123,14 +123,27 @@ class _HomePageState extends State<HomePage> {
               Row(
                 children: [
                   IconButton(onPressed: () {}, icon: Icon(Icons.home)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-                  IconButton(onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CredentialsPage() ,));
-                  }, icon: Icon(Icons.bookmark)),
-                  IconButton(onPressed: () {
-
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage() ,));
-                  }, icon: Icon(Icons.person)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SearchPage(),
+                        ));
+                      },
+                      icon: Icon(Icons.search)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CredentialsPage(),
+                        ));
+                      },
+                      icon: Icon(Icons.bookmark)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ProfilePage(),
+                        ));
+                      },
+                      icon: Icon(Icons.person)),
                 ],
               )
             ],

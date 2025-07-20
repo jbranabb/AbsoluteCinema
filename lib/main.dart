@@ -2,6 +2,7 @@ import 'package:absolutecinema/myobserver.dart';
 import 'package:absolutecinema/pages/screens/auth_page.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
+import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
@@ -46,7 +47,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,
-      home: pref!.getString('sessionId') != null ? HomePage() : AuthPage(),
+      home: 
+      // SearchPage()
+       pref!.getString('sessionId') != null ? HomePage() : AuthPage(),
     );
   }
 }

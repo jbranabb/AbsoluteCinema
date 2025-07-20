@@ -54,13 +54,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           id == null || sesionId == null) {
         emit(UserFailed(e: 'Failed $id, failed $usrname'));
       }
+
       //get fav
       String favUrl =
           'https://api.themoviedb.org/3/account/$id/favorite/${event.mediaType}$headers';
       //get watchlist
       String watchlistUrl =
           'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers';
-   String ratedUrl =
+      String watchlistUrlpage2 =
+          'https://api.themoviedb.org/3/account/$id/watchlist/${event.mediaType}$headers&page=2';
+      print(watchlistUrl);
+      String ratedUrl =
           'https://api.themoviedb.org/3/account/$id/rated/${event.mediaType}$headers';
 
       String genreUrlMov =
@@ -71,7 +75,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       var responseFAv = await dio.get(favUrl);
       var responseWatchUrl = await dio.get(watchlistUrl);
       var responseRatedUrl = await dio.get(ratedUrl);
-    
+      var responsewatchlistUrlpage2 = await dio.get(watchlistUrlpage2);
+
       Map<String, dynamic> genreMapCombaine = {};
       var responseGenreTv = await dio.get(genreUrlTv);
       var responseGenreMov = await dio.get(genreUrlMov);
@@ -86,6 +91,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         List<dynamic> datafav = responseFAv.data['results'];
         List<dynamic> dataWatchlist = responseWatchUrl.data['results'];
         List<dynamic> dataRated = responseRatedUrl.data['results'];
+
+        List<dynamic> dataWatchListPage2 =
+            responsewatchlistUrlpage2.data['results'];
+
         final List<CombaineModels> rawDataFav =
             datafav.map((e) => CombaineModels.fromJson(e)).toList();
         List<ConvertedModels> finaldataFav = rawDataFav.map((mov) {
@@ -159,11 +168,56 @@ class UserBloc extends Bloc<UserEvent, UserState> {
               relaseDate: mov.relaseDate);
         }).toList();
 
-        emit(UserDataLoaded(
-            dataWatchlist: finalDataWatchlist,
-            dataFav: finaldataFav,
-            dataRated: finaldataRated,
-            ));
+        // <-- zone page 2 -->
+        List<ConvertedModels> allwatchlist = [];
+
+        int currentPage = 1;
+        bool hasmorePage =  true;
+        do{
+        
+        var rawdata = await dio.get(watchlistUrl);
+
+        int jumlahPage =  rawdata.data['total_pages'];
+        String mantap = '$watchlistUrl&page=$currentPage';
+        var getresponse = await dio.get(mantap);
+        List<dynamic> kaiCenat = getresponse.data['results'];
+        List<CombaineModels> rawDataWatchlistPage2 = kaiCenat
+            .map(
+              (e) => CombaineModels.fromJson(e),
+            )
+            .toList();
+        List<ConvertedModels> finalDataWatchlistPage2 =
+            rawDataWatchlistPage2.map((mov) {
+          List<String> genreList = mov.genreIds
+              .map(
+                (id) => genreMapCombaine[id.toString()],
+              )
+              .toList()
+              .cast<String>();
+              var rate = double.parse(mov.voteAvg);
+              var finalRatings = rate / 10 * 5;
+          return ConvertedModels(
+              id: mov.id,
+              genreIds: genreList,
+              title: mov.title,
+              voteAvg: finalRatings.toString(),
+              backdropPath: mov.backdropPath,
+              posterPath: mov.posterPath,
+              overview: mov.overview,
+              mediatype: mov.mediaType,
+              relaseDate: mov.relaseDate);
+        }).toList();
+        allwatchlist.addAll(finalDataWatchlistPage2);
+        currentPage++;
+        hasmorePage = currentPage <= jumlahPage;
+        }while (hasmorePage);
+
+          print(allwatchlist.length);
+         emit(UserDataLoaded(
+          dataWatchlist: allwatchlist,
+          dataFav: finaldataFav,
+          dataRated: finaldataRated,
+        ));
       }
     });
   }

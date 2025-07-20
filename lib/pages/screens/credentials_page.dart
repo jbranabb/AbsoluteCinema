@@ -26,8 +26,8 @@ class _CredentialsPageState extends State<CredentialsPage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          // backgroundColor: Colors.blue,
-          title: const Text('Credentials'),
+          centerTitle: true,
+          title:  MyText(text: 'Library', fnweight: FontWeight.bold,fnSize: 20,),
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(30),
               child: ClipRRect(
