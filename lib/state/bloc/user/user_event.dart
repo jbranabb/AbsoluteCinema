@@ -7,7 +7,6 @@ class GetSessionUser extends UserEvent {
   String sesionId;
   GetSessionUser({required this.sesionId});
 }
-class UserData extends UserEvent {}
 
 class UserCredentials extends UserEvent{
   String mediaType;

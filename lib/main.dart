@@ -6,6 +6,7 @@ import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
+import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
@@ -33,9 +34,10 @@ void main() async {
     BlocProvider(create: (context) => AuthBloc()),
     BlocProvider(create: (context) => DeniedCubit()),
     BlocProvider(create: (context) => TimerCubit()),
-    BlocProvider(create: (context) => UserBloc()..add(UserData())),
+    BlocProvider(create: (context) => UserBloc()),
     BlocProvider(create: (context) => SetToogle()),
     BlocProvider(create: (context) => CredentialsBloc()),
+    BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
   ], child: const MyApp()));
 }
 

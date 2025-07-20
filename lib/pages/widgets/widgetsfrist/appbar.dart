@@ -1,3 +1,4 @@
+import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class _MyAppBarState extends State<MyAppBar> {
   @override
   void initState() {
     super.initState();
-   context.read<UserBloc>().add(UserData());
+    context.read<DataUserBloc>().add(FetchDataUser());
   }
   @override
   Widget build(BuildContext context) {
@@ -56,9 +57,9 @@ class _MyAppBarState extends State<MyAppBar> {
                             fontSize: 10,
                             fontWeight: FontWeight.normal),
                       ),
-                      BlocBuilder<UserBloc, UserState>(
+                      BlocBuilder<DataUserBloc, DataUserState>(
                         builder: (context, state) {
-                          if (state is UserLoaded) {
+                          if (state is DataUserLoaded ) {
                             return Text(
                               state.username,
                               style: const TextStyle(

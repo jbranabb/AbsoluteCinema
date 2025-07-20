@@ -36,16 +36,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserFailed(e: e.toString()));
       }
     });
-    on<UserData>((event, emit) async {
-      emit(UserLoading());
-      var id = pref?.getInt('id');
-      var username = pref?.getString('username');
-      emit(UserLoaded(username: username!));
-    });
     on<UserCredentials>((event, emit) async {
       emit(UserLoading());
       try{
-
       var id = pref?.getInt('id');
       var sesionId = pref?.getString('sessionId');
       var usrname = pref?.getString('username');
