@@ -14,7 +14,9 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     var sesionId = pref?.getString('sessionId');
     var headers = '?session_id=$sesionId&api_key=$imdbKey';
     //url for posting
-    String url = 'https://api.themoviedb.org/3/account/$id/watchlist$headers';
+    String urlWatch = 'https://api.themoviedb.org/3/account/$id/watchlist$headers';
+    //url for posting
+    String urlFav = 'https://api.themoviedb.org/3/account/$id/favorite$headers';
     on<CheckStatus>((event, emit) async {
       //url for get staus
       String checkByIdUrl =
@@ -34,30 +36,29 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
       var currentState = state;
       if (currentState is StateChecking) {
         emit(StateChecking(event.watch!, currentState.fav));
+        print(event.watch);
           try {
-        if (event.watch != false) {
-            var response = await dio.post(url, data: {
+       var response = await dio.post(urlWatch, data: {
               'media_type': event.mediaType,
               'media_id': event.mediaId,
-              'watchlist': true
+              'watchlist': event.watch
             });
             print(response.statusCode);
-        }else if(event.watch !=true){
-             var response = await dio.post(url, data: {
-              'media_type': event.mediaType,
-              'media_id': event.mediaId,
-              'watchlist': false
-            });
-            print(response.statusCode);
-        }
-          } catch (e) {}
+          } catch (e) {
+            emit(CredentialsStatefailed());
+          }
       }
-      print('event ${event.watch}');
     });
-    on<ToggleStatusFav>((event, emit) {
+    on<ToggleStatusFav>((event, emit) async{
       var currentState = state;
       if (currentState is StateChecking) {
         emit(StateChecking(currentState.watchlist, event.fav!));
+        var response = await dio.post(urlFav,data: {
+              'media_type': event.mediaType,
+              'media_id': event.mediaId,
+              'favorite': event.fav
+        });
+        print(response.statusCode);
       }
       print('event fav ${event.fav}');
     });
