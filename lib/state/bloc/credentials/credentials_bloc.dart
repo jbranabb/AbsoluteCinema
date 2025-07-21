@@ -3,6 +3,7 @@ import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
 part 'credentials_event.dart';
@@ -10,9 +11,10 @@ part 'credentials_state.dart';
 
 class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
   CredentialsBloc() : super(CredentialsInitial()) {
+    var apiKey = dotenv.env['API_KEY'];
     var id = pref?.getInt('id');
     var sesionId = pref?.getString('sessionId');
-    var headers = '?session_id=$sesionId&api_key=$imdbKey';
+    var headers = '?session_id=$sesionId&api_key=$apiKey';
     //url for posting
     String urlWatch = 'https://api.themoviedb.org/3/account/$id/watchlist$headers';
     //url for posting

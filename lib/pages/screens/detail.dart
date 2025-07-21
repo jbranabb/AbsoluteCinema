@@ -12,7 +12,6 @@ import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
-import 'package:absolutecinema/state/cubit/set_toogle.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -87,9 +86,6 @@ class _DetailPageState extends State<DetailPage> {
     context
         .read<CastBloc>()
         .add(FetchCast(id: widget.id, mediaType: widget.mediatype.toString()));
-    context
-        .read<SetToogle>()
-        .checkStatus(widget.mediatype.toString(), widget.id);
     context.read<CredentialsBloc>().add(CheckStatus(
         mediaId: widget.id, mediaType: widget.mediatype!, ctx: context));
     print('init');
@@ -275,328 +271,343 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                             ),
                             const SizedBox(width: 5),
-                            BlocBuilder<SetToogle, bool>(
-                              builder: (context, state) {
-                                return ElevatedButtonDetail(
-                                  icon: Icons.playlist_add,
-                                  colors: state
-                                      ? Colors.blue.shade800
-                                      : Colors.black,
-                                  presed: () {
-                                    showGeneralDialog(
-                                      context: context,
-                                      barrierDismissible: true,
-                                      barrierLabel: 'hallos',
-                                      pageBuilder: (context, animation,
-                                          secondaryAnimation) {
-                                        return Stack(
-                                          children: [
-                                            ClipRRect(
-                                              child: BackdropFilter(
-                                                filter: ImageFilter.blur(
-                                                    sigmaX: 10, sigmaY: 10),
-                                                child: Container(
-                                                  color: const Color.fromARGB(
-                                                          255, 60, 61, 61)
-                                                      .withOpacity(0.6),
-                                                  child: SizedBox.expand(
-                                                    child: Column(
+                            ElevatedButtonDetail(
+                              icon: Icons.playlist_add,
+                              colors: Colors.black,
+                              presed: () {
+                                showGeneralDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  barrierLabel: 'hallos',
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return Stack(
+                                      children: [
+                                        ClipRRect(
+                                          child: BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 10, sigmaY: 10),
+                                            child: Container(
+                                              color: const Color.fromARGB(
+                                                      255, 60, 61, 61)
+                                                  .withOpacity(0.6),
+                                              child: SizedBox.expand(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Material(
+                                                      color: Colors.transparent,
+                                                      child: MyText(
+                                                        text: widget.titile,
+                                                        fnweight:
+                                                            FontWeight.bold,
+                                                        fnSize: 18,
+                                                      ),
+                                                    ),
+                                                    Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
+                                                          MainAxisAlignment
                                                               .center,
                                                       children: [
-                                                        Material(
-                                                          color: Colors
-                                                              .transparent,
-                                                          child: MyText(
-                                                            text: widget.titile,
-                                                            fnweight:
-                                                                FontWeight.bold,
-                                                            fnSize: 18,
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            child: MyText(
+                                                                fnweight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                text: widget
+                                                                    .date
+                                                                    .substring(
+                                                                        0, 4)),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: MyText(
-                                                                    fnweight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    text: widget
-                                                                        .date
-                                                                        .substring(
-                                                                            0,
-                                                                            4)),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: MyText(
-                                                                    fnweight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    text: '•'),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Material(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                child: MyText(
-                                                                    fnweight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    text: widget
-                                                                        .runtime),
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            child: MyText(
+                                                                fnweight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                text: '•'),
+                                                          ),
                                                         ),
-                                                        Container(
-                                                          height: height * 0.45,
-                                                          width: width * 0.90,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors
-                                                                  .black54,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20)),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              BlocBuilder<
-                                                                  CredentialsBloc,
-                                                                  CredentialsState>(
-                                                                builder:
-                                                                    (context,
-                                                                        state) {
-                                                                  if (state
-                                                                      is StateChecking) {
-                                                                    return Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceAround,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap:
-                                                                              () {
-                                                                            print('hallo');
-                                                                            context.read<CredentialsBloc>().add(ToggleStatusWatch(widget.id, widget.mediatype!,!state.watchlist!));
-                                                                            print(state.watchlist);
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                90,
-                                                                            width:
-                                                                                90,
-                                                                            decoration:
-                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                              children: [
-                                                                                Icon(
-                                                                                  state.watchlist != false ? Icons.watch_later : Icons.watch_later_outlined,
-                                                                                  size: 30,
-                                                                                ),
-                                                                                Material(
-                                                                                    color: Colors.transparent,
-                                                                                    child: MyText(
-                                                                                      text: 'Watchlist',
-                                                                                      fnweight: FontWeight.bold,
-                                                                                    ))
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          height:
-                                                                              70,
-                                                                          width:
-                                                                              2,
-                                                                          decoration: BoxDecoration(
-                                                                              color: Colors.grey,
-                                                                              borderRadius: BorderRadius.circular(5)),
-                                                                        ),
-                                                                        GestureDetector(
-                                                                          onTap: (){
-                                                                            context.read<CredentialsBloc>().add(ToggleStatusFav(widget.id, widget.mediatype!, !state.fav!));
-                                                                          },
-                                                                          child:
-                                                                              Container(
-                                                                            height:
-                                                                                90,
-                                                                            width:
-                                                                                90,
-                                                                            decoration:
-                                                                                BoxDecoration(color: Colors.grey.shade900, borderRadius: BorderRadius.circular(10)),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                                              children: [
-                                                                                Icon(
-                                                                                  state.fav != false ? Icons.favorite : Icons.favorite_border_outlined,
-                                                                                  size: 30,
-                                                                                ),
-                                                                                Material(
-                                                                                    color: Colors.transparent,
-                                                                                    child: MyText(
-                                                                                      text: 'Favorite',
-                                                                                      fnweight: FontWeight.bold,
-                                                                                    ))
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    );
-                                                                  }
-                                                                  return Container();
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                height: 20,
-                                                              ),
-                                                              Container(
-                                                                height: 110,
-                                                                width: width *
-                                                                    0.75,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .shade900,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20)),
-                                                                child: Column(
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Material(
+                                                            color: Colors
+                                                                .transparent,
+                                                            child: MyText(
+                                                                fnweight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                text: widget
+                                                                    .runtime),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      height: height * 0.45,
+                                                      width: width * 0.90,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.black54,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20)),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          BlocBuilder<
+                                                              CredentialsBloc,
+                                                              CredentialsState>(
+                                                            builder: (context,
+                                                                state) {
+                                                              if (state
+                                                                  is StateChecking) {
+                                                                return Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
-                                                                          .center,
+                                                                          .spaceAround,
+                                                                  children: [
+                                                                    GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        print(
+                                                                            'hallo');
+                                                                        context.read<CredentialsBloc>().add(ToggleStatusWatch(
+                                                                            widget.id,
+                                                                            widget.mediatype!,
+                                                                            !state.watchlist!));
+                                                                        print(state
+                                                                            .watchlist);
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            90,
+                                                                        width:
+                                                                            90,
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.grey.shade900,
+                                                                            borderRadius: BorderRadius.circular(10)),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Icon(
+                                                                              state.watchlist != false ? Icons.watch_later : Icons.watch_later_outlined,
+                                                                              size: 30,
+                                                                            ),
+                                                                            Material(
+                                                                                color: Colors.transparent,
+                                                                                child: MyText(
+                                                                                  text: 'Watchlist',
+                                                                                  fnweight: FontWeight.bold,
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Container(
+                                                                      height:
+                                                                          70,
+                                                                      width: 2,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Colors
+                                                                              .grey,
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(5)),
+                                                                    ),
+                                                                    GestureDetector(
+                                                                      onTap:
+                                                                          () {
+                                                                        context.read<CredentialsBloc>().add(ToggleStatusFav(
+                                                                            widget.id,
+                                                                            widget.mediatype!,
+                                                                            !state.fav!));
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            90,
+                                                                        width:
+                                                                            90,
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.grey.shade900,
+                                                                            borderRadius: BorderRadius.circular(10)),
+                                                                        child:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Icon(
+                                                                              state.fav != false ? Icons.favorite : Icons.favorite_border_outlined,
+                                                                              size: 30,
+                                                                            ),
+                                                                            Material(
+                                                                                color: Colors.transparent,
+                                                                                child: MyText(
+                                                                                  text: 'Favorite',
+                                                                                  fnweight: FontWeight.bold,
+                                                                                ))
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                );
+                                                              }
+                                                              return Container();
+                                                            },
+                                                          ),
+                                                          SizedBox(
+                                                            height: 20,
+                                                          ),
+                                                          Container(
+                                                            height: 110,
+                                                            width: width * 0.75,
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Material(
+                                                                    color: Colors
+                                                                        .transparent,
+                                                                    child:
+                                                                        MyText(
+                                                                      text:
+                                                                          'Rateings',
+                                                                      fnweight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    )),
+                                                                Row(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
                                                                           .center,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
                                                                   children: [
-                                                                    Material(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        child:
-                                                                            MyText(
-                                                                          text:
-                                                                              'Rateings',
-                                                                          fnweight:
-                                                                              FontWeight.bold,
-                                                                        )),
-                                                                    Row(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Icon(Icons
-                                                                            .star_rate_sharp),
-                                                                        Icon(Icons
-                                                                            .star_rate_sharp),
-                                                                        Icon(Icons
-                                                                            .star_rate_sharp),
-                                                                        Icon(Icons
-                                                                            .star_rate_sharp),
-                                                                        Icon(Icons
-                                                                            .star_rate_sharp),
-                                                                      ],
-                                                                    )
+                                                                    Icon(Icons
+                                                                        .star_rate_sharp),
+                                                                    Icon(Icons
+                                                                        .star_rate_sharp),
+                                                                    Icon(Icons
+                                                                        .star_rate_sharp),
+                                                                    Icon(Icons
+                                                                        .star_rate_sharp),
+                                                                    Icon(Icons
+                                                                        .star_rate_sharp),
                                                                   ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: const EdgeInsets
-                                                                            .symmetric(
-                                                                            horizontal:
-                                                                                10.0),
-                                                                        child: const Text(
-                                                                            style:
-                                                                                TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
-                                                                            'Cancel'),
-                                                                      )),
-                                                                  ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            EdgeInsets.symmetric(horizontal: 20.0),
-                                                                        child: Text(
-                                                                            style:
-                                                                                TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-                                                                            'Done'),
-                                                                      )),
-                                                                ],
-                                                              ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                        horizontal:
+                                                                            10.0),
+                                                                    child: const Text(
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                            fontWeight: FontWeight.w600),
+                                                                        'Cancel'),
+                                                                  )),
+                                                              ElevatedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            20.0),
+                                                                    child: Text(
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontWeight: FontWeight.w600),
+                                                                        'Done'),
+                                                                  )),
                                                             ],
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20,
-                                                        )
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    )
+                                                  ],
                                                 ),
                                               ),
-                                            )
-                                          ],
-                                        );
-                                      },
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     );
                                   },
                                 );

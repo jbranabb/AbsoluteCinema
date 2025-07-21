@@ -1,13 +1,14 @@
 // // ignore_for_file: avoid_print
 import 'package:absolutecinema/apiService/model.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-String imdbKey = 'd846efa91adca89e264b6aa72e2a3907';
 Dio dio = Dio();
+var apiKey = dotenv.env['API_KEY'];
 Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
-  final detail = await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$imdbKey');
-  final credits = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$imdbKey');
-  final videosUrl = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/videos?api_key=$imdbKey');
+  final detail = await dio.get('https://api.themoviedb.org/3/$mediaType/$id?api_key=$apiKey');
+  final credits = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/credits?api_key=$apiKey');
+  final videosUrl = await dio.get('https://api.themoviedb.org/3/$mediaType/$id/videos?api_key=$apiKey');
 
   List<dynamic> response = videosUrl.data['results'];
   var youtubekey = response.firstWhere(
@@ -49,7 +50,7 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
 }
 
 void test()async{
-   String url = 'https://api.themoviedb.org/3/authentication/session/new$imdbKey';
+   String url = 'https://api.themoviedb.org/3/authentication/session/new$apiKey';
  final respoinse = await dio.post(url, data: {
   "request_token": "3bfdebf07db6d4c7ba85001d935bdc6cc700b871"
  });

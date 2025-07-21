@@ -13,11 +13,11 @@ import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
-import 'package:absolutecinema/state/cubit/set_toogle.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:absolutecinema/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? pref;
@@ -25,6 +25,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = Myobserver();
   SharedPreferences initialpref = await SharedPreferences.getInstance();
+  await dotenv.load();
   pref = initialpref;
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeBloc()),
@@ -35,12 +36,10 @@ void main() async {
     BlocProvider(create: (context) => DeniedCubit()),
     BlocProvider(create: (context) => TimerCubit()),
     BlocProvider(create: (context) => UserBloc()),
-    BlocProvider(create: (context) => SetToogle()),
     BlocProvider(create: (context) => CredentialsBloc()),
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
   ], child: const MyApp()));
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

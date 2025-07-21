@@ -1,9 +1,9 @@
 import 'package:absolutecinema/apiService/model.dart';
-import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'user_event.dart';
@@ -11,13 +11,14 @@ part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
+    var apiKey = dotenv.env['API_KEY'];
     Dio dio = Dio();
     on<GetSessionUser>((event, emit) async {
       emit(UserLoading());
       SharedPreferences _prefs = await SharedPreferences.getInstance();
       // handle terima event dari authbloc
       String accountUrl =
-          'https://api.themoviedb.org/3/account?session_id=${event.sesionId}&api_key=$imdbKey';
+          'https://api.themoviedb.org/3/account?session_id=${event.sesionId}&api_key=$apiKey';
       final response = await dio.get(accountUrl);
       try {
         if (response.statusCode == 200) {
@@ -42,16 +43,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       var id = pref?.getInt('id');
       var usrname = pref?.getString('username');
       var sesionId = pref?.getString('sessionId');
-      var headers = '?session_id=$sesionId&api_key=$imdbKey';
+      var headers = '?session_id=$sesionId&api_key=$apiKey';
       if (
           id == null || sesionId == null) {
         emit(UserFailed(e: 'Failed $id, failed $usrname'));
       }
 
       String genreUrlMov =
-          'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
+          'https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey';
       String genreUrlTv =
-          'https://api.themoviedb.org/3/genre/tv/list?api_key=$imdbKey';
+          'https://api.themoviedb.org/3/genre/tv/list?api_key=$apiKey';
 
       Map<String, dynamic> genreMapCombaine = {};
       var responseGenreTv = await dio.get(genreUrlTv);

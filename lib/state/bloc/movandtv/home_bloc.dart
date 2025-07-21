@@ -8,55 +8,59 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 Dio dio = Dio();
-// apiKey
-String apiKey = imdbKey;
 
 class MediaType {
   static const tv = 'tv';
   static const mov = 'movie';
 }
 
-//all
-String allUrl =
-    'https://api.themoviedb.org/3/trending/all/week?api_key=$apiKey';
-
-//movies
-String trendingsurl =
-    'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey';
-String movieTopRated =
-    'https://api.themoviedb.org/3/movie/top_rated?api_key=$imdbKey';
-String movieNowPlaying =
-    'https://api.themoviedb.org/3/movie/now_playing?api_key=$imdbKey';
-
-// upcoming movies
-String upcoming = 'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
-
-//tvshow
-String tSurlTrending =
-    'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey&&page=2';
-String tSurlOTA = 'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
-String tSurlPopular = 'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
-String tSurlTopRated =
-    'https://api.themoviedb.org/3/tv/top_rated?api_key=$apiKey';
-String tSurlAiringToday =
-    'https://api.themoviedb.org/3/tv/airing_today?api_key=$apiKey';
-//popular
-String streamingUrl = trendingsurl;
-// String popularOnNetflixUrl
-String inTheaters = '$movieNowPlaying&with_release_type=5';
-String genreUrlMov =
-    'https://api.themoviedb.org/3/genre/movie/list?api_key=$imdbKey';
-String genreUrlTv =
-    'https://api.themoviedb.org/3/genre/tv/list?api_key=$imdbKey';
-
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
+    var apiKey = dotenv.env['API_KEY'];
+
+//all
+    String allUrl =
+        'https://api.themoviedb.org/3/trending/all/week?api_key=$apiKey';
+
+//movies
+    String trendingsurl =
+        'https://api.themoviedb.org/3/movie/popular?api_key=$apiKey';
+    String movieTopRated =
+        'https://api.themoviedb.org/3/movie/top_rated?api_key=$apiKey';
+    String movieNowPlaying =
+        'https://api.themoviedb.org/3/movie/now_playing?api_key=$apiKey';
+
+// upcoming movies
+    String upcoming =
+        'https://api.themoviedb.org/3/movie/upcoming?api_key=$apiKey';
+
+//tvshow
+    String tSurlTrending =
+        'https://api.themoviedb.org/3/trending/tv/week?api_key=$apiKey&&page=2';
+    String tSurlOTA =
+        'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apiKey';
+    String tSurlPopular =
+        'https://api.themoviedb.org/3/tv/popular?api_key=$apiKey';
+    String tSurlTopRated =
+        'https://api.themoviedb.org/3/tv/top_rated?api_key=$apiKey';
+    String tSurlAiringToday =
+        'https://api.themoviedb.org/3/tv/airing_today?api_key=$apiKey';
+//popular
+    String streamingUrl = trendingsurl;
+// String popularOnNetflixUrl
+    String inTheaters = '$movieNowPlaying&with_release_type=5';
+    String genreUrlMov =
+        'https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey';
+    String genreUrlTv =
+        'https://api.themoviedb.org/3/genre/tv/list?api_key=$apiKey';
+
     on<FetchData>((event, emit) async {
       emit(StateLoading());
       try {
@@ -82,8 +86,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           List genre = responseGenre.data['genres'];
           List genreTv = responseGenreMapTv.data['genres'];
           genreMapCombaine = {
-            for(var x in genreTv) x['id'].toString() : x['name'],
-            for(var x in genre) x['id'].toString() : x['name']
+            for (var x in genreTv) x['id'].toString(): x['name'],
+            for (var x in genre) x['id'].toString(): x['name']
           };
 
           //On The Air
@@ -378,18 +382,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }).toList();
 
           emit(StateLoaded(
-              trending: convertedTrendingMovies,
-              movieTopRated: convertedTopRatedMovies,
-              allShows: convertedTrendingAll,
-              inTheaters: convertedTheatersMovie,
-              streaming: convertedStreamingMovie,
-              upcoming: convertedUpcomingMovie,
-              onTheAir: convertedOntaTV,
-              popularTv: convertedPopularTv,
-              topRatedTv: convertedTopRatedTv,
-              airingToday: convertedAiringTodayTV,
-              trendingTv: convertedTrendingTv,
-              ));
+            trending: convertedTrendingMovies,
+            movieTopRated: convertedTopRatedMovies,
+            allShows: convertedTrendingAll,
+            inTheaters: convertedTheatersMovie,
+            streaming: convertedStreamingMovie,
+            upcoming: convertedUpcomingMovie,
+            onTheAir: convertedOntaTV,
+            popularTv: convertedPopularTv,
+            topRatedTv: convertedTopRatedTv,
+            airingToday: convertedAiringTodayTV,
+            trendingTv: convertedTrendingTv,
+          ));
         } else {
           emit(StateError('Something Went Wrong'));
           print('Succses : False');

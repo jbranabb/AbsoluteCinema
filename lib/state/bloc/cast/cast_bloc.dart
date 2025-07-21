@@ -3,6 +3,7 @@ import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 
 part 'cast_event.dart';
@@ -12,26 +13,33 @@ Dio dio = Dio();
 
 class CastBloc extends Bloc<CastEvent, CastState> {
   CastBloc() : super(CastInitial()) {
+    var apiKey = dotenv.env['API_KEY'];
+    String genreUrlMov =
+        'https://api.themoviedb.org/3/genre/movie/list?api_key=$apiKey';
+    String genreUrlTv =
+        'https://api.themoviedb.org/3/genre/tv/list?api_key=$apiKey';
     final List<StateLoaded> _statestack = [];
     on<FetchCast>((event, emit) async {
-      if(state is StateLoaded){
-    _statestack.add(state as StateLoaded);
+      if (state is StateLoaded) {
+        _statestack.add(state as StateLoaded);
       }
       emit(StateLoading());
-      String castUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$imdbKey';
-      String recomendationUrl ='https://api.themoviedb.org/3/${event.mediaType}/${event.id}/recommendations?api_key=$imdbKey';
-          print(recomendationUrl);
+      String castUrl =
+          'https://api.themoviedb.org/3/${event.mediaType}/${event.id}/credits?api_key=$apiKey';
+      String recomendationUrl =
+          'https://api.themoviedb.org/3/${event.mediaType}/${event.id}/recommendations?api_key=$apiKey';
+      print(recomendationUrl);
       final response = await dio.get(castUrl);
-          final responsRec = await dio.get(recomendationUrl);
-           Map<String, dynamic> genreMapCombaine = {};
-          var responseGenre = await dio.get(genreUrlMov);
-          var responseGenreMapTv = await dio.get(genreUrlTv);
-          List genre = responseGenre.data['genres'];
-          List genreTv = responseGenreMapTv.data['genres'];
-          genreMapCombaine = {
-            for(var x in genreTv) x['id'].toString() : x['name'],
-            for(var x in genre) x['id'].toString() : x['name']
-          };
+      final responsRec = await dio.get(recomendationUrl);
+      Map<String, dynamic> genreMapCombaine = {};
+      var responseGenre = await dio.get(genreUrlMov);
+      var responseGenreMapTv = await dio.get(genreUrlTv);
+      List genre = responseGenre.data['genres'];
+      List genreTv = responseGenreMapTv.data['genres'];
+      genreMapCombaine = {
+        for (var x in genreTv) x['id'].toString(): x['name'],
+        for (var x in genre) x['id'].toString(): x['name']
+      };
       if (response.statusCode == 200) {
         try {
           List<dynamic> data = response.data['cast'];
@@ -42,24 +50,39 @@ class CastBloc extends Bloc<CastEvent, CastState> {
               )
               .take(5)
               .toList();
-              // print('datacast: $datacast');
+          // print('datacast: $datacast');
 
-            List<dynamic> dataRec = responsRec.data['results'];
-        
-            List<CombaineModels> dataMap = dataRec.map((e) => CombaineModels.fromJson(e),).toList();
-            List<ConvertedModels> finalData = dataMap.map((mov) {
-            List<String> genreList = mov.genreIds.map((e) =>  genreMapCombaine[e.toString()],).toList().cast<String>();
-             var ratings = double.parse(mov.voteAvg);
-             var finalratings = (ratings / 10 * 5);
-             return ConvertedModels(id: mov.id, genreIds:
-               genreList, title: mov.title, voteAvg: finalratings.toString(), backdropPath: 
-               mov.backdropPath, posterPath: mov.posterPath, overview: mov.overview, 
-               mediatype: event.mediaType, relaseDate: mov.relaseDate);
-            }).toList();
-          emit(StateLoaded(cast: datacast,
-          recomendations: finalData,
+          List<dynamic> dataRec = responsRec.data['results'];
+
+          List<CombaineModels> dataMap = dataRec
+              .map(
+                (e) => CombaineModels.fromJson(e),
+              )
+              .toList();
+          List<ConvertedModels> finalData = dataMap.map((mov) {
+            List<String> genreList = mov.genreIds
+                .map(
+                  (e) => genreMapCombaine[e.toString()],
+                )
+                .toList()
+                .cast<String>();
+            var ratings = double.parse(mov.voteAvg);
+            var finalratings = (ratings / 10 * 5);
+            return ConvertedModels(
+                id: mov.id,
+                genreIds: genreList,
+                title: mov.title,
+                voteAvg: finalratings.toString(),
+                backdropPath: mov.backdropPath,
+                posterPath: mov.posterPath,
+                overview: mov.overview,
+                mediatype: event.mediaType,
+                relaseDate: mov.relaseDate);
+          }).toList();
+          emit(StateLoaded(
+            cast: datacast,
+            recomendations: finalData,
           ));
-
         } catch (e) {
           emit(StateError(e: e.toString()));
           print(e);
@@ -69,11 +92,9 @@ class CastBloc extends Bloc<CastEvent, CastState> {
       }
     });
     on<RestoreCast>((event, emit) {
-      if(_statestack.isNotEmpty){
+      if (_statestack.isNotEmpty) {
         emit(_statestack.removeLast());
       }
-
-
-});
+    });
   }
 }
