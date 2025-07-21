@@ -1,5 +1,6 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
+import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -19,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
   }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -33,17 +35,32 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
         actions: [
-          PopupMenuButton(itemBuilder: (context) => [
-            const PopupMenuItem(value: 1,child: Text('Movies'),),
-            const PopupMenuItem(value: 2,child: Text('Tv Shows'),),
-          ],
-          onSelected: (value) {
-            if(value == 1){
-            value != value ? context.read<UserBloc>().add(UserCredentials(mediaType: 'movies')) : null;
-            }else{
-            value !=  value ? context.read<UserBloc>().add(UserCredentials(mediaType: 'tv')) : null;
-            }
-          },
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 1,
+                child: Text('Movies'),
+              ),
+              const PopupMenuItem(
+                value: 2,
+                child: Text('Tv Shows'),
+              ),
+            ],
+            onSelected: (value) {
+              if (value == 1) {
+                value != value
+                    ? context
+                        .read<UserBloc>()
+                        .add(UserCredentials(mediaType: 'movies'))
+                    : null;
+              } else {
+                value != value
+                    ? context
+                        .read<UserBloc>()
+                        .add(UserCredentials(mediaType: 'tv'))
+                    : null;
+              }
+            },
           )
         ],
       ),
@@ -54,40 +71,47 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             SizedBox(
               height: 120,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 80,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 41, 41, 40),
-                      borderRadius: BorderRadius.circular(30),
-                      border: BoxBorder.all(
-                          width: 0.5, color: Colors.grey.shade700),
-                      boxShadow: const [
-                        BoxShadow(
-                            offset: Offset(5, 5),
-                            color: Color.fromARGB(80, 122, 122, 122),
-                            blurRadius: 10),
+              child: BlocBuilder<DataUserBloc, DataUserState>(
+                builder: (context, state) {
+                  if (state is DataUserLoaded) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 80,
+                          width: 80,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 41, 41, 40),
+                            borderRadius: BorderRadius.circular(30),
+                            border: BoxBorder.all(
+                                width: 0.5, color: Colors.grey.shade700),
+                            boxShadow: const [
+                              BoxShadow(
+                                  offset: Offset(5, 5),
+                                  color: Color.fromARGB(80, 122, 122, 122),
+                                  blurRadius: 10),
+                            ],
+                          ),
+                          child: state.profilePath == '' ? const Icon(
+                            Icons.person,
+                            size: 50,
+                          ) : CachedNetworkImage(imageUrl: state.profilePath),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        MyText(
+                          text: state.username,
+                          fnweight: FontWeight.bold,
+                          clors: Colors.grey.shade500,
+                          fnSize: 12,
+                        )
                       ],
-                    ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 50,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  MyText(
-                    text: 'Username',
-                    fnweight: FontWeight.bold,
-                    clors: Colors.grey.shade500,
-                    fnSize: 12,
-                  )
-                ],
+                    );
+                  }
+                  return Container();
+                },
               ),
             ),
             const SizedBox(
@@ -122,12 +146,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ],
                     );
-                  } else if(state is UserLoading){
-                    return const Center(child: LoadingWidget(),);
+                  } else if (state is UserLoading) {
+                    return const Center(
+                      child: LoadingWidget(),
+                    );
                   }
                   return Container();
                 },
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -138,9 +167,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     text: "Favorite",
                     fnweight: FontWeight.bold,
                   ),
-                 
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Container(
               height: height * 0.18,
@@ -179,11 +210,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       },
                     );
-                  }else if(state is UserLoading){
+                  } else if (state is UserLoading) {
                     return const Center(
                       child: LoadingWidget(),
                     );
-                  }else if(state is UserFailed){
+                  } else if (state is UserFailed) {
                     Center(
                       child: MyText(text: 'Something Went Wrong \n ${state.e}'),
                     );
