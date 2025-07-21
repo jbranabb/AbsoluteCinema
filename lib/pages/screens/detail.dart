@@ -143,18 +143,26 @@ class _DetailPageState extends State<DetailPage> {
               Positioned(
                   top: 170,
                   right: 30,
-                  child: SizedBox(
-                    height: 160,
-                    width: 110,
-                    child: ClipRRect(
+                    child: Container(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                        imageUrl:
-                            'https://image.tmdb.org/t/p/w300${widget.posterImage}',
-                        fit: BoxFit.cover,
+                      border: Border.all(
+                        color: Colors.blueGrey,
+                        width: 0.5,
+                      )
+                    ),
+                      height: 160,
+                      width: 110,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://image.tmdb.org/t/p/w300${widget.posterImage}',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  )),
+                  ),
               Positioned(
                   top: 190,
                   left: 10,
