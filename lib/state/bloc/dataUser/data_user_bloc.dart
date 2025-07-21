@@ -12,6 +12,7 @@ class DataUserBloc extends Bloc<DataUserEvent, DataUserState> {
     on<FetchDataUser>((event, emit)async {
     emit(DataUserLoading());
       var sesionId = pref?.getString('sessionId');
+      print('session id = $sesionId');
       var headers = '?session_id=$sesionId&api_key=$imdbKey';
     String accountUrl = 'https://api.themoviedb.org/3/account$headers';
     String? username = pref?.getString('username');

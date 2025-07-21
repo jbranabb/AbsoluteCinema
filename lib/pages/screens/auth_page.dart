@@ -94,9 +94,10 @@ class _AuthPageState extends State<AuthPage> {
               ),
             );
           }else if(state is AuthSucces){
-            print('get session id');
             context.read<UserBloc>().add(GetSessionUser(sesionId: state.sessionId));
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(),));
+            print('session id : ${pref!.getString('sessionId')}');
+
           }
         },
         child: BlocBuilder<AuthBloc, AuthState>(

@@ -1,4 +1,5 @@
 import 'package:absolutecinema/main.dart';
+import 'package:absolutecinema/pages/screens/auth_page.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
@@ -95,10 +96,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                   blurRadius: 10),
                             ],
                           ),
-                          child: state.profilePath == '' ? const Icon(
-                            Icons.person,
-                            size: 50,
-                          ) : CachedNetworkImage(imageUrl: state.profilePath),
+                          child: state.profilePath == ''
+                              ? const Icon(
+                                  Icons.person,
+                                  size: 50,
+                                )
+                              : CachedNetworkImage(imageUrl: state.profilePath),
                         ),
                         const SizedBox(
                           height: 5,
@@ -228,17 +231,24 @@ class _ProfilePageState extends State<ProfilePage> {
             UserMenuTap(
               title: 'Edit Profile',
               icons: Icons.edit_square,
-              callback: () {
-                
-              },
+              callback: () {},
             ),
-            UserMenuTap(
-              title: 'Log Out',
-              colors: Colors.red.shade800,
-              icons: Icons.logout,
-              callback: () {
-                context.read<AuthBloc>().add(AuthlogOut());
+            BlocListener<AuthBloc, AuthState>(
+              listener: (context, state)async{
+                if(state is AuthInitial){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => AuthPage(),));
+                pref?.remove('sessionId');
+              print('udah hapus : ${pref?.getString('sessionId')}');
+                }
               },
+              child: UserMenuTap(
+                title: 'Log Out',
+                colors: Colors.red.shade800,
+                icons: Icons.logout,
+                callback: () {
+                  context.read<AuthBloc>().add(AuthlogOut());
+                },
+              ),
             ),
           ],
         ),

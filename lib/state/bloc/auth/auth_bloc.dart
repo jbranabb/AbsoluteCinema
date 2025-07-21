@@ -57,10 +57,25 @@ print('Bermasalah : $e');
     on<AuthlogOut>((event, emit) async{
       var sesionId = pref?.getString('sessionId');
       String outUrl ='https://api.themoviedb.org/3/authentication/session?api_key=$imdbKey';
+      print('session_id sebelum = $sesionId');
+      try{
       var response =  await dio.delete(outUrl, data: {
           "session_id": sesionId
-      });
-      print(response.statusCode);
+      }, options: Options(
+        headers: {
+           'Content-Type': 'application/json',
+        }
+      )
+      );
+      if(response.statusCode == 200){
+        emit(AuthInitial());
+      }
+      print('session_id sesudah = $sesionId');
+      print("status code :${response.statusCode}");
+      }catch(e){
+        print('Something went Wrong $e');
+      }
+      
     });
 
   }

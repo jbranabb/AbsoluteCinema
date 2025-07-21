@@ -49,9 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,
-      home: 
-      // SearchPage()
-       pref!.getString('sessionId') != null ? HomePage() : AuthPage(),
+      home: pref!.getString('sessionId') != null ? HomePage() : AuthPage(),
     );
   }
 }
