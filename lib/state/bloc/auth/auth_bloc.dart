@@ -1,4 +1,5 @@
 import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/main.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -52,6 +53,14 @@ print('Bermasalah : $e');
       emit(AuthInitial());
       emit(AuthFailed(e: 'Access denied. Please click the "Approve" button to authorize the app. This is Youre Last Chance'));
       // emit(AuthInitial());
+    });
+    on<AuthlogOut>((event, emit) async{
+      var sesionId = pref?.getString('sessionId');
+      String outUrl ='https://api.themoviedb.org/3/authentication/session?api_key=$imdbKey';
+      var response =  await dio.delete(outUrl, data: {
+          "session_id": sesionId
+      });
+      print(response.statusCode);
     });
 
   }

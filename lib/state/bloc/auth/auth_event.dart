@@ -8,3 +8,4 @@ class AuthExchangeToken extends AuthEvent{
   AuthExchangeToken({required this.token});
 }
 class AuthDenied extends AuthEvent{}
+class AuthlogOut extends AuthEvent{}

@@ -40,8 +40,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserLoading());
       try{
       var id = pref?.getInt('id');
-      var sesionId = pref?.getString('sessionId');
       var usrname = pref?.getString('username');
+      var sesionId = pref?.getString('sessionId');
       var headers = '?session_id=$sesionId&api_key=$imdbKey';
       if (
           id == null || sesionId == null) {

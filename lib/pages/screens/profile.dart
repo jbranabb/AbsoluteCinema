@@ -1,5 +1,7 @@
+import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
+import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
@@ -226,11 +228,17 @@ class _ProfilePageState extends State<ProfilePage> {
             UserMenuTap(
               title: 'Edit Profile',
               icons: Icons.edit_square,
+              callback: () {
+                
+              },
             ),
             UserMenuTap(
               title: 'Log Out',
               colors: Colors.red.shade800,
               icons: Icons.logout,
+              callback: () {
+                context.read<AuthBloc>().add(AuthlogOut());
+              },
             ),
           ],
         ),
@@ -245,37 +253,42 @@ class UserMenuTap extends StatelessWidget {
     required this.title,
     this.colors,
     required this.icons,
+    required this.callback,
   });
   String title;
   IconData? icons;
   Color? colors;
+  void Function() callback;
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 40,
-        width: width * 0.90,
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MyText(
-                text: title,
-                fnweight: FontWeight.bold,
-                clors: colors != null ? colors : Colors.grey.shade200,
-              ),
-              Icon(
-                icons,
-                color: colors != null ? colors : Colors.grey.shade200,
-              )
-            ],
+    return GestureDetector(
+      onTap: callback,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 40,
+          width: width * 0.90,
+          decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyText(
+                  text: title,
+                  fnweight: FontWeight.bold,
+                  clors: colors != null ? colors : Colors.grey.shade200,
+                ),
+                Icon(
+                  icons,
+                  color: colors != null ? colors : Colors.grey.shade200,
+                )
+              ],
+            ),
           ),
         ),
       ),
