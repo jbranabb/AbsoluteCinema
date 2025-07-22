@@ -8,6 +8,7 @@ import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
 import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
+import 'package:absolutecinema/state/bloc/search/search_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
@@ -38,6 +39,7 @@ void main() async {
     BlocProvider(create: (context) => UserBloc()),
     BlocProvider(create: (context) => CredentialsBloc()),
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
+    BlocProvider(create: (context) => SearchBloc()),
   ], child: const MyApp()));
 }
 class MyApp extends StatelessWidget {

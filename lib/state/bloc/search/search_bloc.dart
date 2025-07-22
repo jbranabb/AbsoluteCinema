@@ -18,7 +18,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       String genreUrlTv =
           'https://api.themoviedb.org/3/genre/tv/list?api_key=$apiKey';
       String multiSearchUrl =
-          'https://api.themoviedb.org/3/search/multi$apiKey&query=${event.querySeacrhing}';
+          'https://api.themoviedb.org/3/search/multi?api_key=$apiKey&query=${event.querySeacrhing}';
 
       late Map<String, dynamic> genreMapCombaine = {};
       var responseGenreMov = await dio.get(genreUrlMov);
