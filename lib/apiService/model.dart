@@ -66,8 +66,6 @@ class ExtraDataModels {
   String mediatype;
   List<String> genreIds;
   String director;
-  String runtime;
-  String tagline;
   ExtraDataModels(
       {required this.id,
       required this.genreIds,
@@ -79,8 +77,6 @@ class ExtraDataModels {
       required this.mediatype,
       required this.relaseDate,
       required this.director,
-      required this.runtime,
-      required this.tagline,
       });
 }
 

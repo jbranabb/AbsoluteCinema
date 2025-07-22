@@ -21,6 +21,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       String multiSearchUrl =
           'https://api.themoviedb.org/3/search/multi?api_key=$apiKey&query=${event.querySeacrhing}';
 
+
       late Map<String, dynamic> genreMapCombaine = {};
       var responseGenreMov = await dio.get(genreUrlMov);
       var responseGenreTv = await dio.get(genreUrlTv);
@@ -37,20 +38,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       List<CombaineModels> dataraw = results
           .map(
-            (e) => CombaineModels.fromJson(e),
+            (e) => CombaineModels.fromJson(e)
           )
           .where(
             (e) => e.mediaType == 'movie' || e.mediaType == 'tv',
           )
           .toList();
 
+
       List<Future<Map<String, dynamic>>> futureExtras = dataraw.map((mov) {
-        final idInt = int.parse(mov.id);
         print('🕵️‍♂️ ID: "${mov.id}" | Tipe: ${mov.id.runtimeType}, | Mediatype = ${mov.mediaType}');
-        return extraData(int.parse(mov.id), mov.mediaType);
+        return externalDirectur(mov.mediaType, mov.id);
       }).toList();
 
       List<Map<String, dynamic>> extras = await Future.wait(futureExtras);
+
       List<ExtraDataModels> allfinalData = [];
       for (var i = 0; i < dataraw.length; i++) {
         var extra = extras[i];
@@ -74,11 +76,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             overview: mov.overview,
             mediatype: mov.mediaType,
             relaseDate: mov.relaseDate,
-            director: extra['director'],
-            runtime: extra['rtns'],
-            tagline: extra['tagline']));
+            director: extra['director']));
       }
-
       emit(SearchLoaded(searching: allfinalData));
     });
   }
