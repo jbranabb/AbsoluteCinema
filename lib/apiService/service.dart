@@ -66,10 +66,11 @@ Future<Map<String, dynamic>> externalDirectur(
       (y) => y['department'] == 'directing',
       orElse: () => creditsData.firstWhere(
         (z) => z['known_for_department'] == 'Directing',
-        orElse: () => {'name': 'A <an'},
+        orElse: () => {'name': 'A Man'},
       ),
     ),
   );
+  
   return {'director': crew['name']};
 }
 

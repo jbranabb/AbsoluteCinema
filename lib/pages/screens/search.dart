@@ -51,6 +51,12 @@ class SearchPage extends StatelessWidget {
                       itemCount: state.searching.length,
                       itemBuilder: (context, index) {
                         var mov = state.searching[index];
+                        print('object : ${mov.id}');
+                        print('object : ${mov.director}');
+                        print('object : ${mov.genreIds}');
+                        print('object : ${mov.relaseDate}');
+                        print('object : ${mov.title}');
+                        // print('object : ${mov.}');
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
@@ -91,7 +97,8 @@ class SearchPage extends StatelessWidget {
                                             color: Colors.grey,
                                           fontWeight: FontWeight.w600),
                                         ),
-                                        MyText(text: mov.relaseDate.substring(0,4), fnweight: FontWeight.w700,)
+                                        MyText(text: mov.relaseDate.substring(0,4), fnweight: FontWeight.w700,),
+                                        MyText(text: mov.director, fnweight: FontWeight.w500,)
                                       ],
                                     ),
                                   ),
