@@ -85,5 +85,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       }
       emit(SearchLoaded(searching: allfinalData));
     });
+    on<Reset>((event, emit) {
+      if(state is! SearchInitial){
+      emit(SearchInitial());
+      }
+    });
   }
 }

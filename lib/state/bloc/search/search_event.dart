@@ -6,3 +6,5 @@ class Searching extends SearchEvent {
   String querySeacrhing;
   Searching({required this.querySeacrhing});
 }
+
+class Reset extends SearchEvent {}
