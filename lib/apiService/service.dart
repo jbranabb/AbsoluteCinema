@@ -12,7 +12,7 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
 
   List<dynamic> response = videosUrl.data['results'];
   var youtubekey = response.firstWhere(
-   (x) => x['type'] == 'Trailer', 
+   (x) => x['type'] == 'Trailer', orElse: () => {'key': 'no keys'},
   ); 
 
   List<dynamic> director = credits.data['crew'];
@@ -41,13 +41,14 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
   var sesason = '${data['number_of_seasons']} Season';
 
   return {
+    
     'director': crew['name'] ?? 'no name',
     'rtns': mediaType == 'tv' ?  sesason : finalRuntime,
     'tagline': tagline ?? 'no tag',
     'country': finalCountry,
     'ytkey': youtubekey['key']
     };
-}
+} 
 
 void test()async{
    String url = 'https://api.themoviedb.org/3/authentication/session/new$apiKey';

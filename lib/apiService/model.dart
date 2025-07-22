@@ -55,6 +55,35 @@ class ConvertedModels {
       required this.relaseDate});
 }
 
+class ExtraDataModels {
+  String id;
+  String title;
+  String voteAvg;
+  String backdropPath;
+  String posterPath;
+  String overview;
+  String relaseDate;
+  String mediatype;
+  List<String> genreIds;
+  String director;
+  String runtime;
+  String tagline;
+  ExtraDataModels(
+      {required this.id,
+      required this.genreIds,
+      required this.title,
+      required this.voteAvg,
+      required this.backdropPath,
+      required this.posterPath,
+      required this.overview,
+      required this.mediatype,
+      required this.relaseDate,
+      required this.director,
+      required this.runtime,
+      required this.tagline,
+      });
+}
+
 class Genres {
   String id;
   String name;
