@@ -2,6 +2,7 @@ import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
+import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/search/search_bloc.dart';
 import 'package:absolutecinema/state/cubit/textController_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -111,7 +112,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
-                  var history = pref?.getStringList('mykey')?? [];
+                  var history = pref?.getStringList('mykey') ?? [];
                   var take = history!.take(5).toList()
                     ..sort(
                       (a, b) => b.compareTo(a),
@@ -119,36 +120,117 @@ class _SearchPageState extends State<SearchPage> {
                   if (state is SearchInitial) {
                     return Column(
                       children: [
-                       take.isNotEmpty ?  Container(
-                            height: 40,
-                            width: width,
-                            // color: Colors.red,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: List.generate(take.length, (index) {
-                                  var list = take[index];
-                                  return Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade900,
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          color: Colors.grey.shade800
-                                          
-                                        )
+                        take.isNotEmpty
+                            ? Container(
+                                height: 40,
+                                width: width,
+                                // color: Colors.red,
+                                child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: List.generate(
+                                        take.length,
+                                        (index) {
+                                          var list = take[index];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              // context.read<TextcontrollerCubit>().updateText(list);
+                                              controllerText.text = list;
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Container(
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.grey.shade900,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    border: Border.all(
+                                                        color: Colors
+                                                            .grey.shade800)),
+                                                child: MyText(
+                                                  text: list,
+                                                  fnSize: 13,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      child: MyText(text: list, fnSize: 13,),
-                                    ),
-                                  );
-                                },),
+                                    )))
+                            : Container(
+                                height: 20,
+                                color: Colors.blue,
+                              ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MyText(
+                                  text: 'Trending right now',
+                                  fnweight: FontWeight.bold,
+                                  fnSize: 15,
+                                ),
+                              ),
+                              Container(
+                                height: 500,
+                                // color: Colors.red,
+                                child: BlocBuilder<HomeBloc, HomeState>(
+                                  builder: (context, state) {
+                                    if (state is StateLoaded) {
+                                      var list = state.allShows.take(9).toList();
+                                      return GridView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: list.length,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 3,
+                                                mainAxisExtent: 180,
+                                                // childAspectRatio: 3 / 4 ,
+
+                                                ),
+                                        itemBuilder: (context, index) {
+                                          var mov = list[index];
+                                          return Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Container(
+                                              height: 100,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: Colors.blueGrey,
+                                                    width: 0.5
+                                                  )
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadiusGeometry.circular(10),
+                                                  child: CachedNetworkImage(
+                                                    fit: BoxFit.cover,
+                                                    imageUrl: 'https://image.tmdb.org/t/p/w300${mov.posterPath}'),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        
+                                      );
+                                    }
+                                    return Container();
+                                  },
+                                ),
                               )
-                            )) : Container(
-                              height: 20,
-                              color: Colors.blue,
-                            ),
+                            ],
+                          ),
+                        )
                       ],
                     );
                   } else if (state is SearchLoading) {
