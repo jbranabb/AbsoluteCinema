@@ -12,6 +12,7 @@ import 'package:absolutecinema/pages/widgets/mywidgets/section_caraousel_slider_
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
+import 'package:absolutecinema/state/cubit/ratings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -142,28 +143,27 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               Positioned(
-                  top: 170,
-                  right: 30,
-                    child: Container(
-                    decoration: BoxDecoration(
+                top: 170,
+                right: 30,
+                child: Container(
+                  decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
                         color: Colors.blueGrey,
                         width: 0.5,
-                      )
-                    ),
-                      height: 160,
-                      width: 110,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                              'https://image.tmdb.org/t/p/w300${widget.posterImage}',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      )),
+                  height: 160,
+                  width: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          'https://image.tmdb.org/t/p/w300${widget.posterImage}',
+                      fit: BoxFit.cover,
                     ),
                   ),
+                ),
+              ),
               Positioned(
                   top: 190,
                   left: 10,
@@ -552,10 +552,36 @@ class _DetailPageState extends State<DetailPage> {
                                                                 //         .star_rate_sharp),
                                                                 //   ],
                                                                 // )
-                                                                StarRating(
-                                                                  starCount: 5,
-                                                                  allowHalfRating: true,
-                                                                  color: Colors.orange,
+                                                                BlocBuilder<
+                                                                    RatingsCubit,
+                                                                    double>(
+                                                                  builder:
+                                                                      (context,
+                                                                          state) {
+                                                                    return StarRating(
+                                                                        starCount:
+                                                                            5,
+                                                                        allowHalfRating:
+                                                                            true,
+                                                                        color: Colors
+                                                                            .orange,
+                                                                        size:
+                                                                            30,
+                                                                        rating:
+                                                                            state,
+                                                                        onRatingChanged:
+                                                                            (rating) {
+                                                                          context
+                                                                              .read<RatingsCubit>()
+                                                                              .changeRatings(rating);
+                                                                          print(
+                                                                              '$rating');
+                                                                          context.read<CredentialsBloc>().add(PostRatings(
+                                                                              mediaId: widget.id,
+                                                                              mediaType: widget.mediatype!,
+                                                                              value: rating));
+                                                                        });
+                                                                  },
                                                                 )
                                                               ],
                                                             ),

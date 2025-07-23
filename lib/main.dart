@@ -14,6 +14,7 @@ import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
+import 'package:absolutecinema/state/cubit/ratings.dart';
 import 'package:absolutecinema/state/cubit/textController_cubit.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
 import 'package:absolutecinema/theme.dart';
@@ -42,6 +43,7 @@ void main() async {
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
     BlocProvider(create: (context) => SearchBloc()),
     BlocProvider(create: (context) => TextcontrollerCubit()),
+    BlocProvider(create: (context) => RatingsCubit()),
   ], child: const MyApp()));
 }
 class MyApp extends StatelessWidget {
