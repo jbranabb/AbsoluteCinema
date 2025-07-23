@@ -32,6 +32,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
         if (didPop == true) {
@@ -181,52 +182,77 @@ class _SearchPageState extends State<SearchPage> {
                                 ),
                               ),
                               Container(
-                                height: 500,
+                                height: height * 0.75,
                                 // color: Colors.red,
                                 child: BlocBuilder<HomeBloc, HomeState>(
                                   builder: (context, state) {
                                     if (state is StateLoaded) {
-                                      var list = state.allShows.take(9).toList();
+                                      var list =
+                                          state.allShows.take(9).toList();
                                       return GridView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: list.length,
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                mainAxisExtent: 180,
-                                                // childAspectRatio: 3 / 4 ,
-
-                                                ),
+                                          crossAxisCount: 3,
+                                          mainAxisExtent: 180,
+                                          // childAspectRatio: 3 / 4 ,
+                                        ),
                                         itemBuilder: (context, index) {
                                           var mov = list[index];
+                                    print('mov : ${mov.posterPath}');
                                           return Padding(
                                             padding: const EdgeInsets.all(2.0),
                                             child: Container(
                                               height: 100,
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                    color: Colors.blueGrey,
-                                                    width: 0.5
-                                                  )
-                                                ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    border: Border.all(
+                                                        color: Colors.blueGrey,
+                                                        width: 0.5)),
                                                 child: ClipRRect(
-                                                  borderRadius: BorderRadiusGeometry.circular(10),
-                                                  child: CachedNetworkImage(
-                                                    fit: BoxFit.cover,
-                                                    imageUrl: 'https://image.tmdb.org/t/p/w300${mov.posterPath}'),
+                                                  borderRadius:
+                                                      BorderRadiusGeometry
+                                                          .circular(10),
+                                                  child: mov.posterPath ==
+                                                              'noPosterpPath' ||
+                                                          mov.posterPath == ''
+                                                      ? Container(
+                                                          color: Colors.grey,
+                                                          child: Icon(Icons
+                                                              .error_outline),
+                                                        )
+                                                      : CachedNetworkImage(
+                                                          fit: BoxFit.cover,
+                                                          imageUrl: mov
+                                                                      .posterPath.isNotEmpty
+                                                              ? 'https://critics.io/img/movies/poster-placeholder.png'
+                                                              : 'https://image.tmdb.org/t/p/w300/${mov.posterPath}',
+                                                          errorWidget: (context,
+                                                                  url, error) =>
+                                                              Container(
+                                                            color: Colors.grey,
+                                                            child: Icon(Icons
+                                                                .error_outline),
+                                                          ),
+                                                        ),
                                                 ),
                                               ),
                                             ),
                                           );
                                         },
-                                        
                                       );
                                     }
                                     return Container();
                                   },
                                 ),
+                              ),
+                              Container(
+                                height: 20,
                               )
                             ],
                           ),
@@ -259,7 +285,7 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     }
                     return SizedBox(
-                      height: 580,
+                      height: height * 0.77,
                       child: GridView.builder(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -286,8 +312,10 @@ class _SearchPageState extends State<SearchPage> {
                                           BorderRadiusGeometry.circular(10),
                                       child: CachedNetworkImage(
                                         imageUrl:
-                                            'https://image.tmdb.org/t/p/w300${mov.posterPath}',
+                                            mov.posterPath.isNotEmpty ? 
+                                            'https://image.tmdb.org/t/p/w300${mov.posterPath}' : 'https://critics.io/img/movies/poster-placeholder.png',
                                         fit: BoxFit.cover,
+
                                       ),
                                     ),
                                   ),
