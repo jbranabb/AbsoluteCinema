@@ -26,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+  int? values;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -51,18 +52,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
             onSelected: (value) {
               if (value == 1) {
-                value != value
+                print(value);
+                values != value
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: 'movies'))
                     : null;
               } else {
-                value != value
+                values != value
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: 'tv'))
                     : null;
               }
+                values =  value;
             },
           )
         ],

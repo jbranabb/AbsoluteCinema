@@ -127,7 +127,7 @@ class _SearchPageState extends State<SearchPage> {
                                 height: 40,
                                 width: width,
                                 // color: Colors.red,
-                                child: SingleChildScrollView(
+                                child: SingleChildScrollView( 
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: List.generate(
@@ -163,8 +163,6 @@ class _SearchPageState extends State<SearchPage> {
                                       ),
                                     )))
                             : Container(
-                                height: 20,
-                                color: Colors.blue,
                               ),
                         SizedBox(
                           height: 20,

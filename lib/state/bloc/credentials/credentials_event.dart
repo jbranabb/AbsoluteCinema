@@ -26,4 +26,4 @@ class ToggleStatusFav extends CredentialsEvent {
   bool? fav;
   ToggleStatusFav( this.mediaId, this.mediaType, this.fav);
 }
-
+class PostRatings extends CredentialsEvent {}

@@ -187,7 +187,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       }catch(e){
         emit(UserFailed(e: e.toString()));
       }
-      
     });
   }
 }
