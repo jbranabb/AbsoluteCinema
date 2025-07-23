@@ -71,7 +71,8 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     var response = await dio.post(postUrl, data:{
       'value': values
     } );
-      
+      print(response.data);
+      print(response.statusCode);
     });
   }
 }

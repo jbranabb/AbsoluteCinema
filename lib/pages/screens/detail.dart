@@ -552,37 +552,37 @@ class _DetailPageState extends State<DetailPage> {
                                                                 //         .star_rate_sharp),
                                                                 //   ],
                                                                 // )
-                                                                BlocBuilder<
-                                                                    RatingsCubit,
-                                                                    double>(
-                                                                  builder:
-                                                                      (context,
-                                                                          state) {
-                                                                    return StarRating(
-                                                                        starCount:
-                                                                            5,
-                                                                        allowHalfRating:
-                                                                            true,
-                                                                        color: Colors
-                                                                            .orange,
-                                                                        size:
-                                                                            30,
-                                                                        rating:
-                                                                            state,
-                                                                        onRatingChanged:
-                                                                            (rating) {
-                                                                          context
-                                                                              .read<RatingsCubit>()
-                                                                              .changeRatings(rating);
-                                                                          print(
-                                                                              '$rating');
-                                                                          context.read<CredentialsBloc>().add(PostRatings(
-                                                                              mediaId: widget.id,
-                                                                              mediaType: widget.mediatype!,
-                                                                              value: rating));
-                                                                        });
-                                                                  },
-                                                                )
+                                                                // BlocBuilder<
+                                                                //     RatingsCubit,
+                                                                //     double>(
+                                                                //   builder:
+                                                                //       (context,
+                                                                //           state) {
+                                                                //     return StarRating(
+                                                                //         starCount:
+                                                                //             5,
+                                                                //         allowHalfRating:
+                                                                //             true,
+                                                                //         color: Colors
+                                                                //             .orange,
+                                                                //         size:
+                                                                //             30,
+                                                                //         rating:
+                                                                //             state,
+                                                                //         onRatingChanged:
+                                                                //             (rating) {
+                                                                //           context
+                                                                //               .read<RatingsCubit>()
+                                                                //               .changeRatings(rating);
+                                                                //           print(
+                                                                //               '$rating');
+                                                                //           context.read<CredentialsBloc>().add(PostRatings(
+                                                                //               mediaId: widget.id,
+                                                                //               mediaType: widget.mediatype!,
+                                                                //               value: rating));
+                                                                //         });
+                                                                //   },
+                                                                // )
                                                               ],
                                                             ),
                                                           ),

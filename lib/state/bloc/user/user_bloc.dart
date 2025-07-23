@@ -157,7 +157,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         List<ConvertedModels> finaldataRated = dataCombaineRated.map((mov) {
           List<String> genreList = mov.genreIds
               .map(
-                (e) => genreMapCombaine[id.toString()],
+                (id) => genreMapCombaine[id.toString()] ?? 'unklnw',
               )
               .toList()
               .cast<String>();
