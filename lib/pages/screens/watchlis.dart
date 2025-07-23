@@ -130,7 +130,7 @@ class WatchlistPage extends StatelessWidget {
                         } catch (e) {
                           // if (!mounted) return;
                           Navigator.of(currentContext)
-                              .pop(); // tutup loading dialog
+                              .pop(); 
 
                           // if (!mounted) return;
                           showDialog(

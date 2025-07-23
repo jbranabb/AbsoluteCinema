@@ -1,5 +1,6 @@
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
+import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
@@ -135,7 +136,7 @@ class _SearchPageState extends State<SearchPage> {
                                           var list = take[index];
                                           return GestureDetector(
                                             onTap: () {
-                                              // context.read<TextcontrollerCubit>().updateText(list);
+                                              context.read<TextcontrollerCubit>().updateText(list);
                                               controllerText.text = list;
                                             },
                                             child: Padding(
@@ -197,54 +198,127 @@ class _SearchPageState extends State<SearchPage> {
                                             SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 3,
                                           mainAxisExtent: 180,
-                                          // childAspectRatio: 3 / 4 ,
                                         ),
                                         itemBuilder: (context, index) {
                                           var mov = list[index];
-                                    print('mov : ${mov.posterPath}');
-                                          return Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Container(
-                                              height: 100,
+                                          return GestureDetector(
+                                            onTap: () async {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => Center(
+                                                  child: LoadingWidget(),
+                                                ),
+                                              );
+                                              try {
+                                                var extra = await extraData(
+                                                    int.parse(mov.id),
+                                                    mov.mediatype);
+                                                if (!mounted) return;
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context)
+                                                    .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailPage(
+                                                    voteAvg: mov.voteAvg,
+                                                    date: mov.relaseDate,
+                                                    oveview: mov.overview,
+                                                    titile: mov.title,
+                                                    backdropImage:
+                                                        mov.backdropPath,
+                                                    posterImage: mov.posterPath,
+                                                    genreNames:
+                                                        mov.genreIds.join(', '),
+                                                    id: int.parse(mov.id),
+                                                    mediatype: mov.mediatype,
+                                                    country: extra['country'],
+                                                    director: extra['director'],
+                                                    runtime: extra['rtns'],
+                                                    tagline: extra['tagline'],
+                                                    ytkey: extra['ytkey'],
+                                                  ),
+                                                ));
+                                              } catch (e) {
+                                                if (!mounted) return;
+                                                Navigator.of(context).pop();
+
+                                                if (!mounted) return;
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    title: const Text(
+                                                      'Sorry Something Went Wrong',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    content: Text(
+                                                      e.toString(),
+                                                      style: const TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                          child: const Text(
+                                                              'Close'))
+                                                    ],
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(2.0),
                                               child: Container(
-                                                decoration: BoxDecoration(
+                                                height: 100,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          color:
+                                                              Colors.blueGrey,
+                                                          width: 0.5)),
+                                                  child: ClipRRect(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    border: Border.all(
-                                                        color: Colors.blueGrey,
-                                                        width: 0.5)),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadiusGeometry
-                                                          .circular(10),
-                                                  child: mov.posterPath ==
-                                                              'noPosterpPath' ||
-                                                          mov.posterPath == ''
-                                                      ? Container(
-                                                          color: Colors.grey,
-                                                          child: Icon(Icons
-                                                              .error_outline),
-                                                        )
-                                                      : CachedNetworkImage(
-                                                          fit: BoxFit.cover,
-                                                          imageUrl: mov
-                                                                      .posterPath.isNotEmpty
-                                                              ? 'https://critics.io/img/movies/poster-placeholder.png'
-                                                              : 'https://image.tmdb.org/t/p/w300/${mov.posterPath}',
-                                                          errorWidget: (context,
-                                                                  url, error) =>
-                                                              Container(
+                                                        BorderRadiusGeometry
+                                                            .circular(10),
+                                                    child: mov.posterPath ==
+                                                                'noPosterpPath' ||
+                                                            mov.posterPath == ''
+                                                        ? Container(
                                                             color: Colors.grey,
                                                             child: Icon(Icons
                                                                 .error_outline),
+                                                          )
+                                                        : CachedNetworkImage(
+                                                            fit: BoxFit.cover,
+                                                            imageUrl:
+                                                                'https://image.tmdb.org/t/p/w300/${mov.posterPath}',
+                                                            errorWidget:
+                                                                (context, url,
+                                                                        error) =>
+                                                                    Container(
+                                                              color:
+                                                                  Colors.grey,
+                                                              child: Icon(Icons
+                                                                  .error_outline),
+                                                            ),
                                                           ),
-                                                        ),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           );
                                         },
+                                      );
+                                    } else if (state is StateLoading) {
+                                      return Center(
+                                        child: LoadingWidget(),
                                       );
                                     }
                                     return Container();
@@ -293,8 +367,74 @@ class _SearchPageState extends State<SearchPage> {
                         itemCount: state.searching.length,
                         itemBuilder: (context, index) {
                           var mov = state.searching[index];
-                          return Container(
-                            // color: Colors.amber,
+                          return GestureDetector(
+                                 onTap: () async {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => Center(
+                                                  child: LoadingWidget(),
+                                                ),
+                                              );
+                                              try {
+                                                var extra = await extraData(
+                                                    int.parse(mov.id),
+                                                    mov.mediatype);
+                                                if (!mounted) return;
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context)
+                                                    .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailPage(
+                                                    voteAvg: mov.voteAvg,
+                                                    date: mov.relaseDate,
+                                                    oveview: mov.overview,
+                                                    titile: mov.title,
+                                                    backdropImage:
+                                                        mov.backdropPath,
+                                                    posterImage: mov.posterPath,
+                                                    genreNames:
+                                                        mov.genreIds.join(', '),
+                                                    id: int.parse(mov.id),
+                                                    mediatype: mov.mediatype,
+                                                    country: extra['country'],
+                                                    director: extra['director'],
+                                                    runtime: extra['rtns'],
+                                                    tagline: extra['tagline'],
+                                                    ytkey: extra['ytkey'],
+                                                  ),
+                                                ));
+                                              } catch (e) {
+                                                if (!mounted) return;
+                                                Navigator.of(context).pop();
+
+                                                if (!mounted) return;
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    title: const Text(
+                                                      'Sorry Something Went Wrong',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    content: Text(
+                                                      e.toString(),
+                                                      style: const TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(),
+                                                          child: const Text(
+                                                              'Close'))
+                                                    ],
+                                                  ),
+                                                );
+                                              }
+                                            },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -311,11 +451,10 @@ class _SearchPageState extends State<SearchPage> {
                                       borderRadius:
                                           BorderRadiusGeometry.circular(10),
                                       child: CachedNetworkImage(
-                                        imageUrl:
-                                            mov.posterPath.isNotEmpty ? 
-                                            'https://image.tmdb.org/t/p/w300${mov.posterPath}' : 'https://critics.io/img/movies/poster-placeholder.png',
+                                        imageUrl: mov.posterPath.isNotEmpty
+                                            ? 'https://image.tmdb.org/t/p/w300${mov.posterPath}'
+                                            : 'https://critics.io/img/movies/poster-placeholder.png',
                                         fit: BoxFit.cover,
-
                                       ),
                                     ),
                                   ),
