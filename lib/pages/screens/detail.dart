@@ -18,6 +18,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating/flutter_rating.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -532,57 +533,37 @@ class _DetailPageState extends State<DetailPage> {
                                                                           FontWeight
                                                                               .bold,
                                                                     )),
-                                                                // Row(
-                                                                //   crossAxisAlignment:
-                                                                //       CrossAxisAlignment
-                                                                //           .center,
-                                                                //   mainAxisAlignment:
-                                                                //       MainAxisAlignment
-                                                                //           .center,
-                                                                //   children: [
-                                                                //     Icon(Icons
-                                                                //         .star_rate_sharp),
-                                                                //     Icon(Icons
-                                                                //         .star_rate_sharp),
-                                                                //     Icon(Icons
-                                                                //         .star_rate_sharp),
-                                                                //     Icon(Icons
-                                                                //         .star_rate_sharp),
-                                                                //     Icon(Icons
-                                                                //         .star_rate_sharp),
-                                                                //   ],
-                                                                // )
-                                                                // BlocBuilder<
-                                                                //     RatingsCubit,
-                                                                //     double>(
-                                                                //   builder:
-                                                                //       (context,
-                                                                //           state) {
-                                                                //     return StarRating(
-                                                                //         starCount:
-                                                                //             5,
-                                                                //         allowHalfRating:
-                                                                //             true,
-                                                                //         color: Colors
-                                                                //             .orange,
-                                                                //         size:
-                                                                //             30,
-                                                                //         rating:
-                                                                //             state,
-                                                                //         onRatingChanged:
-                                                                //             (rating) {
-                                                                //           context
-                                                                //               .read<RatingsCubit>()
-                                                                //               .changeRatings(rating);
-                                                                //           print(
-                                                                //               '$rating');
-                                                                //           context.read<CredentialsBloc>().add(PostRatings(
-                                                                //               mediaId: widget.id,
-                                                                //               mediaType: widget.mediatype!,
-                                                                //               value: rating));
-                                                                //         });
-                                                                //   },
-                                                                // )
+                                                                BlocBuilder<
+                                                                    CredentialsBloc,
+                                                                    CredentialsState>(
+                                                                  builder:
+                                                                      (context,
+                                                                          state) {
+                                                                    if (state
+                                                                        is StateChecking) {
+                                                                      return RatingBar(
+                                                                        allowHalfRating:
+                                                                            true,
+                                                                        initialRating:
+                                                                            state.ratings!,
+                                                                        ratingWidget: RatingWidget(
+                                                                            full:
+                                                                                const Icon(Icons.star_rate_rounded),
+                                                                            half: const Icon(Icons.star_half_rounded),
+                                                                            empty: const Icon(Icons.star_outline_rounded)),
+                                                                        onRatingUpdate:
+                                                                            (value) {
+                                                                          context.read<CredentialsBloc>().add(PostRatings(
+                                                                              mediaId: widget.id,
+                                                                              mediaType: widget.mediatype!,
+                                                                              value: value));
+                                                                        },
+                                                                      );
+                                                                    }
+
+                                                                    return Container();
+                                                                  },
+                                                                )
                                                               ],
                                                             ),
                                                           ),

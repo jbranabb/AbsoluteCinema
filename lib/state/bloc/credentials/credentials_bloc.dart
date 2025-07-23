@@ -24,21 +24,26 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
       //url for get staus
       String checkByIdUrl =
           'https://api.themoviedb.org/3/${event.mediaType}/${event.mediaId}/account_states$headers';
+          print('checked : $checkByIdUrl');
       var responseCheck = await dio.get(checkByIdUrl);
       if (responseCheck.statusCode == 200) {
         var dataCheck = responseCheck.data;
         var watchlist = dataCheck['watchlist'] as bool;
         var favorite = dataCheck['favorite'] as bool;
         var rating = dataCheck['rated'];
-        print('before click $watchlist');
-        emit(StateChecking(watchlist, favorite));
+
+        print('ratings $rating');
+        var rawratings = (rating is Map && rating['value'] != null ? (rating['value'] as num).toDouble() : 0.0);
+        final ratings = (rawratings / 10 * 5);
+
+        emit(StateChecking(watchlist, favorite, ratings));
       }
     });
 
     on<ToggleStatusWatch>((event, emit) async {
       var currentState = state;
       if (currentState is StateChecking) {
-        emit(StateChecking(event.watch!, currentState.fav));
+        emit(StateChecking(event.watch!, currentState.fav, currentState.ratings));
         print(event.watch);
           try {
        var response = await dio.post(urlWatch, data: {
@@ -55,7 +60,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     on<ToggleStatusFav>((event, emit) async{
       var currentState = state;
       if (currentState is StateChecking) {
-        emit(StateChecking(currentState.watchlist, event.fav!));
+        emit(StateChecking(currentState.watchlist, event.fav!, currentState.ratings));
         var response = await dio.post(urlFav,data: {
               'media_type': event.mediaType,
               'media_id': event.mediaId,

@@ -8,7 +8,8 @@ final class CredentialsStateLoading extends CredentialsState {}
 final class StateChecking extends CredentialsState {
   bool? watchlist;
   bool? fav;
-  StateChecking( this.watchlist, this.fav);
+  double? ratings;
+  StateChecking( this.watchlist, this.fav, this.ratings);
 }
 final class CredentialsStateLoaded extends CredentialsState {
   bool? statusFav;
