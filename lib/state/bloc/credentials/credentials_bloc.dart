@@ -19,6 +19,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     String urlWatch = 'https://api.themoviedb.org/3/account/$id/watchlist$headers';
     //url for posting
     String urlFav = 'https://api.themoviedb.org/3/account/$id/favorite$headers';
+    //url forPost Ratings  
     on<CheckStatus>((event, emit) async {
       //url for get staus
       String checkByIdUrl =
@@ -63,6 +64,15 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         print(response.statusCode);
       }
       print('event fav ${event.fav}');
+    });
+    on<PostRatings>((event, emit) async {
+    var postUrl = 'https://api.themoviedb.org/3/${event.mediaType}/${event.mediaId}/rating$headers';
+    var values = (event.value * 10 / 5);
+    
+    var response = await dio.post(postUrl, data:{
+      'value': values
+    } );
+      
     });
   }
 }
