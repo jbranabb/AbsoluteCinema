@@ -68,7 +68,6 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     on<PostRatings>((event, emit) async {
     var postUrl = 'https://api.themoviedb.org/3/${event.mediaType}/${event.mediaId}/rating$headers';
     var values = (event.value * 10 / 5);
-    
     var response = await dio.post(postUrl, data:{
       'value': values
     } );

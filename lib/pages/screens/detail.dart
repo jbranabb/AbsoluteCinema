@@ -16,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating/flutter_rating.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -531,25 +532,30 @@ class _DetailPageState extends State<DetailPage> {
                                                                           FontWeight
                                                                               .bold,
                                                                     )),
-                                                                Row(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(Icons
-                                                                        .star_rate_sharp),
-                                                                    Icon(Icons
-                                                                        .star_rate_sharp),
-                                                                    Icon(Icons
-                                                                        .star_rate_sharp),
-                                                                    Icon(Icons
-                                                                        .star_rate_sharp),
-                                                                    Icon(Icons
-                                                                        .star_rate_sharp),
-                                                                  ],
+                                                                // Row(
+                                                                //   crossAxisAlignment:
+                                                                //       CrossAxisAlignment
+                                                                //           .center,
+                                                                //   mainAxisAlignment:
+                                                                //       MainAxisAlignment
+                                                                //           .center,
+                                                                //   children: [
+                                                                //     Icon(Icons
+                                                                //         .star_rate_sharp),
+                                                                //     Icon(Icons
+                                                                //         .star_rate_sharp),
+                                                                //     Icon(Icons
+                                                                //         .star_rate_sharp),
+                                                                //     Icon(Icons
+                                                                //         .star_rate_sharp),
+                                                                //     Icon(Icons
+                                                                //         .star_rate_sharp),
+                                                                //   ],
+                                                                // )
+                                                                StarRating(
+                                                                  starCount: 5,
+                                                                  allowHalfRating: true,
+                                                                  color: Colors.orange,
                                                                 )
                                                               ],
                                                             ),
