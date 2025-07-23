@@ -1,5 +1,7 @@
 import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
+import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/search/search_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SearchPage extends StatelessWidget {
   SearchPage({super.key});
   TextEditingController controllerText = TextEditingController();
+  List<String> historyList = [];
   int page = 1;
   @override
   Widget build(BuildContext context) {
@@ -28,35 +31,76 @@ class SearchPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
-                child: TextField(
-                  style: const TextStyle(color: Colors.white),
-                  controller: controllerText,
-                  onSubmitted: (value) {
-                    context
-                        .read<SearchBloc>()
-                        .add(Searching(querySeacrhing: value));
-                  },
-                  decoration: InputDecoration(
-                    label: Text('Search'),
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.w700
+              Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                      child: TextField(
+                        style: const TextStyle(color: Colors.white),
+                        controller: controllerText,
+                        onSubmitted: (value) {
+                          if(controllerText.text.isNotEmpty){
+                          context
+                              .read<SearchBloc>()
+                              .add(Searching(querySeacrhing: value));
+                              historyList.add(value);
+                              pref?.setStringList('history', historyList);
+                          }else{
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Harus di isi')));
+                          }
+                        },
+                        decoration: InputDecoration(
+                          fillColor: Colors.grey.shade900,
+                          contentPadding: EdgeInsets.symmetric(vertical: 8),
+                          filled: true,
+                          hintText: 'Search',
+                          hintStyle: TextStyle(fontWeight: FontWeight.w600),
+                          labelStyle: TextStyle(
+                            fontWeight: FontWeight.w700
+                          ),
+                          prefixIcon: Icon(Icons.search),
+                          suffixIcon:  IconButton(onPressed: () {
+                            controllerText.clear();
+                          }, icon: controllerText.text.length >= 1 ?  Icon(Icons.clear_rounded) : Icon(Icons.movie_sharp)),
+                          
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide.none
+                            
+                          
+                          )
+                        ),
+                        
+                      ),
                     ),
-                    suffixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)
-      
-                    )
                   ),
-                ),
+                  // ElevatedButton(onPressed: (){}, child: Text('Cancel'))
+                ],
               ),
               BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
+                var history =   pref?.getStringList('history');
                   if (state is SearchInitial) {
-                    return Container(height: 200, color: Colors.red);
+                    return Column(
+                      children: [
+                        Container(height: 200, color: Colors.red,child: Text('${history!.length}'),),
+                      ],
+                    );
+                  }else if(state is SearchLoading){
+return Center(child: LoadingWidget(),);
                   }
                   if (state is SearchLoaded) {
+                    if(state.searching.isEmpty){
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 20,),
+                        Icon(Icons.movie_sharp, size: 50,),
+                          MyText(text:" No matches found for '${controllerText.text}'. Try a different keyword!", maxlines: 3,)
+                        ],
+                      );
+                    }
                     return SizedBox(
                       height: 580,
                       child: GridView.builder(
