@@ -36,14 +36,14 @@ Future<Map<String, dynamic>> extraData(int id, String mediaType) async {
   }
   var tagline = data['tagline'] ?? 'no tagline';
   var finalRuntime = '${jam}h ${menit}m';
-  List<dynamic> country = data['production_countries'];
+  List<dynamic> country = data['production_countries'] ?? [];
   var finalCountry = country
       .map(
         (e) => e['name'],
       )
       .take(1)
       .join(', ');
-  var sesason = '${data['number_of_seasons']} Season';
+  var sesason = '${data['number_of_seasons'] ?? '0'} Season';
 
   return {
     'director': crew['name'] ?? 'no name',

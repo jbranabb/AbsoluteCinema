@@ -18,10 +18,10 @@ class WatchlistPage extends StatelessWidget {
   List<ConvertedModels> list;
 
   @override
+    int? values;
   Widget build(BuildContext context) {
     print('object');
     var tvMediatype = 'tv';
-    int? values;
     return Scaffold(
       appBar: AppBar(
         title: MyText(
@@ -34,20 +34,22 @@ class WatchlistPage extends StatelessWidget {
         
           PopupMenuButton(
             onSelected: (value) {
+              values = value;
+              print('values $values');
+              print('value $value');
               if (value == 2) {
-                values != value
+                values != values
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: tvMediatype))
                     : null;
               } else {
-                values != value
+                values != values
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: moviesMediatype))
                     : null;
               }
-              values = value;
             },
             itemBuilder: (context) => [
               const PopupMenuItem(
@@ -64,7 +66,7 @@ class WatchlistPage extends StatelessWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          print(values);
+          print('values $values');
           if (values == 2) {
             context
                 .read<UserBloc>()
@@ -127,6 +129,7 @@ class WatchlistPage extends StatelessWidget {
                               mediatype: mediatypeValue,
                             ),
                           ));
+                        print('mediatypeValue $mediatypeValue');
                         } catch (e) {
                           // if (!mounted) return;
                           Navigator.of(currentContext)
