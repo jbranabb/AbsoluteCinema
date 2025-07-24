@@ -18,12 +18,11 @@ class WatchlistPage extends StatelessWidget {
   String title;
   List<ConvertedModels> list;
 
-    int? values;
   @override
   Widget build(BuildContext context) {
       var getvalue =  pref?.getInt('values');
       print('getvalue : $getvalue');
-
+    int? values;
     print('value $moviesMediatype');
     print('object');
     var tvMediatype = 'tv';
@@ -39,7 +38,6 @@ class WatchlistPage extends StatelessWidget {
         
           PopupMenuButton(
             onSelected: (value) async {
-              values = value;
               await pref?.setInt('values', value );
               if (value == 2) {
                 values != value
@@ -54,6 +52,8 @@ class WatchlistPage extends StatelessWidget {
                         .add(UserCredentials(mediaType: moviesMediatype))
                     : null;
               }
+              values = value;
+              print('values = value : $values');
             },
             itemBuilder: (context) => [
               const PopupMenuItem(
