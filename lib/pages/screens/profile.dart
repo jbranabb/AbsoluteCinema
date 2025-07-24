@@ -9,6 +9,7 @@ import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,12 +18,20 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+Uri url = Uri.parse('https://www.themoviedb.org/settings/profile');
+
+Future<void> _launchUrl() async {
+  if (!await launchUrl(url)) {
+    throw Exception('Could not launch $url');
+  }}
+
 class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
     context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +243,15 @@ class _ProfilePageState extends State<ProfilePage> {
             UserMenuTap(
               title: 'Edit Profile',
               icons: Icons.edit_square,
-              callback: () {},
+              callback: () async {
+                try{
+                showDialog(context: context, builder:  (context) => const Center(child: LoadingWidget(),),);
+                Navigator.of(context).pop();
+               await _launchUrl();
+                }catch(e){
+
+                }
+              },
             ),
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state)async{
@@ -276,32 +293,29 @@ class UserMenuTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: callback,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 40,
-          width: width * 0.90,
-          decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MyText(
-                  text: title,
-                  fnweight: FontWeight.bold,
-                  clors: colors != null ? colors : Colors.grey.shade200,
-                ),
-                Icon(
-                  icons,
-                  color: colors != null ? colors : Colors.grey.shade200,
-                )
-              ],
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 40,
+        width: width * 0.90,
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
+            borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              MyText(
+                text: title,
+                fnweight: FontWeight.bold,
+                clors: colors != null ? colors : Colors.grey.shade200,
+              ),
+              Icon(
+                icons,
+                color: colors != null ? colors : Colors.grey.shade200,
+              )
+            ],
           ),
         ),
       ),

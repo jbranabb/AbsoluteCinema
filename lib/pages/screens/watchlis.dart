@@ -38,7 +38,7 @@ class WatchlistPage extends StatelessWidget {
         
           PopupMenuButton(
             onSelected: (value) async {
-              await pref?.setInt('values', value );
+              await pref?.setInt('value', value );
               if (value == 2) {
                 values != value
                     ? context
