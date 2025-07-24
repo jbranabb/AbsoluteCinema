@@ -139,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         )
                       ],
                     );
-                  }else if(state is DataUserLoading){
+                  } else if (state is DataUserLoading) {
                     return Container(
                       height: 80,
                       width: 80,
@@ -292,12 +292,59 @@ class _ProfilePageState extends State<ProfilePage> {
                 colors: Colors.red.shade800,
                 icons: Icons.logout,
                 callback: () {
-                  context.read<AuthBloc>().add(AuthlogOut());
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      backgroundColor: const Color.fromARGB(255, 8, 8, 8),
+                      title: MyText(
+                        text: 'Wait, Leaving Already?',
+                        fnweight: FontWeight.bold,
+                      ),
+                      content: MyText(
+                        text: 'You’re about to log out. Wanna go ahead?',
+                        maxlines: 2,
+                      ),
+                      actions: [
+                        ActionButtton(
+                          callback: () => Navigator.of(context).pop(),
+                          title: 'Nope',
+                        ),
+                        ActionButtton(
+                          callback: () =>
+                              context.read<AuthBloc>().add(AuthlogOut()),
+                          title: 'Okayy',
+                        )
+                      ],
+                    ),
+                  );
                 },
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ActionButtton extends StatelessWidget {
+  ActionButtton({
+    super.key,
+    required this.callback,
+    required this.title,
+  });
+  void Function() callback;
+  String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: callback,
+      style: TextButton.styleFrom(backgroundColor: Colors.white,),
+      child: MyText(
+        text: title,
+        clors: Colors.black,
+        fnweight: FontWeight.w600,
       ),
     );
   }
