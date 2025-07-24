@@ -1,5 +1,6 @@
 import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
+import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
@@ -17,9 +18,13 @@ class WatchlistPage extends StatelessWidget {
   String title;
   List<ConvertedModels> list;
 
-  @override
     int? values;
+  @override
   Widget build(BuildContext context) {
+      var getvalue =  pref?.getInt('values');
+      print('getvalue : $getvalue');
+
+    print('value $moviesMediatype');
     print('object');
     var tvMediatype = 'tv';
     return Scaffold(
@@ -33,18 +38,17 @@ class WatchlistPage extends StatelessWidget {
         actions: [
         
           PopupMenuButton(
-            onSelected: (value) {
+            onSelected: (value) async {
               values = value;
-              print('values $values');
-              print('value $value');
+              await pref?.setInt('values', value );
               if (value == 2) {
-                values != values
+                values != value
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: tvMediatype))
                     : null;
               } else {
-                values != values
+                values != value
                     ? context
                         .read<UserBloc>()
                         .add(UserCredentials(mediaType: moviesMediatype))
@@ -94,7 +98,7 @@ class WatchlistPage extends StatelessWidget {
                     var movies = list[index];
                     return GestureDetector(
                       onTap: () async {
-                        var mediatypeValue = values == 2 ? 'tv' : 'movie';
+                        var mediatypeValue = getvalue == 2 ? 'tv' : 'movie';
                         final currentContext = context;
                         showDialog(
                           context: currentContext,
