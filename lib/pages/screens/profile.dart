@@ -23,7 +23,8 @@ Uri url = Uri.parse('https://www.themoviedb.org/settings/profile');
 Future<void> _launchUrl() async {
   if (!await launchUrl(url)) {
     throw Exception('Could not launch $url');
-  }}
+  }
+}
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
@@ -31,11 +32,10 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
   }
-  
 
   @override
   Widget build(BuildContext context) {
-  int? values;
+    int? values;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         .add(UserCredentials(mediaType: 'tv'))
                     : null;
               }
-                values =  value;
+              values = value;
             },
           )
         ],
@@ -93,27 +93,35 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 41, 41, 40),
-                            borderRadius: BorderRadius.circular(30),
-                            border: BoxBorder.all(
-                                width: 0.5, color: Colors.grey.shade700),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(5, 5),
-                                  color: Color.fromARGB(80, 122, 122, 122),
-                                  blurRadius: 10),
-                            ],
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                            height: 80,
+                            width: 80,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 41, 41, 40),
+                              borderRadius: BorderRadius.circular(30),
+                              border: BoxBorder.all(
+                                  width: 0.5, color: Colors.grey.shade700),
+                              boxShadow: const [
+                                BoxShadow(
+                                    offset: Offset(5, 5),
+                                    color: Color.fromARGB(80, 122, 122, 122),
+                                    blurRadius: 10),
+                              ],
+                            ),
+                            child: state.profilePath == ''
+                                ? const Icon(
+                                    Icons.person,
+                                    size: 50,
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: CachedNetworkImage(
+                                      imageUrl: state.profilePath,
+                                      fit: BoxFit.cover,
+                                    )),
                           ),
-                          child: state.profilePath == ''
-                              ? const Icon(
-                                  Icons.person,
-                                  size: 50,
-                                )
-                              : CachedNetworkImage(imageUrl: state.profilePath),
                         ),
                         const SizedBox(
                           height: 5,
@@ -244,21 +252,26 @@ class _ProfilePageState extends State<ProfilePage> {
               title: 'Edit Profile',
               icons: Icons.edit_square,
               callback: () async {
-                try{
-                showDialog(context: context, builder:  (context) => const Center(child: LoadingWidget(),),);
-                Navigator.of(context).pop();
-               await _launchUrl();
-                }catch(e){
-
-                }
+                try {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const Center(
+                      child: LoadingWidget(),
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                  await _launchUrl();
+                } catch (e) {}
               },
             ),
             BlocListener<AuthBloc, AuthState>(
-              listener: (context, state)async{
-                if(state is AuthInitial){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => AuthPage(),));
-                pref?.remove('sessionId');
-              print('udah hapus : ${pref?.getString('sessionId')}');
+              listener: (context, state) async {
+                if (state is AuthInitial) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => AuthPage(),
+                  ));
+                  pref?.remove('sessionId');
+                  print('udah hapus : ${pref?.getString('sessionId')}');
                 }
               },
               child: UserMenuTap(
@@ -295,27 +308,31 @@ class UserMenuTap extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 40,
-        width: width * 0.90,
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MyText(
-                text: title,
-                fnweight: FontWeight.bold,
-                clors: colors != null ? colors : Colors.grey.shade200,
-              ),
-              Icon(
-                icons,
-                color: colors != null ? colors : Colors.grey.shade200,
-              )
-            ],
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: callback,
+        child: Container(
+          height: 40,
+          width: width * 0.90,
+          decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 22, 22, 22).withOpacity(0.4),
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyText(
+                  text: title,
+                  fnweight: FontWeight.bold,
+                  clors: colors != null ? colors : Colors.grey.shade200,
+                ),
+                Icon(
+                  icons,
+                  color: colors != null ? colors : Colors.grey.shade200,
+                )
+              ],
+            ),
           ),
         ),
       ),
