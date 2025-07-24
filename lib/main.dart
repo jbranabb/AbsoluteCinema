@@ -11,6 +11,7 @@ import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
 import 'package:absolutecinema/state/bloc/search/search_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
 import 'package:absolutecinema/state/cubit/animatedContainer.dart';
+import 'package:absolutecinema/state/cubit/day_change_cubit.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
 import 'package:absolutecinema/section_title.dart';
@@ -44,6 +45,7 @@ void main() async {
     BlocProvider(create: (context) => SearchBloc()),
     BlocProvider(create: (context) => TextcontrollerCubit()),
     BlocProvider(create: (context) => RatingsCubit()),
+    BlocProvider(create: (context) => DayChangeCubit()..changeDay()),
   ], child: const MyApp()));
 }
 class MyApp extends StatelessWidget {
