@@ -1,5 +1,7 @@
+import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +20,7 @@ class _MyAppBarState extends State<MyAppBar> {
     super.initState();
     context.read<DataUserBloc>().add(FetchDataUser());
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,21 +32,29 @@ class _MyAppBarState extends State<MyAppBar> {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0, top: 30),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
+                BlocBuilder<DataUserBloc, DataUserState>(
+                  builder: (context, state) {
+                    if(state is DataUserLoaded){return Padding(
+                      padding: const EdgeInsets.only(left: 12.0, top: 30),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.white60),
-                        color: Colors.grey.shade600.withOpacity(0.6),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(color: Colors.white60),
+                            color: Colors.grey.shade600.withOpacity(0.6),
+                          ),
+                          child: state.profilePath == '' ? const Icon(Icons.person) : ClipRRect(
+                            borderRadius: BorderRadiusGeometry.circular(30),
+                            child: CachedNetworkImage(imageUrl: state.profilePath, fit: BoxFit.cover,),
+                          ),
+                        ),
                       ),
-                      child: Icon(Icons.person),
-                    ),
-                  ),
+                    );}
+                    return Container();
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 11.0, top: 55),
@@ -59,7 +70,7 @@ class _MyAppBarState extends State<MyAppBar> {
                       ),
                       BlocBuilder<DataUserBloc, DataUserState>(
                         builder: (context, state) {
-                          if (state is DataUserLoaded ) {
+                          if (state is DataUserLoaded) {
                             return Text(
                               state.username,
                               style: const TextStyle(
@@ -69,12 +80,12 @@ class _MyAppBarState extends State<MyAppBar> {
                             );
                           }
                           return const Text(
-                             '!Hi User',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
-                            );
+                            '!Hi User',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          );
                         },
                       ),
                     ],
@@ -83,21 +94,11 @@ class _MyAppBarState extends State<MyAppBar> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0, right: 20),
+              padding: const EdgeInsets.only(top: 25.0, right: 20),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white60),
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.grey.shade600.withOpacity(0.6)),
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: Icon(Icons.notifications)))
+                  MyText(text: 'Absolute', fnweight: FontWeight.bold,clors: Colors.blue.shade900,),
+                  MyText(text: 'Cinema', fnweight: FontWeight.bold,),
                 ],
               ),
             )
