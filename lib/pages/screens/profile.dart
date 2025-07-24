@@ -38,51 +38,56 @@ class _ProfilePageState extends State<ProfilePage> {
     int? values;
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-      appBar: AppBar(
-        title: MyText(
-          text: 'Profile',
-          fnSize: 18,
-          fnweight: FontWeight.bold,
+    return RefreshIndicator(
+      triggerMode: RefreshIndicatorTriggerMode.anywhere,
+      displacement: 20,
+      onRefresh: () async {
+        context.read<DataUserBloc>().add(FetchDataUser());
+      },
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        appBar: AppBar(
+          title: MyText(
+            text: 'Profile',
+            fnSize: 18,
+            fnweight: FontWeight.bold,
+          ),
+          centerTitle: true,
+          actions: [
+            PopupMenuButton(
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 1,
+                  child: Text('Movies'),
+                ),
+                const PopupMenuItem(
+                  value: 2,
+                  child: Text('Tv Shows'),
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 1) {
+                  print(value);
+                  values != value
+                      ? context
+                          .read<UserBloc>()
+                          .add(UserCredentials(mediaType: 'movies'))
+                      : null;
+                } else {
+                  values != value
+                      ? context
+                          .read<UserBloc>()
+                          .add(UserCredentials(mediaType: 'tv'))
+                      : null;
+                }
+                values = value;
+              },
+            )
+          ],
         ),
-        centerTitle: true,
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 1,
-                child: Text('Movies'),
-              ),
-              const PopupMenuItem(
-                value: 2,
-                child: Text('Tv Shows'),
-              ),
-            ],
-            onSelected: (value) {
-              if (value == 1) {
-                print(value);
-                values != value
-                    ? context
-                        .read<UserBloc>()
-                        .add(UserCredentials(mediaType: 'movies'))
-                    : null;
-              } else {
-                values != value
-                    ? context
-                        .read<UserBloc>()
-                        .add(UserCredentials(mediaType: 'tv'))
-                    : null;
-              }
-              values = value;
-            },
-          )
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+          physics: const AlwaysScrollableScrollPhysics(),
           children: [
             SizedBox(
               height: 120,
@@ -133,6 +138,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           fnSize: 12,
                         )
                       ],
+                    );
+                  }else if(state is DataUserLoading){
+                    return Container(
+                      height: 80,
+                      width: 80,
+                      child: Center(
+                        child: LoadingWidget(),
+                      ),
                     );
                   }
                   return Container();
