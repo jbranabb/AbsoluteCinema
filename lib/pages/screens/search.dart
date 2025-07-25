@@ -75,12 +75,13 @@ class _SearchPageState extends State<SearchPage> {
                                     .add(Searching(querySeacrhing: value));
                                 historyList.add(value);
                                 await pref?.setStringList('mykey', historyList);
-                                if(historyList.length > 5){
+                                if (historyList.length > 5) {
                                   historyList.removeAt(0);
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                   const SnackBar(content: Text('Harus di isi')));
+                                    const SnackBar(
+                                        content: Text('Harus di isi')));
                               }
                             },
                             decoration: InputDecoration(
@@ -123,13 +124,12 @@ class _SearchPageState extends State<SearchPage> {
                   if (state is SearchInitial) {
                     return Column(
                       children: [
-                        
                         take.isNotEmpty
                             ? Container(
                                 height: 40,
                                 width: width,
                                 // color: Colors.red,
-                                child: SingleChildScrollView( 
+                                child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
                                       children: List.generate(
@@ -138,7 +138,9 @@ class _SearchPageState extends State<SearchPage> {
                                           var list = take[index];
                                           return GestureDetector(
                                             onTap: () {
-                                              context.read<TextcontrollerCubit>().updateText(list);
+                                              context
+                                                  .read<TextcontrollerCubit>()
+                                                  .updateText(list);
                                               controllerText.text = list;
                                             },
                                             child: Padding(
@@ -164,22 +166,94 @@ class _SearchPageState extends State<SearchPage> {
                                         },
                                       ),
                                     )))
-                            : Container(
-                              ),
-
-                       const SizedBox(
+                            : Container(),
+                        const SizedBox(
                           height: 10,
                         ),
-                              Container(height: 200,color: Colors.blueAccent,
-                              child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-                              ),
-                              itemBuilder: (context, index) {
-                                Container();
-                              },
-                              ),
-                              ),
-
-                       const SizedBox(
+                        Container(
+                          height: 200,
+                          // color: Colors.blueAccent,
+                          child: GridView.builder(
+                            itemCount: 4,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1.0,
+                              mainAxisExtent: 100,
+                              crossAxisSpacing: 1.0,
+                            ),
+                            itemBuilder: (context, index) {
+                              String? backdropath;
+                              String? title;
+                              int? value;
+                              switch (index) {
+                                case 0:
+                                  backdropath =
+                                      'qwK9soQmmJ7kRdjLZVXblw3g7AQ.jpg';
+                                      title = 'Action';
+                                      value =  28;
+                                case 1:
+                                  backdropath =
+                                      'h6gChZHFpmbwqwV3uQsoakp77p1.jpg';
+                                      title = 'Comedy';
+                                      value =  35;
+                                case 2:
+                                  backdropath =
+                                      'pMaUy5KhLydueZ4ybk9sKuqXQFI.jpg';
+                                      title = 'Horror';
+                                      value =  27;
+                                case 3:
+                                  backdropath =
+                                      'lqwwGkwJHtz9QgKtz4zeY19YgDg.jpg';
+                                      title = 'Romance';
+                                      value =  10749;
+                              }
+                              return GestureDetector(
+                                onTap: () => context.read<SearchBloc>().add(RecomendationByGenres(genresId: value!)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Container(
+                                    height: 100,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1, color: Colors.blueGrey),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Container(
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      'https://image.tmdb.org/t/p/w300/$backdropath',
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.black.withOpacity(0.6),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: MyText(text: title!, fnweight: FontWeight.bold,),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -371,10 +445,13 @@ class _SearchPageState extends State<SearchPage> {
                         ],
                       );
                     }
-                    return SearchGrid(list: state.searching,);
-                   
-                  }else if(state is SearchLoadedRecGen){
-                    return SearchGrid(list: state.searchingRec,);
+                    return SearchGrid(
+                      list: state.searching,
+                    );
+                  } else if (state is SearchLoadedRecGen) {
+                    return SearchGrid(
+                      list: state.searchingRec,
+                    );
                   }
                   return Container();
                 },
@@ -386,8 +463,9 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
+
 class SearchGrid extends StatelessWidget {
-   SearchGrid({super.key, required this.list});
+  SearchGrid({super.key, required this.list});
 
   List<ExtraDataModels> list;
 
@@ -395,168 +473,149 @@ class SearchGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return SizedBox(
-                      height: height * 0.77,
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1, mainAxisExtent: 150),
-                        itemCount: list.length,
-                        itemBuilder: (context, index) {
-                          var mov = list[index];
-                          return GestureDetector(
-                                 onTap: () async {
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) => Center(
-                                                  child: LoadingWidget(),
-                                                ),
-                                              );
-                                              try {
-                                                var extra = await extraData(
-                                                    int.parse(mov.id),
-                                                    mov.mediatype);
-                                                // if (!mounted) return;
-                                                Navigator.of(context).pop();
-                                                Navigator.of(context)
-                                                    .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailPage(
-                                                    voteAvg: mov.voteAvg,
-                                                    date: mov.relaseDate,
-                                                    oveview: mov.overview,
-                                                    titile: mov.title,
-                                                    backdropImage:
-                                                        mov.backdropPath,
-                                                    posterImage: mov.posterPath,
-                                                    genreNames:
-                                                        mov.genreIds.join(', '),
-                                                    id: int.parse(mov.id),
-                                                    mediatype: mov.mediatype,
-                                                    country: extra['country'],
-                                                    director: extra['director'],
-                                                    runtime: extra['rtns'],
-                                                    tagline: extra['tagline'],
-                                                    ytkey: extra['ytkey'],
-                                                  ),
-                                                ));
-                                              } catch (e) {
-                                                // if (!mounted) return;
-                                                Navigator.of(context).pop();
+      height: height * 0.77,
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1, mainAxisExtent: 150),
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          var mov = list[index];
+          return GestureDetector(
+            onTap: () async {
+              showDialog(
+                context: context,
+                builder: (context) => Center(
+                  child: LoadingWidget(),
+                ),
+              );
+              try {
+                var extra = await extraData(int.parse(mov.id), mov.mediatype);
+                // if (!mounted) return;
+                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                    voteAvg: mov.voteAvg,
+                    date: mov.relaseDate,
+                    oveview: mov.overview,
+                    titile: mov.title,
+                    backdropImage: mov.backdropPath,
+                    posterImage: mov.posterPath,
+                    genreNames: mov.genreIds.join(', '),
+                    id: int.parse(mov.id),
+                    mediatype: mov.mediatype,
+                    country: extra['country'],
+                    director: extra['director'],
+                    runtime: extra['rtns'],
+                    tagline: extra['tagline'],
+                    ytkey: extra['ytkey'],
+                  ),
+                ));
+              } catch (e) {
+                // if (!mounted) return;
+                Navigator.of(context).pop();
 
-                                                // if (!mounted) return;
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      AlertDialog(
-                                                    title: const Text(
-                                                      'Sorry Something Went Wrong',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                    content: Text(
-                                                      e.toString(),
-                                                      style: const TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                          onPressed: () =>
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop(),
-                                                          child: const Text(
-                                                              'Close'))
-                                                    ],
-                                                  ),
-                                                );
-                                              }
-                                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 140,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.blueGrey,
-                                            width: 0.5)),
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadiusGeometry.circular(10),
-                                      child: CachedNetworkImage(
-                                        imageUrl: mov.posterPath.isNotEmpty
-                                            ? 'https://image.tmdb.org/t/p/w300${mov.posterPath}'
-                                            : 'https://critics.io/img/movies/poster-placeholder.png',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    height: 120,
-                                    width: 200,
-                                    // color: Colors.red,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        MyText(
-                                          text: mov.title,
-                                          fnweight: FontWeight.bold,
-                                        ),
-                                        Text(
-                                          mov.genreIds.join(', '),
-                                          maxLines: 2,
-                                          overflow: TextOverflow.fade,
-                                          style: const TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        Container(
-                                          height: 20,
-                                          width: 120,
-                                          // color: Colors.red,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              MyText(
-                                                text: mov.relaseDate
-                                                    .substring(0, 4),
-                                                fnweight: FontWeight.w700,
-                                              ),
-                                              MyText(
-                                                text: '•',
-                                                fnweight: FontWeight.w800,
-                                                clors: Colors.grey.shade500,
-                                              ),
-                                              MyText(
-                                                text: 'DIRECTED BY',
-                                                clors: Colors.grey.shade600,
-                                                fnSize: 11,
-                                                fnweight: FontWeight.w600,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        MyText(
-                                          text: mov.director,
-                                          fnweight: FontWeight.bold,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
+                // if (!mounted) return;
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                      'Sorry Something Went Wrong',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    content: Text(
+                      e.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Close'))
+                    ],
+                  ),
+                );
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Container(
+                    height: 140,
+                    width: 90,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.blueGrey, width: 0.5)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadiusGeometry.circular(10),
+                      child: CachedNetworkImage(
+                        imageUrl: mov.posterPath.isNotEmpty
+                            ? 'https://image.tmdb.org/t/p/w300${mov.posterPath}'
+                            : 'https://critics.io/img/movies/poster-placeholder.png',
+                        fit: BoxFit.cover,
                       ),
-                    ); ;
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    height: 120,
+                    width: 200,
+                    // color: Colors.red,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MyText(
+                          text: mov.title,
+                          fnweight: FontWeight.bold,
+                        ),
+                        Text(
+                          mov.genreIds.join(', '),
+                          maxLines: 2,
+                          overflow: TextOverflow.fade,
+                          style: const TextStyle(
+                              color: Colors.grey, fontWeight: FontWeight.w600),
+                        ),
+                        Container(
+                          height: 20,
+                          width: 120,
+                          // color: Colors.red,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              MyText(
+                                text: mov.relaseDate.substring(0, 4),
+                                fnweight: FontWeight.w700,
+                              ),
+                              MyText(
+                                text: '•',
+                                fnweight: FontWeight.w800,
+                                clors: Colors.grey.shade500,
+                              ),
+                              MyText(
+                                text: 'DIRECTED BY',
+                                clors: Colors.grey.shade600,
+                                fnSize: 11,
+                                fnweight: FontWeight.w600,
+                              ),
+                            ],
+                          ),
+                        ),
+                        MyText(
+                          text: mov.director,
+                          fnweight: FontWeight.bold,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    ;
   }
 }

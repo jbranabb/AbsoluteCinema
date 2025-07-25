@@ -86,7 +86,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchLoaded(searching: allfinalData));
     });
     on<RecomendationByGenres>((event, emit)async{
+      emit(SearchLoading());
     String urlRec = 'https://api.themoviedb.org/3/discover/movie?api_key=$apiKey&with_genres=${event.genresId}';
+   print(urlRec);
       late Map<String, dynamic> genreMapCombaine = {};
       var responseGenreMov = await dio.get(genreUrlMov);
       var responseGenreTv = await dio.get(genreUrlTv);
@@ -98,18 +100,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         for (var g in genremov) g['id'].toString(): g['name']
       };
 
-      var response = await dio.get(urlRec);
-      List<dynamic> results = response.data['results'];
+      var responseRecgenre = await dio.get(urlRec);
+      List<dynamic> results = responseRecgenre.data['results'];
 
       List<CombaineModels> dataraw = results
-          .map((e) => CombaineModels.fromJson(e))
-          .where(
-            (e) => e.mediaType == 'movie' || e.mediaType == 'tv',
-          )
-          .toList();
+          .map((e) => CombaineModels.fromJson(e)).take(10).toList();
+try{
 
       List<Future<Map<String, dynamic>>> futureExtras = dataraw.map((mov) {
-        return externalDirectur(mov.mediaType, mov.id);
+        return externalDirectur('movie', mov.id);
       }).toList();
 
       List<Map<String, dynamic>> extras = await Future.wait(futureExtras);
@@ -137,14 +136,18 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
               backdropPath: mov.backdropPath,
               posterPath: mov.posterPath,
               overview: mov.overview,
-              mediatype: mov.mediaType,
+              mediatype: 'movie',
               relaseDate: checkRelaseDate,
               director: extra['director']));
         } catch (e) {
           print('Somengthing went bad broo $e');
         }
         emit(SearchLoadedRecGen(searchingRec: allfinalDataRec));
-    }});
+    }
+}catch(e){
+  print(e);
+}
+    });
 
     on<Reset>((event, emit) {
       if(state is! SearchInitial){
