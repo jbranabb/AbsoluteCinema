@@ -7,4 +7,9 @@ class Searching extends SearchEvent {
   Searching({required this.querySeacrhing});
 }
 
+class RecomendationByGenres extends SearchEvent {
+  int genresId;
+  RecomendationByGenres({required this.genresId});
+}
+
 class Reset extends SearchEvent {}

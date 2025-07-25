@@ -9,4 +9,8 @@ final class SearchLoaded extends SearchState {
   List<ExtraDataModels> searching;
   SearchLoaded({required this.searching});
 }
+final class SearchLoadedRecGen extends SearchState {
+  List<ExtraDataModels> searchingRec;
+  SearchLoadedRecGen({required this.searchingRec});
+}
 final class SearchError extends SearchState {}

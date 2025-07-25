@@ -122,6 +122,7 @@ class _SearchPageState extends State<SearchPage> {
                   if (state is SearchInitial) {
                     return Column(
                       children: [
+                        
                         take.isNotEmpty
                             ? Container(
                                 height: 40,
@@ -164,8 +165,21 @@ class _SearchPageState extends State<SearchPage> {
                                     )))
                             : Container(
                               ),
-                        SizedBox(
-                          height: 20,
+
+                       const SizedBox(
+                          height: 10,
+                        ),
+                              Container(height: 200,color: Colors.blueAccent,
+                              child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                Container();
+                              },
+                              ),
+                              ),
+
+                       const SizedBox(
+                          height: 10,
                         ),
                         Container(
                           alignment: Alignment.centerLeft,
