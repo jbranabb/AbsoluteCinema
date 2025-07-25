@@ -33,6 +33,12 @@ void main() async {
   SharedPreferences initialpref = await SharedPreferences.getInstance();
   await dotenv.load();
   pref = initialpref;
+
+  int launchCount = pref?.getInt('launchCount') ?? 0;
+    await pref?.setInt('launchCount', launchCount + 1);
+    print('launchCount $launchCount');
+  String? sessionId =  pref!.getString('sessionId');
+
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (context) => HomeBloc()),
     BlocProvider(create: (context) => DotIndicator()),
@@ -49,18 +55,26 @@ void main() async {
     BlocProvider(create: (context) => DayChangeCubit()..changeDay()),
     BlocProvider(create: (context) => RatingsCubit()),
     BlocProvider(create: (context) => OnboardingCubit()),
-  ], child: const MyApp()));
+  ], child: MyApp(
+      launchCount: launchCount,
+      sessionid:sessionId ,
+  )));
 }
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key,
+  required this.sessionid,
+  required this.launchCount
+  });
+
+  int? launchCount;
+  String? sessionid;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,
-      home: OnboardingPage()
-      //  pref!.getString('sessionId') != null ? HomePage() : AuthPage(),
+      home:launchCount == 0 ? const OnboardingPage() : sessionid != null ? HomePage() : AuthPage(),
     );
   }
 }

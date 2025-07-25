@@ -21,20 +21,20 @@ class OnboardingPage extends StatelessWidget {
         children: [
           OnboardingWidget(
             assets: '/svn.jpeg',
-            title: 'SAJDJHDSHD',
-            subtitle: 'asdadasd',
+            title: 'Catch What’s Buzzing',
+            subtitle: 'Stay in the loop with trending picks. No more “what should I watch?” moments.',
             controller: _controller,
           ),
           OnboardingWidget(
             assets: '/onb.jpeg',
-            title: 'SAJDJHDSHD',
-            subtitle: 'asdadasd',
+            title: 'Save Now, Watch Later',
+            subtitle: 'Spotted a film you’re not ready for? Add to watchlist. Loved it? Favorite it. Easy.',
             controller: _controller,
           ),
           OnboardingWidget(
             assets: '/onb2.jpeg',
-            title: 'SAJDJHDSHD',
-            subtitle: 'asdadasd',
+            title: 'Let’s Make It Yours',
+            subtitle: 'You’ve seen what it does. Now let’s see what you do with it.',
             controller: _controller,
           ),
         ],
@@ -79,7 +79,7 @@ class OnboardingWidget extends StatelessWidget {
                       colors: [Colors.transparent, Colors.black])),
             )),
         Positioned(
-            bottom: height * 0.05,
+            bottom: height * 0.10,
             left: width * 0.14,
             child: SizedBox(
               height: 100,
