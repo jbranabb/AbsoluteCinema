@@ -74,9 +74,12 @@ class _SearchPageState extends State<SearchPage> {
                                     .add(Searching(querySeacrhing: value));
                                 historyList.add(value);
                                 await pref?.setStringList('mykey', historyList);
+                                if(historyList.length > 5){
+                                  historyList.removeAt(0);
+                                }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Harus di isi')));
+                                   const SnackBar(content: Text('Harus di isi')));
                               }
                             },
                             decoration: InputDecoration(
@@ -115,10 +118,7 @@ class _SearchPageState extends State<SearchPage> {
               BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   var history = pref?.getStringList('mykey') ?? [];
-                  var take = history!.take(5).toList()
-                    ..sort(
-                      (a, b) => b.compareTo(a),
-                    );
+                  var take = history!.reversed.take(5).toList();
                   if (state is SearchInitial) {
                     return Column(
                       children: [
