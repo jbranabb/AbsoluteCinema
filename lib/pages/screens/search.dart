@@ -43,6 +43,16 @@ class _SearchPageState extends State<SearchPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              return state is! SearchInitial ? IconButton(
+                  onPressed: () {
+                    context.read<SearchBloc>().add(Reset());
+                  },
+                  icon: Icon(Icons.arrow_back)) : Container();
+            },
+          ),
           centerTitle: true,
           title: MyText(
             text: 'Search',
@@ -80,8 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Harus di isi')));
+                                    const SnackBar(content: Text('Field bro')));
                               }
                             },
                             decoration: InputDecoration(
@@ -190,26 +199,27 @@ class _SearchPageState extends State<SearchPage> {
                                 case 0:
                                   backdropath =
                                       'qwK9soQmmJ7kRdjLZVXblw3g7AQ.jpg';
-                                      title = 'Action';
-                                      value =  28;
+                                  title = 'Action';
+                                  value = 28;
                                 case 1:
                                   backdropath =
                                       'h6gChZHFpmbwqwV3uQsoakp77p1.jpg';
-                                      title = 'Comedy';
-                                      value =  35;
+                                  title = 'Comedy';
+                                  value = 35;
                                 case 2:
                                   backdropath =
                                       'pMaUy5KhLydueZ4ybk9sKuqXQFI.jpg';
-                                      title = 'Horror';
-                                      value =  27;
+                                  title = 'Horror';
+                                  value = 27;
                                 case 3:
                                   backdropath =
                                       'lqwwGkwJHtz9QgKtz4zeY19YgDg.jpg';
-                                      title = 'Romance';
-                                      value =  10749;
+                                  title = 'Romance';
+                                  value = 10749;
                               }
                               return GestureDetector(
-                                onTap: () => context.read<SearchBloc>().add(RecomendationByGenres(genresId: value!)),
+                                onTap: () => context.read<SearchBloc>().add(
+                                    RecomendationByGenres(genresId: value!)),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
                                   child: Container(
@@ -238,12 +248,16 @@ class _SearchPageState extends State<SearchPage> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            color: Colors.black.withOpacity(0.6),
+                                            color:
+                                                Colors.black.withOpacity(0.6),
                                           ),
                                         ),
                                         Container(
                                           alignment: Alignment.center,
-                                          child: MyText(text: title!, fnweight: FontWeight.bold,),
+                                          child: MyText(
+                                            text: title!,
+                                            fnweight: FontWeight.bold,
+                                          ),
                                         ),
                                       ],
                                     ),
