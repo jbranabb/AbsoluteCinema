@@ -2,8 +2,9 @@ import 'package:absolutecinema/myobserver.dart';
 import 'package:absolutecinema/pages/screens/auth_page.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
-import 'package:absolutecinema/pages/screens/onboarding.dart';
+import 'package:absolutecinema/section_title.dart';
 import 'package:absolutecinema/pages/screens/search.dart';
+import 'package:absolutecinema/pages/screens/onboarding.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';
 import 'package:absolutecinema/state/bloc/credentials/credentials_bloc.dart';
@@ -15,7 +16,7 @@ import 'package:absolutecinema/state/cubit/animatedContainer.dart';
 import 'package:absolutecinema/state/cubit/day_change_cubit.dart';
 import 'package:absolutecinema/state/cubit/denied_cubit.dart';
 import 'package:absolutecinema/state/cubit/dot_indicator.dart';
-import 'package:absolutecinema/section_title.dart';
+import 'package:absolutecinema/state/cubit/onboarding_cubit.dart';
 import 'package:absolutecinema/state/cubit/ratings.dart';
 import 'package:absolutecinema/state/cubit/textController_cubit.dart';
 import 'package:absolutecinema/state/cubit/timer_cubit.dart';
@@ -45,8 +46,9 @@ void main() async {
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
     BlocProvider(create: (context) => SearchBloc()),
     BlocProvider(create: (context) => TextcontrollerCubit()),
-    BlocProvider(create: (context) => RatingsCubit()),
     BlocProvider(create: (context) => DayChangeCubit()..changeDay()),
+    BlocProvider(create: (context) => RatingsCubit()),
+    BlocProvider(create: (context) => OnboardingCubit()),
   ], child: const MyApp()));
 }
 class MyApp extends StatelessWidget {
