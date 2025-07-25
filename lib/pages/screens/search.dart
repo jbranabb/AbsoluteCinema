@@ -1,3 +1,4 @@
+import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
@@ -370,15 +371,38 @@ class _SearchPageState extends State<SearchPage> {
                         ],
                       );
                     }
-                    return SizedBox(
+                    return SearchGrid(list: state.searching,);
+                   
+                  }else if(state is SearchLoadedRecGen){
+                    return SearchGrid(list: state.searchingRec,);
+                  }
+                  return Container();
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class SearchGrid extends StatelessWidget {
+   SearchGrid({super.key, required this.list});
+
+  List<ExtraDataModels> list;
+
+  @override
+  Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    return SizedBox(
                       height: height * 0.77,
                       child: GridView.builder(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1, mainAxisExtent: 150),
-                        itemCount: state.searching.length,
+                        itemCount: list.length,
                         itemBuilder: (context, index) {
-                          var mov = state.searching[index];
+                          var mov = list[index];
                           return GestureDetector(
                                  onTap: () async {
                                               showDialog(
@@ -391,7 +415,7 @@ class _SearchPageState extends State<SearchPage> {
                                                 var extra = await extraData(
                                                     int.parse(mov.id),
                                                     mov.mediatype);
-                                                if (!mounted) return;
+                                                // if (!mounted) return;
                                                 Navigator.of(context).pop();
                                                 Navigator.of(context)
                                                     .push(MaterialPageRoute(
@@ -416,10 +440,10 @@ class _SearchPageState extends State<SearchPage> {
                                                   ),
                                                 ));
                                               } catch (e) {
-                                                if (!mounted) return;
+                                                // if (!mounted) return;
                                                 Navigator.of(context).pop();
 
-                                                if (!mounted) return;
+                                                // if (!mounted) return;
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) =>
@@ -533,15 +557,6 @@ class _SearchPageState extends State<SearchPage> {
                           );
                         },
                       ),
-                    );
-                  }
-                  return Container();
-                },
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+                    ); ;
   }
 }
