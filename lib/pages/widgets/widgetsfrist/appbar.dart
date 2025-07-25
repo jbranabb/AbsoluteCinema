@@ -1,6 +1,7 @@
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
+import 'package:absolutecinema/state/cubit/day_change_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,25 +35,39 @@ class _MyAppBarState extends State<MyAppBar> {
               children: [
                 BlocBuilder<DataUserBloc, DataUserState>(
                   builder: (context, state) {
-                    if(state is DataUserLoaded){return Padding(
-                      padding: const EdgeInsets.only(left: 12.0, top: 30),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.white60),
-                            color: Colors.grey.shade600.withOpacity(0.6),
-                          ),
-                          child: state.profilePath == '' ? const Icon(Icons.person) : ClipRRect(
-                            borderRadius: BorderRadiusGeometry.circular(30),
-                            child: CachedNetworkImage(imageUrl: state.profilePath, fit: BoxFit.cover,),
+                    if (state is DataUserLoaded) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 12.0, top: 30),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(color: Colors.white60),
+                              color: Colors.grey.shade600.withOpacity(0.6),
+                            ),
+                            child: state.profilePath == ''
+                                ? const Icon(Icons.person)
+                                : ClipRRect(
+                                    borderRadius:
+                                        BorderRadiusGeometry.circular(30),
+                                    child: CachedNetworkImage(
+                                      imageUrl: state.profilePath,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                           ),
                         ),
-                      ),
-                    );}
+                      );
+                    } else if (state is DataUserLoading) {
+                      return Container(
+                        height: 50,
+                        width: 50,
+                        child: Center(child: CircularProgressIndicator(),),
+                      );
+                    }
                     return Container();
                   },
                 ),
@@ -61,12 +76,16 @@ class _MyAppBarState extends State<MyAppBar> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Good Morning',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.normal),
+                      BlocBuilder<DayChangeCubit, String>(
+                        builder: (context, state) {
+                          return Text(
+                            'Good $state',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.normal),
+                          );
+                        },
                       ),
                       BlocBuilder<DataUserBloc, DataUserState>(
                         builder: (context, state) {
@@ -97,8 +116,15 @@ class _MyAppBarState extends State<MyAppBar> {
               padding: const EdgeInsets.only(top: 25.0, right: 20),
               child: Row(
                 children: [
-                  MyText(text: 'Absolute', fnweight: FontWeight.bold,clors: Colors.blue.shade900,),
-                  MyText(text: 'Cinema', fnweight: FontWeight.bold,),
+                  MyText(
+                    text: 'Absolute',
+                    fnweight: FontWeight.bold,
+                    clors: Colors.blue.shade900,
+                  ),
+                  MyText(
+                    text: 'Cinema',
+                    fnweight: FontWeight.bold,
+                  ),
                 ],
               ),
             )
