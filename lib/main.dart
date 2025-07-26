@@ -1,4 +1,5 @@
 import 'package:absolutecinema/myobserver.dart';
+import 'package:absolutecinema/navigation.dart';
 import 'package:absolutecinema/pages/screens/auth_page.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: dark,
-      home:launchCount == 0 ? const OnboardingPage() : sessionid != null ? HomePage() : AuthPage(),
+      home:launchCount == 0 ? const OnboardingPage() : sessionid != null ? NavigationPage() : AuthPage(),
     );
   }
 }

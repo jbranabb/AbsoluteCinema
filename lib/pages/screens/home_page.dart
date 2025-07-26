@@ -105,50 +105,50 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          height: 40,
-          width: 200,
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
-                  child: Container(
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.home)),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SearchPage(),
-                        ));
-                      },
-                      icon: Icon(Icons.search)),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CredentialsPage(),
-                        ));
-                      },
-                      icon: Icon(Icons.bookmark)),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ProfilePage(),
-                        ));
-                      },
-                      icon: Icon(Icons.person)),
-                ],
-              )
-            ],
-          ),
-        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButton: Container(
+        //   height: 40,
+        //   width: 200,
+        //   child: Stack(
+        //     children: [
+        //       ClipRRect(
+        //         borderRadius: BorderRadius.circular(15),
+        //         child: BackdropFilter(
+        //           filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        //           child: Container(
+        //             color: Colors.white.withOpacity(0.2),
+        //           ),
+        //         ),
+        //       ),
+        //       Row(
+        //         children: [
+        //           IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+        //           IconButton(
+        //               onPressed: () {
+        //                 Navigator.of(context).push(MaterialPageRoute(
+        //                   builder: (context) => SearchPage(),
+        //                 ));
+        //               },
+        //               icon: Icon(Icons.search)),
+        //           IconButton(
+        //               onPressed: () {
+        //                 Navigator.of(context).push(MaterialPageRoute(
+        //                   builder: (context) => CredentialsPage(),
+        //                 ));
+        //               },
+        //               icon: Icon(Icons.bookmark)),
+        //           IconButton(
+        //               onPressed: () {
+        //                 Navigator.of(context).push(MaterialPageRoute(
+        //                   builder: (context) => ProfilePage(),
+        //                 ));
+        //               },
+        //               icon: Icon(Icons.person)),
+        //         ],
+        //       )
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
