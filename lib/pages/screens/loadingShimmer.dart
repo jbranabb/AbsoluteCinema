@@ -8,12 +8,11 @@ class ShimmerLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: SizedBox(
-        height: height * 0.77,
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1, mainAxisExtent: 150),
-          itemBuilder: (context, index) {
-            return Shimmer.fromColors(
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 1, mainAxisExtent: 150),
+        itemBuilder: (context, index) {
+          return Shimmer.fromColors(
             enabled: true,
             loop: 0,
             direction: ShimmerDirection.ltr,
@@ -23,50 +22,57 @@ class ShimmerLoading extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  SizedBox(width: 10,),
                   Container(
-                    color: Colors.white,
                     height: 140,
                     width: 90,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
                   ),
-                  SizedBox(width: 10,),
-                  Container(
-                    // color: Colors.white,
+                  const SizedBox(width: 5,),
+                  SizedBox(
                     height: 120,
                     width: 200,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                           height: 20,
                           width: 150,
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(7)),
+                        ),
+                        Container(
+                          height: 40,
+                          width: 150,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(7)),
                         ),
                         Container(
                           height: 20,
                           width: 150,
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(7)),
                         ),
                         Container(
                           height: 20,
                           width: 150,
-                          color: Colors.white,
-                        ),
-                        Container(
-                          height: 20,
-                          width: 150,
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(7)),
                         ),
                       ],
-
                     ),
                   ),
                 ],
               ),
             ),
           );
-          },
-        ),
+        },
       ),
     );
   }

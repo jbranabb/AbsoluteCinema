@@ -18,7 +18,7 @@ class _NavigationPageState extends State<NavigationPage> {
     List<Widget> _pages(){
       return[
         HomePage(),
-        ShimmerLoading(),
+        SearchPage(),
         CredentialsPage(),
         ProfilePage()
       ];
