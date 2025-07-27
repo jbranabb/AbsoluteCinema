@@ -3,7 +3,8 @@ import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/pages/screens/profile.dart';
 import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
 
@@ -12,62 +13,31 @@ class NavigationPage extends StatefulWidget {
 }
 
 class _NavigationPageState extends State<NavigationPage> {
-  late PersistentTabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = PersistentTabController(initialIndex: 0);
-  }
+    int currentIndex = 0;
+    List<Widget> _pages(){
+      return[
+        HomePage(),
+        SearchPage(),
+        CredentialsPage(),
+        ProfilePage()
+      ];
+    }
+    List<SalomonBottomBarItem> _navItems(){
+      return [
+        SalomonBottomBarItem(icon:Icon(Icons.home) , title: Text('Home'), selectedColor: Colors.blue, unselectedColor: Colors.grey.shade400,),
+        SalomonBottomBarItem(icon:Icon(Icons.search) , title: Text('Search'), selectedColor: Colors.blue, unselectedColor: Colors.grey.shade400,),
+        SalomonBottomBarItem(icon:Icon(Icons.bookmark) , title: Text('Library'), selectedColor: Colors.blue, unselectedColor: Colors.grey.shade400,),
+        SalomonBottomBarItem(icon:Icon(Icons.person) , title: Text('Profile'), selectedColor: Colors.blue, unselectedColor: Colors.grey.shade400,),
+      ];
+    }
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _mainScreens(),
-      items: _navBarsItems(),
-      backgroundColor: Colors.black,
-      padding: EdgeInsets.all(10),
-      navBarStyle: NavBarStyle.style1,
+    return Scaffold(
+      body: _pages()[currentIndex],
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+        items:_navItems()),
     );
-  }
-
-  List<Widget> _mainScreens() {
-    return [
-      HomePage(),
-      SearchPage(),
-      CredentialsPage(),
-      ProfilePage(),
-    ];
-  }
-
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: 'Home',
-        activeColorPrimary: Colors.blue.shade900,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.search),
-        title: 'Search',
-        activeColorPrimary: Colors.blue.shade900,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.bookmark),
-        title: 'Library',
-        activeColorPrimary: Colors.blue.shade900,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
-        title: 'Profile',
-        activeColorPrimary: Colors.blue.shade900,
-        inactiveColorPrimary: Colors.grey,
-      ),
-    ];
-  }
-}
+}}
