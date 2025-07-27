@@ -1,5 +1,6 @@
 import 'package:absolutecinema/pages/screens/credentials_page.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
+import 'package:absolutecinema/pages/screens/loadingShimmer.dart';
 import 'package:absolutecinema/pages/screens/profile.dart';
 import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _NavigationPageState extends State<NavigationPage> {
     List<Widget> _pages(){
       return[
         HomePage(),
-        SearchPage(),
+        ShimmerLoading(),
         CredentialsPage(),
         ProfilePage()
       ];
