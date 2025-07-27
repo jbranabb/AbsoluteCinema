@@ -5,6 +5,7 @@ import 'package:absolutecinema/pages/screens/credentials_page.dart';
 import 'package:absolutecinema/pages/screens/profile.dart';
 import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:absolutecinema/pages/screens/watchlis.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmerHomePage.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/pages/widgets/tabbarWigets/all_widget_section.dart';
@@ -26,12 +27,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   CarouselSliderController scrollController = CarouselSliderController();
-  @override
-  void initState() {
-    super.initState();
-    context.read<HomeBloc>().add(FetchData());
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -101,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               );
             }
             return Center(
-              child: LoadingWidget(),
+              child: ShimmerHome(),
             );
           },
         ),

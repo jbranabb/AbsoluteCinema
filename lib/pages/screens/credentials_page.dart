@@ -1,4 +1,5 @@
 import 'package:absolutecinema/pages/screens/watchlis.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmerCredentials.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
@@ -74,7 +75,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
                 WatchlistPage(title: 'Rated', list: state.dataRated),
               ]);
             } else if (state is UserLoading) {
-              return const Center(child: LoadingWidget());
+              return ShimmerCredentials();
             } else if (state is UserFailed) {
               return Center(
                 child: MyText(text: state.e),

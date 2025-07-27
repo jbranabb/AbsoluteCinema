@@ -1,6 +1,7 @@
 import 'package:absolutecinema/pages/screens/credentials_page.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
-import 'package:absolutecinema/pages/screens/loadingShimmer.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmerHomePage.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmerSearch.dart';
 import 'package:absolutecinema/pages/screens/profile.dart';
 import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:flutter/material.dart';

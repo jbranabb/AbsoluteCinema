@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:absolutecinema/main.dart';
+import 'package:absolutecinema/navigation.dart';
 import 'package:absolutecinema/pages/screens/home_page.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
@@ -95,7 +96,7 @@ class _AuthPageState extends State<AuthPage> {
             );
           }else if(state is AuthSucces){
             context.read<UserBloc>().add(GetSessionUser(sesionId: state.sessionId));
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage(),));
+            Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => NavigationPage(),), (route) => false,);
             print('session id : ${pref!.getString('sessionId')}');
 
           }

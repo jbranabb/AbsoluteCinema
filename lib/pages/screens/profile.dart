@@ -1,5 +1,6 @@
 import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/screens/auth_page.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmersProfile.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
@@ -27,11 +28,6 @@ Future<void> _launchUrl() async {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<UserBloc>().add(UserCredentials(mediaType: 'movies'));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
             // wacthlist | favorite | Ratings
             Container(
               width: width * 0.90,
-              height: 100,
+              height: height * 0.14,
               decoration: BoxDecoration(
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(20),
@@ -186,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   } else if (state is UserLoading) {
                     return const Center(
-                      child: LoadingWidget(),
+                      child: Shimmersprofile1(),
                     );
                   }
                   return Container();
@@ -249,9 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                     );
                   } else if (state is UserLoading) {
-                    return const Center(
-                      child: LoadingWidget(),
-                    );
+                    return Shimmersprofile2();
                   } else if (state is UserFailed) {
                     Center(
                       child: MyText(text: 'Something Went Wrong \n ${state.e}'),
@@ -280,9 +274,9 @@ class _ProfilePageState extends State<ProfilePage> {
             BlocListener<AuthBloc, AuthState>(
               listener: (context, state) async {
                 if (state is AuthInitial) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(MaterialPageRoute(
                     builder: (context) => AuthPage(),
-                  ));
+                  ),(route) => false,);
                   pref?.remove('sessionId');
                   print('udah hapus : ${pref?.getString('sessionId')}');
                 }
@@ -416,7 +410,7 @@ class UserCrendialsContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(15)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: [  
           MyText(
             text: '$length',
             fnSize: 25,

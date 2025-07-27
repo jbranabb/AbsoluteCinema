@@ -184,6 +184,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           dataFav: allfav,
           dataRated: allrated,
         ));
+        await pref?.setInt('ratedlength', allrated.length);
+        await pref?.setInt('favlength', allfav.length);
+        await pref?.setInt('watchlength', allwatchlist.length);
+
+
       }catch(e){
         emit(UserFailed(e: e.toString()));
       }

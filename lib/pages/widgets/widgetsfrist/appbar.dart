@@ -1,3 +1,4 @@
+import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/state/bloc/dataUser/data_user_bloc.dart';
 import 'package:absolutecinema/state/bloc/user/user_bloc.dart';
@@ -15,13 +16,8 @@ class MyAppBar extends StatefulWidget {
   State<MyAppBar> createState() => _MyAppBarState();
 }
 
-class _MyAppBarState extends State<MyAppBar> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<DataUserBloc>().add(FetchDataUser());
-  }
-
+class _MyAppBarState extends State<MyAppBar> {  
+var profilePath = pref?.getString('ppath');
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,7 +50,7 @@ class _MyAppBarState extends State<MyAppBar> {
                                     borderRadius:
                                         BorderRadiusGeometry.circular(30),
                                     child: CachedNetworkImage(
-                                      imageUrl: state.profilePath,
+                                      imageUrl: profilePath!,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -62,10 +58,13 @@ class _MyAppBarState extends State<MyAppBar> {
                         ),
                       );
                     } else if (state is DataUserLoading) {
-                      return Container(
-                        height: 50,
-                        width: 50,
-                        child: Center(child: CircularProgressIndicator(),),
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 12.0, top: 30),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          child: Center(child: CircularProgressIndicator(),),
+                        ),
                       );
                     }
                     return Container();

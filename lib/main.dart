@@ -41,14 +41,14 @@ void main() async {
   String? sessionId =  pref!.getString('sessionId');
 
   runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (context) => HomeBloc()),
+    BlocProvider(create: (context) => HomeBloc()..add(FetchData())),
     BlocProvider(create: (context) => DotIndicator()),
     BlocProvider(create: (context) => AnimatedExpands()),
     BlocProvider(create: (context) => CastBloc()),
     BlocProvider(create: (context) => AuthBloc()),
     BlocProvider(create: (context) => DeniedCubit()),
     BlocProvider(create: (context) => TimerCubit()),
-    BlocProvider(create: (context) => UserBloc()),
+    BlocProvider(create: (context) => UserBloc()..add(UserCredentials(mediaType: 'movie'))),
     BlocProvider(create: (context) => CredentialsBloc()),
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
     BlocProvider(create: (context) => SearchBloc()),

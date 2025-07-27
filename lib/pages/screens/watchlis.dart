@@ -66,7 +66,7 @@ class WatchlistPage extends StatelessWidget {
               ),
             ],
           )
-        ]  ,  
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {

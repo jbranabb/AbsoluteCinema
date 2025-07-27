@@ -2,7 +2,7 @@ import 'package:absolutecinema/apiService/model.dart';
 import 'package:absolutecinema/apiService/service.dart';
 import 'package:absolutecinema/main.dart';
 import 'package:absolutecinema/pages/screens/detail.dart';
-import 'package:absolutecinema/pages/screens/loadingShimmer.dart';
+import 'package:absolutecinema/pages/widgets/loading/shimmerSearch.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/mytext.dart';
 import 'package:absolutecinema/pages/widgets/mywidgets/sectionWidget.dart';
 import 'package:absolutecinema/state/bloc/movandtv/home_bloc.dart';
@@ -437,7 +437,7 @@ class _SearchPageState extends State<SearchPage> {
                               Container(
                                 height: height * 0.77,
                                 width: double.infinity,
-                                child: ShimmerLoading());
+                                child: ShimmerSearch());
                   }
                   if (state is SearchLoaded) {
                     if (state.searching.isEmpty) {
