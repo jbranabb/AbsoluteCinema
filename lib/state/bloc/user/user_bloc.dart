@@ -116,7 +116,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
         final List<CombaineModels> rawDataWatchlist = listdatawatch
             .map(
-              (e) => CombaineModels.fromJson(e),
+            (e) => CombaineModels.fromJson(e),
             )
             .toList();
         List<ConvertedModels> finalDataWatchlist = rawDataWatchlist.map((mov) {
@@ -184,9 +184,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           dataFav: allfav,
           dataRated: allrated,
         ));
-        await pref?.setInt('ratedlength', allrated.length);
-        await pref?.setInt('favlength', allfav.length);
-        await pref?.setInt('watchlength', allwatchlist.length);
 
 
       }catch(e){

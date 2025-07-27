@@ -78,7 +78,7 @@ class _CredentialsPageState extends State<CredentialsPage> {
               return ShimmerCredentials();
             } else if (state is UserFailed) {
               return Center(
-                child: MyText(text: state.e),
+                child: MyText(text: 'Sorry Something went Wrong\n Please try again later.', maxlines: 3,),
               );
             }
             return Container();

@@ -31,6 +31,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
         var watchlist = dataCheck['watchlist'] as bool;
         var favorite = dataCheck['favorite'] as bool;
         var rating = dataCheck['rated'];
+        print(responseCheck);
 
         print('ratings $rating');
         var rawratings = (rating is Map && rating['value'] != null ? (rating['value'] as num).toDouble() : 0.0);
@@ -72,6 +73,7 @@ class CredentialsBloc extends Bloc<CredentialsEvent, CredentialsState> {
     });
     on<PostRatings>((event, emit) async {
     var postUrl = 'https://api.themoviedb.org/3/${event.mediaType}/${event.mediaId}/rating$headers';
+    print(postUrl);
     var values = (event.value * 10 / 5);
     var response = await dio.post(postUrl, data:{
       'value': values

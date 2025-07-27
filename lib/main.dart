@@ -1,10 +1,6 @@
 import 'package:absolutecinema/myobserver.dart';
 import 'package:absolutecinema/navigation.dart';
 import 'package:absolutecinema/pages/screens/auth_page.dart';
-import 'package:absolutecinema/pages/screens/detail.dart';
-import 'package:absolutecinema/pages/screens/home_page.dart';
-import 'package:absolutecinema/section_title.dart';
-import 'package:absolutecinema/pages/screens/search.dart';
 import 'package:absolutecinema/pages/screens/onboarding.dart';
 import 'package:absolutecinema/state/bloc/auth/auth_bloc.dart';
 import 'package:absolutecinema/state/bloc/cast/cast_bloc.dart';

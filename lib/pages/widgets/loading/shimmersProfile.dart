@@ -16,7 +16,7 @@ class Shimmersprofile1 extends StatelessWidget {
           width: width * 0.90,
           height: height * 0.14,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(
                 3,
                 (int indx) => Padding(
