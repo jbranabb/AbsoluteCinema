@@ -85,7 +85,7 @@ flutter pub get
 # Run the app
 flutter run
 ---
-
+```
 ## 📦 Download APK
 
 You can download and install the latest release of Absolute Cinema below:
