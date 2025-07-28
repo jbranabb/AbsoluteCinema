@@ -44,7 +44,7 @@ void main() async {
     BlocProvider(create: (context) => AuthBloc()),
     BlocProvider(create: (context) => DeniedCubit()),
     BlocProvider(create: (context) => TimerCubit()),
-    BlocProvider(create: (context) => UserBloc()..add(UserCredentials(mediaType: 'movie'))),
+    BlocProvider(create: (context) => UserBloc()..add(UserCredentials(mediaType: 'movies'))),
     BlocProvider(create: (context) => CredentialsBloc()),
     BlocProvider(create: (context) => DataUserBloc()..add(FetchDataUser())),
     BlocProvider(create: (context) => SearchBloc()),
