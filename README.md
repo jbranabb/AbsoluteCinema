@@ -72,6 +72,8 @@ Absolute Cinema follows a scalable architecture pattern:
 5. Saves title to favorites if desired
 
 ---
+## For More Info 
+hit [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jbranabb/AbsoluteCinema)
 
 ## 🛠️ How to Run
 
