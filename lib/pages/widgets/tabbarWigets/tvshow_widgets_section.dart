@@ -14,6 +14,7 @@ class TvshowWidgetsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
     return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is StateLoaded) {
         return SingleChildScrollView(
@@ -43,9 +44,10 @@ class TvshowWidgetsSection extends StatelessWidget {
                   child: MyText(
                 text: SectionTitle.endOfTheList,
                 clors: Colors.grey.shade600,
+                maxlines: 2,
               )),
-              const SizedBox(
-                height: 80,
+               SizedBox(
+                height: height * 0.04,
               ),
             ],
           ),

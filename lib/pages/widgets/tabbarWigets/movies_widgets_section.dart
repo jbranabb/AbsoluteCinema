@@ -44,8 +44,8 @@ class MoviesWidgetsSection extends StatelessWidget {
               SectionWidget(initialpage: 0, list: state.movieTopRated,isreverse: false, ),
 
              const SizedBox(height: 20,),
-            Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600,)),
-              const SizedBox(height: 80,),
+            Center(child: MyText(text: SectionTitle.endOfTheList, clors: Colors.grey.shade600, maxlines: 2,)),
+               SizedBox(height: height * 0.04,),
             ],
                     ),
           );

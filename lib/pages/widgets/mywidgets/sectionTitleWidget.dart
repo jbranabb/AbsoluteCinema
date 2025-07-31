@@ -22,7 +22,7 @@ String title;
           ),
           GestureDetector(
             child: const Text(
-              'see all',
+              '',
               style: TextStyle(color: Colors.white, fontSize: 14),
             ),
           ),
