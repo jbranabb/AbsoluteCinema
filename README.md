@@ -70,12 +70,32 @@ Absolute Cinema follows a scalable architecture pattern:
 3. Uses search to find something specific
 4. Opens detail page for full information
 5. Saves title to favorites if desired
+6. Views their profile: watchlist, favorites, top 4 picks, and can update profile and log out
+---
+
+<h3>Boarding Page & Auth Page </h3> <p align="center"> <img src="assets/screenshoot/1.jpg" alt="History Page" width="45%"/> &nbsp; <img src="assets/screenshoot/2.jpg" alt="Dark Mode" width="45%"/> </p> 
 
 ---
-![a](/assets/screenshoot)
+
+<h3>Home Page </h3> <p align="center"> <img src="assets/screenshoot/3.jpg" alt="History Page" width="45%"/> &nbsp; <img src="assets/screenshoot/4.jpg" alt="Dark Mode" width="45%"/> </p> 
+
+---
+
+<h3>Search Page & Results </h3> <p align="center"> <img src="assets/screenshoot/5.jpg" alt="History Page" width="45%"/> &nbsp; <img src="assets/screenshoot/6.jpg" alt="Dark Mode" width="45%"/> </p> 
+
+---
+
+<h3>Detail Page </h3> <p align="center"> <img src="assets/screenshoot/10.jpg" alt="History Page" width="45%"/> &nbsp; <img src="assets/screenshoot/9.jpg" alt="Dark Mode" width="45%"/> </p> 
+
+---
+<h3>Library Page & Profile Page </h3> <p align="center"> <img src="assets/screenshoot/7.jpg" alt="History Page" width="45%"/> &nbsp; <img src="assets/screenshoot/8.jpg" alt="Dark Mode" width="45%"/> </p> 
+
+---
+
 
 ## For More Info 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jbranabb/AbsoluteCinema)
+
 
 ## 🛠️ How to Run
 
@@ -94,6 +114,6 @@ flutter run
 
 You can download and install the latest release of Absolute Cinema below:
 
-👉 [Download AbsoluteCinema.apk](https://github.com/jbranabb/AbsoluteCinema/releases/download/v1.0.0/app-release.apk)
+👉 [Download AbsoluteCinema.apk](https://github.com/jbranabb/AbsoluteCinema/releases/download/v1.0.1/AbsoluteCinema.apk)
 
 > 🛠️ If you experience any issues, feel free to contact me at [zibranaby069@gmail.com](mailto:zibranaby069@gmail.com)
