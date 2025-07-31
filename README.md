@@ -92,6 +92,10 @@ Absolute Cinema follows a scalable architecture pattern:
 
 ---
 
+## Watch on Shorts
+
+[![YouTube](https://img.shields.io/badge/YouTube-red?logo=youtube&style=for-the-badge)](https://www.youtube.com/shorts/MhjL2ldAZXE)
+
 
 ## For More Info 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jbranabb/AbsoluteCinema)
