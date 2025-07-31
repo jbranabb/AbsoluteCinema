@@ -178,6 +178,7 @@ class _DetailPageState extends State<DetailPage> {
                           text: widget.titile,
                           fnSize: widget.titile.length > 16 ? 16 : 20,
                           fnweight: FontWeight.w800,
+                          // maxlines: 3,
                         ),
                       ),
                       Container(
@@ -314,6 +315,7 @@ class _DetailPageState extends State<DetailPage> {
                                                         fnweight:
                                                             FontWeight.bold,
                                                         fnSize: 18,
+                                                        maxlines: 3,
                                                       ),
                                                     ),
                                                     Row(
@@ -632,11 +634,6 @@ class _DetailPageState extends State<DetailPage> {
                                   },
                                 );
                               },
-                            ),
-                            ElevatedButtonDetail(
-                              icon: Icons.share,
-                              colors: Colors.black,
-                              presed: () {},
                             ),
                           ],
                         ),
